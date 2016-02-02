@@ -176,7 +176,7 @@ class Concierge
      *
      * @return Timegridio\Concierge\Models\Appointment
      */
-    public function requestAction($userId, Appointment $appointment, $action)
+    public function requestAction(Appointment $appointment, $action)
     {
         switch ($action) {
             case 'annulate':
