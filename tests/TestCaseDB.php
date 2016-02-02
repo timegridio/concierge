@@ -32,7 +32,7 @@ abstract class TestCaseDB extends TestCase
         app('db')->beginTransaction();
 
         $this->migrate($artisan);
-        $this->migrate($artisan, '/../../../../tests/migrations');
+        $this->migrate($artisan, '/../../../../migrations');
 
         // Carbon::setLocale('en');
 
@@ -84,7 +84,7 @@ abstract class TestCaseDB extends TestCase
      * @param        $artisan
      * @param string $path
      */
-    private function migrate($artisan, $path = '/../../../../src/migrations')
+    private function migrate($artisan, $path = '/../../../../migrations')
     {
         $artisan->call('migrate', [
             '--database' => 'testbench',
