@@ -23,8 +23,9 @@ class TimegridioConciergeServiceProvider extends ServiceProvider
         // use this if your package has views
         $this->loadViewsFrom(realpath(__DIR__.'/resources/views'), 'concierge');
 
-        // use this if your package has routes
-        # $this->setupRoutes($this->app->router);
+        $this->publishes([
+            __DIR__.'/../migrations/' => base_path('/database/migrations'),
+        ]);
 
         // use this if your package needs a config file
         // $this->publishes([
