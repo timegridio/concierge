@@ -278,7 +278,7 @@ class ConciergeTest extends TestCaseDB
 
         $appointment = $this->concierge
                             ->setBusiness($this->business)
-                            ->requestAction($this->user, $appointment, 'annulate');
+                            ->requestAction($appointment, 'annulate');
 
         // Assert
         $this->assertInstanceOf(Appointment::class, $appointment);
@@ -308,7 +308,7 @@ class ConciergeTest extends TestCaseDB
 
         $appointment = $this->concierge
                             ->setBusiness($this->business)
-                            ->requestAction($this->user, $appointment, 'confirm');
+                            ->requestAction($appointment, 'confirm');
 
         // Assert
         $this->assertInstanceOf(Appointment::class, $appointment);
@@ -334,7 +334,7 @@ class ConciergeTest extends TestCaseDB
 
         $appointment = $this->concierge
                             ->setBusiness($this->business)
-                            ->requestAction($this->user, $appointment, 'serve');
+                            ->requestAction($appointment, 'serve');
 
         // Assert
         $this->assertInstanceOf(Appointment::class, $appointment);
@@ -361,7 +361,7 @@ class ConciergeTest extends TestCaseDB
 
         $appointment = $this->concierge
                             ->setBusiness($this->business)
-                            ->requestAction($this->user, $appointment, 'invalidRequest');
+                            ->requestAction($appointment, 'invalidRequest');
 
         // Assert
         $this->assertEquals(Appointment::STATUS_RESERVED, $appointment->status);
