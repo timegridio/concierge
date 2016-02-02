@@ -1,4 +1,4 @@
-# Concierge
+# Concierge 0.1 - Laravel 5
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -11,17 +11,43 @@ Concierge is a simple reservation library for your Laravel 5 app.
 
 ## Install
 
+### Step 1
+
 Via Composer
 
 ``` bash
-$ composer require timegridio/concierge
+$ composer require timegridio/concierge=dev-master
 ```
+
+> **ADVICE:** Note that this library is currently under development and API may change.
+
+### Step 2
+
+Add the following item to **config/app.php**
+
+**Providers array:**
+
+    'Timegridio\Concierge\TimegridioConciergeServiceProvider'
+
+or
+
+    Timegridio\Concierge\TimegridioConciergeServiceProvider::class
+
+### Step 3
+
+#### Migration
+
+Publish the migration as well as the configuration of notifynder with the following command:
+
+    php artisan vendor:publish --provider="Timegridio\Concierge\TimegridioConciergeServiceProvider"
+
+Don't forget to migrate.
 
 ## Usage
 
 ``` php
 $concierge = new Timegridio\Concierge();
-$appointment = $this->concierge->makeReservation($user, $business, $contact, $service, $date);
+$appointment = $concierge->makeReservation($user, $business, $contact, $service, $date);
 ```
 
 > **ADVICE:** This package is under development and API may change. Join development!
