@@ -83,8 +83,8 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/timegridio/concierge.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/timegridio/concierge/master.svg?style=flat-square
-[ico-codeclimate-coverage]: https://codeclimate.com/github/timegridio/concierge/badges/coverage.svg
-[ico-codeclimate-quality]: https://codeclimate.com/github/timegridio/concierge/badges/gpa.svg
+[ico-codeclimate-coverage]: https://codeclimate.com/github/timegridio/concierge/badges/coverage.svg?style=flat-square
+[ico-codeclimate-quality]: https://codeclimate.com/github/timegridio/concierge/badges/gpa.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/timegridio/concierge.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/timegridio/concierge.svg?style=flat-square
 
