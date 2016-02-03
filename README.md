@@ -3,7 +3,8 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Test Coverage][ico-codeclimate-coverage]][link-codecliamte-coverage]
+[![Code Climate][ico-codeclimate-quality]][link-codecliamte-quality]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
@@ -82,13 +83,16 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/timegridio/concierge.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/timegridio/concierge/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/timegridio/concierge.svg?style=flat-square
+[ico-codeclimate-coverage]: https://codeclimate.com/github/timegridio/concierge/badges/coverage.svg
+[ico-codeclimate-quality]: https://codeclimate.com/github/timegridio/concierge/badges/gpa.svg
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/timegridio/concierge.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/timegridio/concierge.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/timegridio/concierge
 [link-travis]: https://travis-ci.org/timegridio/concierge
 [link-scrutinizer]: https://scrutinizer-ci.com/g/timegridio/concierge/code-structure
+[link-codeclimate-coverage]: https://codeclimate.com/github/timegridio/concierge/coverage
+[link-codeclimate-quality]: https://codeclimate.com/github/timegridio/concierge
 [link-code-quality]: https://scrutinizer-ci.com/g/timegridio/concierge
 [link-downloads]: https://packagist.org/packages/timegridio/concierge
 [link-author]: https://github.com/alariva

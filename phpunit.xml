@@ -9,6 +9,11 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false">
+
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+
     <testsuites>
         <testsuite name="Concierge DB Integration Suite">
             <directory suffix=".php">./tests/integration/</directory>

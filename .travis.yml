@@ -11,3 +11,6 @@ before_script:
 
 script:
   - vendor/bin/phpunit
+
+after_success:
+  - ./travis-codeclimate-report.sh
