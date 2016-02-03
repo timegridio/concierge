@@ -54,6 +54,10 @@ $appointment = $concierge->makeReservation($user, $business, $contact, $service,
 
 > **ADVICE:** This package is under development and API may change. Join development!
 
+### Applications using this lib
+
+  * [Timegrid](https://github.com/timegridio/timegrid): A marketplace for service providers that use online booking.
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
