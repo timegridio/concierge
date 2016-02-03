@@ -3,8 +3,8 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
-[![Test Coverage][ico-codeclimate-coverage]][link-codecliamte-coverage]
-[![Code Climate][ico-codeclimate-quality]][link-codecliamte-quality]
+[![Test Coverage][ico-codeclimate-coverage]][link-codeclimate-coverage]
+[![Code Climate][ico-codeclimate-quality]][link-codeclimate-quality]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
