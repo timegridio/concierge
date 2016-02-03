@@ -95,7 +95,7 @@ class VacancyManager
      *
      * @return array
      */
-    public function buildTimetable($vacancies, $starting = 'today', $days = 10)
+    public function buildTimetable($vacancies, $starting = 'today', $days = 1)
     {
         return $this->strategy->buildTimetable($vacancies, $starting, $days);
     }

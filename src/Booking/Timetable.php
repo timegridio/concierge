@@ -11,7 +11,7 @@ class Timetable
      *
      * @var array
      */
-    protected $timetable = [];
+    protected $timetable = null;
 
     /**
      * DateTime keyword for the begining of the timetable.
@@ -25,14 +25,42 @@ class Timetable
      *
      * @var int
      */
-    protected $future = 10;
+    protected $future = 1;
+
+    /**
+     * Starting time for each day.
+     *
+     * @var string
+     */
+    protected $startAt = '09:00:00';
+
+    /**
+     * Finishing time for each day.
+     *
+     * @var string
+     */
+    protected $finishAt = '18:00:00';
+
+    /**
+     * Interval between slots in minutes.
+     *
+     * @var string
+     */
+    protected $interval = 30;
+
+    /**
+     * Services.
+     *
+     * @var array
+     */
+    protected $services = ['default'];
 
     /**
      * Dimensions format of the timetable matrix.
      *
      * @var string
      */
-    protected $dimensions = ':date:.:service:.:time:';
+    protected $dimensions = ['date', 'service', 'time'];
 
     /**
      * Setter for beginning date.
@@ -44,8 +72,6 @@ class Timetable
     public function from($relative)
     {
         $this->from = $relative;
-
-        $this->autoInit();
 
         return $this;
     }
@@ -61,7 +87,61 @@ class Timetable
     {
         $this->future = $days;
 
-        $this->autoInit();
+        return $this;
+    }
+
+    /**
+     * Setter for startAt time.
+     *
+     * @param  string $time
+     *
+     * @return $this
+     */
+    public function startAt($time)
+    {
+        $this->startAt = $time;
+
+        return $this;
+    }
+
+    /**
+     * Setter for finishAt time.
+     *
+     * @param  string $time
+     *
+     * @return $this
+     */
+    public function finishAt($time)
+    {
+        $this->finishAt = $time;
+
+        return $this;
+    }
+
+    /**
+     * Setter for interval.
+     *
+     * @param  int $minutes
+     *
+     * @return $this
+     */
+    public function interval($interval = 30)
+    {
+        $this->interval = $interval;
+
+        return $this;
+    }
+
+    /**
+     * Setter for services.
+     *
+     * @param  array $services
+     *
+     * @return $this
+     */
+    public function services($services)
+    {
+        $this->services = $services;
 
         return $this;
     }
@@ -75,22 +155,52 @@ class Timetable
     {
         $this->timetable = [];
 
-        $from = $this->from;
-        $future = $this->future;
+        $dimensions['service'] = $this->inflateServices();
+        $dimensions['date'] = $this->inflateDates();
+        $dimensions['time'] = $this->inflateTimes();
+
+        foreach ($dimensions['service'] as $service) {
+            foreach ($dimensions['date'] as $date) {
+                foreach ($dimensions['time'] as $time) {
+                    $this->capacity($date, $time, $service, 0);
+                }
+            }
+        }
 
         return $this;
     }
 
-    /**
-     * Auto Initialize Timetable if ready.
-     *
-     * @return void
-     */
-    protected function autoInit()
+    public function inflateServices()
     {
-        if ($this->from !== null && $this->future !== null) {
-            $this->init();
+        return $this->services;
+    }
+
+    public function inflateDates()
+    {
+        $starting = $this->from;
+
+        for ($i = 0; $i < $this->future; $i++) {
+            $date = date('Y-m-d', strtotime("$starting +$i days"));
+            $dates[$date] = $date;
         }
+
+        return $dates;
+    }
+
+    public function inflateTimes()
+    {
+        $interval = $this->interval;
+
+        $start = strtotime('today '.$this->startAt);
+        $finish = strtotime('today '.$this->finishAt);
+
+        $times = [];
+        for ($i = $start; $i < $finish; $i += $interval * 60) {
+            $time = date('H:i:s', $i);
+            $times[$time] = $time;
+        }
+
+        return $times;
     }
 
     /**
@@ -100,6 +210,10 @@ class Timetable
      */
     public function get()
     {
+        if ($this->timetable === null) {
+            $this->init();
+        }
+
         return $this->timetable;
     }
 
@@ -133,15 +247,9 @@ class Timetable
     {
         $translatedDimensions = $this->dimensions;
 
-        $keys = array_keys($segments);
+        $this->array_substitute($translatedDimensions, $segments);
 
-        $keys = array_map(function ($value) { return ":$value:"; }, $keys);
-
-        $values = array_values($segments);
-
-        $translatedDimensions = str_replace($keys, $values, $this->dimensions);
-
-        return $translatedDimensions;
+        return implode('.', $translatedDimensions);
     }
 
     /**
@@ -153,7 +261,13 @@ class Timetable
      */
     public function format($dimensions)
     {
-        $this->dimensions = $dimensions;
+        if (is_array($dimensions)) {
+            $this->dimensions = $dimensions;
+        }
+
+        if (is_string($dimensions)) {
+            $this->dimensions = explode('.', $dimensions);
+        }
 
         return $this;
     }
@@ -188,5 +302,12 @@ class Timetable
     private function array_get($array, $key, $default = null)
     {
         return Arr::get($array, $key, $default);
+    }
+
+    private function array_substitute(&$array1, $array2)
+    {
+        foreach ($array1 as $key => $value) {
+            $array1[$key] = $array2[$value];
+        }
     }
 }
