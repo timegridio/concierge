@@ -5,6 +5,7 @@
 [![Build Status][ico-travis]][link-travis]
 [![Test Coverage][ico-codeclimate-coverage]][link-codeclimate-coverage]
 [![Code Climate][ico-codeclimate-quality]][link-codeclimate-quality]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
@@ -85,14 +86,15 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-travis]: https://img.shields.io/travis/timegridio/concierge/master.svg?style=flat-square
 [ico-codeclimate-coverage]: https://codeclimate.com/github/timegridio/concierge/badges/coverage.svg?style=flat-square
 [ico-codeclimate-quality]: https://codeclimate.com/github/timegridio/concierge/badges/gpa.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/timegridio/concierge.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/timegridio/concierge.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/timegridio/concierge.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/timegridio/concierge
 [link-travis]: https://travis-ci.org/timegridio/concierge
-[link-scrutinizer]: https://scrutinizer-ci.com/g/timegridio/concierge/code-structure
 [link-codeclimate-coverage]: https://codeclimate.com/github/timegridio/concierge/coverage
 [link-codeclimate-quality]: https://codeclimate.com/github/timegridio/concierge
+[link-scrutinizer]: https://scrutinizer-ci.com/g/timegridio/concierge/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/timegridio/concierge
 [link-downloads]: https://packagist.org/packages/timegridio/concierge
 [link-author]: https://github.com/alariva
