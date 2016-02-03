@@ -95,95 +95,35 @@ class BookingTimeslotStrategy implements BookingStrategyInterface
     public function buildTimetable($vacancies, $starting = 'today', $days = 1)
     {
         $this->timetable
-             ->services(['default'])
+             ->interval($this->interval)
              ->format('date.service.time')
              ->from($starting)
              ->future($days)
              ->init();
 
-        foreach($vacancies as $vacancy)
-        {
-            $this->chunkTimeslots($vacancy, 30);
+        foreach ($vacancies as $vacancy) {
+            $this->updateTimeslots($vacancy, $this->interval);
         }
 
         return $this->timetable->get();
     }
 
-    protected function chunkTimeslots(Vacancy $vacancy)
+    protected function updateTimeslots(Vacancy $vacancy, $step = 30)
     {
-        $step = $this->interval;
-
-        $times = [];
-        
         $fromTime = $vacancy->start_at;
-        $toTime = $fromTime->copy()->addMinutes($step);
+        $toTime = $fromTime->copy();
         $limit = $vacancy->finish_at;
 
         while ($fromTime <= $limit) {
+            $toTime->addMinutes($step);
 
             $capacity = $vacancy->getAvailableCapacityBetween($fromTime->timezone('UTC'), $toTime->timezone('UTC'));
-            
+
             $time = $fromTime->timezone($vacancy->business->timezone)->format('H:i:s');
 
             $this->timetable->capacity($vacancy->date, $time, $vacancy->service->slug, $capacity);
 
-            $toTime->addMinutes($step);
             $fromTime->addMinutes($step);
-        }
-        return $times;
-    }
-
-
-//    protected function chunkTimeslots(Vacancy $vacancy)
-//    {
-//        $step = $this->interval;
-//
-//        $times = [];
-//        
-//        $startTime = $vacancy->start_at->timezone($vacancy->business->timezone)->toTimeString();
-//        $startKey = date('Y-m-d H:i', strtotime("{$vacancy->date} {$startTime}")).' '.$vacancy->business->timezone;
-//        
-//        $finishTime = $vacancy->finish_at->timezone($vacancy->business->timezone)->toTimeString();
-//        $endKey = date('Y-m-d H:i', strtotime("{$vacancy->date} {$finishTime}")).' '.$vacancy->business->timezone;
-//        
-//        $fromTime = Carbon::parse($startKey);
-//        $toTime = $fromTime->copy()->addMinutes($step);
-//        $limit = Carbon::parse($endKey);
-//
-//        while ($fromTime <= $limit) {
-//
-//            $time = $fromTime->format('H:i:s');
-//            
-//            $capacity = $vacancy->getAvailableCapacityBetween($fromTime->timezone('UTC'), $toTime->timezone('UTC'));
-//
-//            $this->timetable->capacity($vacancy->date, $time, $vacancy->service->slug, $capacity);
-//            
-//            echo $toTime->toDateTimeString()."\n";
-//
-//            $toTime->addMinutes($step);
-//            $fromTime->addMinutes($step);
-//        }
-//        return $times;
-//    }
-//
-    protected function templateTimeslots()
-    {
-        $times = [];
-
-        for ($i = 12; $i < 40; $i++) {
-            $minutes = 30 * $i;
-            $times[date('H:i', strtotime("today midnight +$minutes minutes"))] = 0;
-        }
-
-        return $times;
-    }
-
-    protected function arrayKeySum(array &$array1, array $array2)
-    {
-        foreach ($array2 as $key => $value) {
-            if (array_key_exists($key, $array1)) {
-                $array1[$key] += $array2[$key];
-            }
         }
     }
 }
