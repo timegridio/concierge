@@ -4,6 +4,7 @@ namespace Timegridio\Concierge\Booking\Strategies;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Timegridio\Concierge\Booking\Timetable;
 use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
@@ -12,6 +13,15 @@ use Timegridio\Concierge\Models\Vacancy;
 
 class BookingTimeslotStrategy implements BookingStrategyInterface
 {
+    private $timetable;
+
+    private $interval = 30;
+
+    public function __construct(Timetable $timetable)
+    {
+        $this->timetable = $timetable;
+    }
+
     public function generateAppointment(
         $issuerId,
         Business $business,
@@ -82,75 +92,38 @@ class BookingTimeslotStrategy implements BookingStrategyInterface
      *
      * @return array
      */
-    public function buildTimetable($vacancies, $starting = 'today', $days = 10)
+    public function buildTimetable($vacancies, $starting = 'today', $days = 1)
     {
-        $dates = [];
-        for ($i = 0; $i < $days; $i++) {
-            $dates[date('Y-m-d', strtotime("$starting +$i days"))] = [];
-        }
+        $this->timetable
+             ->interval($this->interval)
+             ->format('date.service.time')
+             ->from($starting)
+             ->future($days)
+             ->init();
 
         foreach ($vacancies as $vacancy) {
-            if (!array_key_exists($vacancy->date, $dates)) {
-                $dates[$vacancy->date] = [];
-            }
-
-            if (!array_key_exists($vacancy->service->slug, $dates[$vacancy->date])) {
-                $dates[$vacancy->date][$vacancy->service->slug] = $this->templateTimeslots();
-            }
-
-            $this->arrayKeySum($dates[$vacancy->date][$vacancy->service->slug], $this->chunkTimeslots($vacancy));
+            $this->updateTimeslots($vacancy, $this->interval);
         }
 
-        return $dates;
+        return $this->timetable->get();
     }
 
-    protected function chunkTimeslots(Vacancy $vacancy, $step = 30)
+    protected function updateTimeslots(Vacancy $vacancy, $step = 30)
     {
-        $times = [];
-        $startTime = $vacancy->start_at->timezone($vacancy->business->timezone)->toTimeString();
-
-        $startKey = date('Y-m-d H:i', strtotime("{$vacancy->date} {$startTime}")).' '.$vacancy->business->timezone;
-
-        $finishTime = $vacancy->finish_at->timezone($vacancy->business->timezone)->toTimeString();
-        $endKey = date('Y-m-d H:i', strtotime("{$vacancy->date} {$finishTime}")).' '.$vacancy->business->timezone;
-
-        $fromTime = Carbon::parse($startKey);
-        $toTime = $fromTime->copy()->addMinutes($step);
-        $limit = Carbon::parse($endKey);
+        $fromTime = $vacancy->start_at;
+        $toTime = $fromTime->copy();
+        $limit = $vacancy->finish_at;
 
         while ($fromTime <= $limit) {
-            $key = $fromTime->timezone($vacancy->business->timezone)->format('H:i');
-
-            $capacity = $vacancy->getAvailableCapacityBetween($fromTime, $toTime);
-            if ($capacity > 0) {
-                $times[$key] = $capacity;
-            }
-
             $toTime->addMinutes($step);
+
+            $capacity = $vacancy->getAvailableCapacityBetween($fromTime->timezone('UTC'), $toTime->timezone('UTC'));
+
+            $time = $fromTime->timezone($vacancy->business->timezone)->format('H:i:s');
+
+            $this->timetable->capacity($vacancy->date, $time, $vacancy->service->slug, $capacity);
+
             $fromTime->addMinutes($step);
-        }
-
-        return $times;
-    }
-
-    protected function templateTimeslots()
-    {
-        $times = [];
-
-        for ($i = 12; $i < 40; $i++) {
-            $minutes = 30 * $i;
-            $times[date('H:i', strtotime("today midnight +$minutes minutes"))] = 0;
-        }
-
-        return $times;
-    }
-
-    protected function arrayKeySum(array &$array1, array $array2)
-    {
-        foreach ($array2 as $key => $value) {
-            if (array_key_exists($key, $array1)) {
-                $array1[$key] += $array2[$key];
-            }
         }
     }
 }

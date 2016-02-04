@@ -1,7 +1,6 @@
 <?php
 
 #use Illuminate\Foundation\Testing\TestCase;
-use Carbon\Carbon;
 use Orchestra\Testbench\TestCase;
 
 /**
@@ -33,8 +32,6 @@ abstract class TestCaseDB extends TestCase
 
         $this->migrate($artisan);
         $this->migrate($artisan, '/../../../../migrations');
-
-        // Carbon::setLocale('en');
 
         // Set up the User Test Model
         app('config')->set('auth.providers.users.driver', 'eloquent');

@@ -1,5 +1,9 @@
 # Concierge 0.1 - Laravel 5
 
+## ABOUT THIS BRANCH
+
+This is a development Work In Progress branch to get a new (and decoupled) booking Library.
+
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]

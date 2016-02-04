@@ -4,6 +4,7 @@ namespace Timegridio\Concierge\Booking\Strategies;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Timegridio\Concierge\Booking\Timetable;
 use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
@@ -19,10 +20,10 @@ class BookingStrategy
         info("BookingStrategy: Using {$strategyId}");
         switch ($strategyId) {
             case 'timeslot':
-                $this->strategy = new BookingTimeslotStrategy();
+                $this->strategy = new BookingTimeslotStrategy(new Timetable);
                 break;
             case 'dateslot':
-                $this->strategy = new BookingDateslotStrategy();
+                $this->strategy = new BookingDateslotStrategy(new Timetable);
                 break;
             default:
                 logger("BookingStrategy: __construct: Illegal strategy:{$strategyId}");
@@ -56,7 +57,7 @@ class BookingStrategy
         return $this->strategy->removeSelfBooked($vacancies, $userId);
     }
 
-    public function buildTimetable($vacancies, $starting = 'today', $days = 10)
+    public function buildTimetable($vacancies, $starting = 'today', $days = 1)
     {
         return $this->strategy->buildTimetable($vacancies, $starting, $days);
     }
