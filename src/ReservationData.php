@@ -16,6 +16,8 @@ class ReservationData
 
     protected $time;
 
+    protected $timezone;
+
     protected $comments;
 
     public function issuer($user)
@@ -83,6 +85,11 @@ class ReservationData
     public function atTime($time)
     {
         return $this->time($time);
+    }
+
+    public function timezone($timezone)
+    {
+        return $this->timezone = $timezone;
     }
 
     public function comments($comments)

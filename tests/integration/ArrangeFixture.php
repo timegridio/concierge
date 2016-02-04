@@ -67,12 +67,13 @@ trait ArrangeFixture
 
         $startAt = Carbon\Carbon::parse('today 09:00 '.$this->business->timezone)->timezone('UTC');
         $finishAt = Carbon\Carbon::parse('today 18:00 '.$this->business->timezone)->timezone('UTC');
+        
         // And the Service has Vacancies to be reserved
         $this->vacancy = $this->makeVacancy([
-            'start_at' => $startAt->toDateTimeString(),
+            'start_at'  => $startAt->toDateTimeString(),
             'finish_at' => $finishAt->toDateTimeString(),
-            'date' => $startAt->toDateString(),
-            'capacity' => 2,
+            'date'      => $startAt->timezone($this->business->timezone)->toDateString(),
+            'capacity'  => 2,
             ]);
         $this->vacancy->service()->associate($this->service);
         $this->business->vacancies()->save($this->vacancy);

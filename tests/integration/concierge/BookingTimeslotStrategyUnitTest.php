@@ -62,7 +62,7 @@ class BookingTimeslotStrategyUnitTest extends TestCaseDB
         $timetable = $bookingStrategy->buildTimetable($vacancies);
 
         $expected = [
-            $appointment->start_at->toDateString() => [
+            $this->vacancy->date => [
                 $appointment->service->slug => [
                     $appointment->start_at->timezone($timezone)->toTimeString() => $this->vacancy->capacity - 1,
                     ],
@@ -115,7 +115,7 @@ class BookingTimeslotStrategyUnitTest extends TestCaseDB
         $timetable = $bookingStrategy->buildTimetable($vacancies);
 
         $expected = [
-            $appointmentOne->start_at->toDateString() => [
+            $this->vacancy->date => [
                 $appointmentOne->service->slug => [
                     $appointmentOne->start_at->timezone($timezone)->toTimeString() => $this->vacancy->capacity - 2,
                     ],
