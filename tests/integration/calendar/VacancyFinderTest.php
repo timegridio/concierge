@@ -36,10 +36,10 @@ class VacancyFinderTest extends TestCaseDB
      */
     public function it_finds_a_vacancy_slot_for_a_date_and_time_when_available()
     {
-        $vacancies = $this->finder
+        $vacancyFinder = $this->finder
                           ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at);
 
-        $this->assertEquals(1, count($vacancies->find()));
+        $this->assertEquals(1, count($vacancyFinder->find()));
     }
 
     /**
@@ -47,10 +47,12 @@ class VacancyFinderTest extends TestCaseDB
      */
     public function it_doesnt_find_a_vacancy_slot_for_a_date_and_time_when_not_available()
     {
-        $vacancies = $this->finder
-                          ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at->addDays(1));
+        $vacancyFinder = $this->finder
+                              ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at->addDays(1));
 
-        $this->assertEquals(0, count($vacancies->find()));
+                              #dd($vacancyFinder->find());
+
+        $this->assertEquals(0, count($vacancyFinder->find()));
     }
 
     /////////////

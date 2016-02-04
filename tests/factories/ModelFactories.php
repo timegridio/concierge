@@ -84,9 +84,9 @@ $factory(Timegridio\Concierge\Models\Vacancy::class, function (Faker\Generator $
     return [
         'business_id' => 'factory:Timegridio\Concierge\Models\Business',
         'service_id'  => 'factory:Timegridio\Concierge\Models\Service',
-        'date'        => Carbon\Carbon::parse('today    00:00:00')->timezone('UTC')->toDateString(),
-        'start_at'    => Carbon\Carbon::parse('today    00:00:00')->timezone('UTC')->toDateTimeString(),
-        'finish_at'   => Carbon\Carbon::parse('tomorrow 18:00:00')->timezone('UTC')->toDateTimeString(),
+        'date'        => Carbon\Carbon::parse('today 00:00:00')->timezone('UTC')->toDateString(),
+        'start_at'    => Carbon\Carbon::parse('today 00:00:00')->timezone('UTC')->toDateTimeString(),
+        'finish_at'   => Carbon\Carbon::parse('today 18:00:00')->timezone('UTC')->toDateTimeString(),
         'capacity'    => 1,
     ];
 });
