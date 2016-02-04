@@ -2,14 +2,8 @@
 
 namespace Timegridio\Concierge\Calendar;
 
-class VacancyFinder extends Calendar
+class VacancyCalendar extends Calendar
 {
-    protected $service = null;
-
-    protected $datetime = null;
-
-    protected $timezone = null;
-
     protected $vacancies = null;
 
     protected $find = null;

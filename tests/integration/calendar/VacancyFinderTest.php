@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Timegridio\Concierge\Calendar\VacancyFinder;
+use Timegridio\Concierge\Calendar\VacancyCalendar;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Vacancy;
 use Timegridio\Test\Models\User;
 
-class VacancyFinderTest extends TestCaseDB
+class VacancyCalendarTest extends TestCaseDB
 {
     use DatabaseTransactions;
     use CreateUser, CreateContact, CreateBusiness, CreateService, CreateAppointment, CreateVacancy;
@@ -36,10 +36,10 @@ class VacancyFinderTest extends TestCaseDB
      */
     public function it_finds_a_vacancy_slot_for_a_date_and_time_when_available()
     {
-        $vacancyFinder = $this->finder
+        $vacancyCalendar = $this->finder
                           ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at);
 
-        $this->assertEquals(1, count($vacancyFinder->find()));
+        $this->assertEquals(1, count($vacancyCalendar->find()));
     }
 
     /**
@@ -47,12 +47,12 @@ class VacancyFinderTest extends TestCaseDB
      */
     public function it_doesnt_find_a_vacancy_slot_for_a_date_and_time_when_not_available()
     {
-        $vacancyFinder = $this->finder
+        $vacancyCalendar = $this->finder
                               ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at->addDays(1));
 
-                              #dd($vacancyFinder->find());
+                              #dd($vacancyCalendar->find());
 
-        $this->assertEquals(0, count($vacancyFinder->find()));
+        $this->assertEquals(0, count($vacancyCalendar->find()));
     }
 
     /////////////
@@ -81,7 +81,7 @@ class VacancyFinderTest extends TestCaseDB
         $this->vacancy->service()->associate($this->service);
         $this->business->vacancies()->save($this->vacancy);
 
-        $this->finder = new VacancyFinder();
+        $this->finder = new VacancyCalendar();
         $this->finder->business($this->business);
     }
 }
