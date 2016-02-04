@@ -37,7 +37,7 @@ class VacancyCalendarTest extends TestCaseDB
     public function it_finds_a_vacancy_slot_for_a_date_and_time_when_available()
     {
         $vacancyCalendar = $this->finder
-                          ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at);
+                          ->forServiceAndDateTime($this->vacancy->service->id, $this->vacancy->start_at);
 
         $this->assertEquals(1, count($vacancyCalendar->find()));
     }

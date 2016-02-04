@@ -12,9 +12,9 @@ class VacancyCalendar extends Calendar
     // Vacancy Queries //
     /////////////////////
 
-    public function forServiceAndDateTime($service, $datetime = null, $timezone = null)
+    public function forServiceAndDateTime($serviceId, $datetime = null, $timezone = null)
     {
-        $this->find = $this->filtered()->forDateTime($datetime)->forService($service->id);
+        $this->find = $this->filtered()->forDateTime($datetime)->forService($serviceId);
 
         return $this;
     }
@@ -30,13 +30,13 @@ class VacancyCalendar extends Calendar
         return $this;
     }
 
-    public function forService($service)
+    public function forService($serviceId)
     {
-        if ($service === null && $this->service !== null) {
-            $service = $this->service;
+        if ($serviceId === null && $this->service !== null) {
+            $serviceId = $this->service;
         }
 
-        $this->find = $this->filtered()->forService($service->id);
+        $this->find = $this->filtered()->forService($serviceId);
 
         return $this;
     }
