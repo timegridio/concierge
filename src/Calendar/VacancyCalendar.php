@@ -2,56 +2,102 @@
 
 namespace Timegridio\Concierge\Calendar;
 
-class VacancyCalendar extends Calendar
+use Carbon\Carbon;
+
+class VacancyCalendar
 {
-    protected $vacancies = null;
+    protected $vacancies = [];
 
-    protected $find = null;
+    protected $service = null;
 
-    /////////////////////
-    // Vacancy Queries //
-    /////////////////////
+    protected $duration = null;
 
-    public function forServiceAndDateTime($serviceId, $datetime = null, $timezone = null)
+    protected $date = null;
+
+    protected $time = null;
+
+    protected $timezone = 'UTC';
+
+    public function __construct($vacancies, $timezone = 'UTC')
     {
-        $this->find = $this->filtered()->forDateTime($datetime)->forService($serviceId);
+        $this->vacancies = $vacancies;
+
+        $this->timezone = $timezone;
+    }
+
+    public function timezone($timezone = null)
+    {
+        if ($timezone === null) {
+            return $this->timezone;
+        }
 
         return $this;
     }
 
-    public function forDateTime($datetime = null, $timezone = null)
+    public function forService($service = null)
     {
-        if ($datetime === null && $this->datetime !== null) {
-            $datetime = $this->datetime;
-        }
-
-        $this->find = $this->filtered()->forDateTime($datetime);
+        $this->service = $service;
 
         return $this;
     }
 
-    public function forService($serviceId)
+    public function forDate($date)
     {
-        if ($serviceId === null && $this->service !== null) {
-            $serviceId = $this->service;
-        }
-
-        $this->find = $this->filtered()->forService($serviceId);
+        $this->date = $date;
 
         return $this;
+    }
+
+    public function atTime($time, $timezone = null)
+    {
+        $this->time = $time;
+
+        if ($timezone !== null) {
+            $this->timezone = $timezone;
+        }
+
+        return $this;
+    }
+
+    public function withDuration($duration)
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getUTCDateTime()
+    {
+        return Carbon::parse("{$this->date} {$this->time} {$this->timezone}")->timezone('UTC');
     }
 
     public function find()
     {
-        return $this->filtered()->first();
-    }
+        $this->prepare();
 
-    public function filtered()
-    {
-        if ($this->find === null) {
-            $this->find = $this->business->vacancies();
+        $results = $this->vacancies->get();
+
+        if ($this->duration !== null) {
+            $datetime = $this->getUTCDateTime();
+
+            $results = $results->reject(function ($vacancy) use ($datetime) {
+                return !$vacancy->hasRoomBetween($datetime, $datetime->addMinutes($this->duration));
+            });
         }
 
-        return $this->find;
+        return $results;
+    }
+
+    protected function prepare()
+    {
+        if ($this->service !== null) {
+            $this->vacancies->forService($this->service);
+        }
+
+        if ($this->date !== null &&  $this->time !== null) {
+            $this->vacancies->forDateTime($this->getUTCDateTime());
+        }
+
+        return $this;
     }
 }

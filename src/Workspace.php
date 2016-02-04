@@ -1,8 +1,10 @@
 <?php
 
-namespace Timegridio\Concierge\Calendar;
+namespace Timegridio\Concierge;
 
-class Calendar
+use Timegridio\Concierge\Models\Business;
+
+class Workspace
 {
     protected $business;
 
