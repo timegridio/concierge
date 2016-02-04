@@ -6,13 +6,7 @@ class Calendar
 {
     protected $business;
 
-    protected $datetime = null;
-
     protected $timezone = null;
-
-    protected $vacancies = null;
-
-    protected $find = null;
 
     public function business($business)
     {
