@@ -1,26 +1,17 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Collection;
 use Timegridio\Concierge\Calendar\VacancyCalendar;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Vacancy;
-use Timegridio\Test\Models\User;
 
-class VacancyCalendarTest extends TestCaseDB
+class VacancyCalendarTimeslotTest extends TestCaseDB
 {
     use DatabaseTransactions;
-    use CreateUser, CreateContact, CreateBusiness, CreateService, CreateAppointment, CreateVacancy;
-
-    protected $user;
-
-    protected $business;
-
-    protected $contact;
-
-    protected $service;
-
-    protected $calendar;
+    use CreateContact, CreateBusiness, CreateService, CreateVacancy;
 
     public function setUp()
     {
@@ -32,23 +23,127 @@ class VacancyCalendarTest extends TestCaseDB
     /**
      * @test
      */
-    public function it_finds_a_vacancy_slot_for_a_date_and_time_when_available()
+    public function it_sets_a_timezone()
     {
-        $vacancyCalendar = $this->calendar
-                          ->forServiceAndDateTime($this->vacancy->service->id, $this->vacancy->start_at);
-
-        $this->assertEquals(1, count($vacancyCalendar->find()));
+        $this->calendar->timezone($this->business->timezone);
     }
 
     /**
      * @test
      */
-    public function it_doesnt_find_a_vacancy_slot_for_a_date_and_time_when_not_available()
+    public function it_sets_a_service()
     {
-        $vacancyCalendar = $this->calendar
-                              ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at->addDays(1));
+        $this->calendar->forService($this->service->id);
+    }
 
-        $this->assertEquals(0, count($vacancyCalendar->find()));
+    /**
+     * @test
+     */
+    public function it_finds_all_vacancies_for_a_service()
+    {
+        $vacancies = $this->calendar
+                          ->forService($this->vacancy->service->id)
+                          ->find();
+
+        $this->assertInstanceOf(Collection::class, $vacancies);
+        $this->assertNotCount(0, $vacancies);
+
+        foreach ($vacancies as $vacancy) {
+            $this->assertEquals($vacancy->business->id, $this->business->id);
+            $this->assertEquals($vacancy->service->id, $this->service->id);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_finds_free_vacancies_for_a_service_and_datetime()
+    {
+        $this->vacancy = $this->makeVacancy([
+            'business_id' => $this->business->id,
+            'service_id'  => $this->service->id,
+            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon::parse('2016-01-02 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon::parse('2016-01-02 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'capacity'    => 1,
+            ]);
+        $this->vacancy->save();
+
+        $vacancies = $this->calendar
+                          ->forService($this->vacancy->service->id)
+                          ->forDate('2016-01-02')
+                          ->atTime('09:00', $this->vacancy->business->timezone)
+                          ->find();
+
+        $this->assertInstanceOf(Collection::class, $vacancies);
+        $this->assertNotCount(0, $vacancies);
+
+        foreach ($vacancies as $vacancy) {
+            $this->assertEquals($vacancy->business->id, $this->business->id);
+            $this->assertEquals($vacancy->service->id, $this->service->id);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_finds_free_vacancies_for_a_service_and_datetime_with_a_duration()
+    {
+        $this->vacancy = $this->makeVacancy([
+            'business_id' => $this->business->id,
+            'service_id'  => $this->service->id,
+            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon::parse('2016-01-02 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon::parse('2016-01-02 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'capacity'    => 1,
+            ]);
+        $this->vacancy->save();
+
+        $vacancies = $this->calendar
+                          ->forService($this->vacancy->service->id)
+                          ->forDate('2016-01-02')
+                          ->atTime('09:00', $this->vacancy->business->timezone)
+                          ->withDuration(60)
+                          ->find();
+
+        $this->assertInstanceOf(Collection::class, $vacancies);
+        $this->assertNotCount(0, $vacancies);
+
+        foreach ($vacancies as $vacancy) {
+            $this->assertEquals($vacancy->business->id, $this->business->id);
+            $this->assertEquals($vacancy->service->id, $this->service->id);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_finds_free_vacancies_using_fallback_timezone()
+    {
+        $this->vacancy = $this->makeVacancy([
+            'business_id' => $this->business->id,
+            'service_id'  => $this->service->id,
+            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon::parse('2016-01-02 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon::parse('2016-01-02 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'capacity'    => 1,
+            ]);
+        $this->vacancy->save();
+
+        $vacancies = $this->calendar
+                          ->forService($this->vacancy->service->id)
+                          ->forDate('2016-01-02')
+                          ->atTime('09:00')
+                          ->withDuration(60)
+                          ->find();
+
+        $this->assertInstanceOf(Collection::class, $vacancies);
+        $this->assertNotCount(0, $vacancies);
+
+        foreach ($vacancies as $vacancy) {
+            $this->assertEquals($vacancy->business->id, $this->business->id);
+            $this->assertEquals($vacancy->service->id, $this->service->id);
+        }
     }
 
     /////////////
@@ -62,10 +157,8 @@ class VacancyCalendarTest extends TestCaseDB
      */
     protected function arrangeScenario()
     {
-        $this->user = $this->createUser();
-
         $this->business = $this->createBusiness([
-            'strategy' => 'timeslot'
+            'strategy' => 'timeslot',
             ]);
 
         $this->service = $this->createService([
@@ -74,18 +167,36 @@ class VacancyCalendarTest extends TestCaseDB
 
         $this->contact = $this->createContact();
 
-        $this->vacancy = $this->makeVacancy([
+        $this->vacancy = $this->createVacancy([
             'business_id' => $this->business->id,
             'service_id'  => $this->service->id,
-            'date'        => Carbon\Carbon::parse('today 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
-            'start_at'    => Carbon\Carbon::parse('today 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
-            'finish_at'   => Carbon\Carbon::parse('today 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'date'        => Carbon::parse('today 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon::parse('today 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon::parse('today 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 1,
             ]);
-        $this->vacancy->business()->associate($this->business);
-        $this->vacancy->service()->associate($this->service);
-        $this->business->vacancies()->save($this->vacancy);
 
-        $this->calendar = new VacancyCalendar($this->business->strategy, $this->business->timezone, $this->business->vacancies());
+        $this->createVacancy([
+            'date'        => Carbon::parse('tomorrow 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon::parse('tomorrow 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon::parse('tomorrow 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'capacity'    => 2,
+            ]);
+
+        $this->createVacancy([
+            'date'        => Carbon::parse('tomorrow +1 day 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon::parse('tomorrow +1 day 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon::parse('tomorrow +1 day 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'capacity'    => 4,
+            ]);
+
+        $this->createVacancy([
+            'date'        => Carbon::parse('tomorrow +2 day 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon::parse('tomorrow +2 day 10:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon::parse('tomorrow +2 day 20:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'capacity'    => 4,
+            ]);
+
+        $this->calendar = new VacancyCalendar($this->business->vacancies(), $this->business->timezone);
     }
 }
