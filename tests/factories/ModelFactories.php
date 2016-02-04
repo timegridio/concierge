@@ -22,7 +22,7 @@ $factory(Timegridio\Concierge\Models\Contact::class, function (Faker\Generator $
         'lastname'       => $faker->lastName,
         'nin'            => $faker->numberBetween(25000000, 50000000),
         'email'          => $faker->safeEmail,
-        'birthdate'      => \Carbon\Carbon::now()->subYears(30)->format('Y-m-d'),
+        'birthdate'      => Carbon\Carbon::now()->subYears(30)->format('Y-m-d'),
         'mobile'         => null,
         'mobile_country' => null,
         'gender'         => $faker->randomElement(['M', 'F']),
@@ -84,9 +84,9 @@ $factory(Timegridio\Concierge\Models\Vacancy::class, function (Faker\Generator $
     return [
         'business_id' => 'factory:Timegridio\Concierge\Models\Business',
         'service_id'  => 'factory:Timegridio\Concierge\Models\Service',
-        'date'        => date('Y-m-d', strtotime($date)),
-        'start_at'    => date('Y-m-d 00:00:00', strtotime($date)),
-        'finish_at'   => date('Y-m-d 23:00:00', strtotime($date)),
+        'date'        => Carbon\Carbon::parse('today    00:00:00')->timezone('UTC')->toDateString(),
+        'start_at'    => Carbon\Carbon::parse('today    00:00:00')->timezone('UTC')->toDateTimeString(),
+        'finish_at'   => Carbon\Carbon::parse('tomorrow 18:00:00')->timezone('UTC')->toDateTimeString(),
         'capacity'    => 1,
     ];
 });
