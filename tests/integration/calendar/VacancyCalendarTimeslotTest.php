@@ -20,9 +20,7 @@ class VacancyCalendarTest extends TestCaseDB
 
     protected $service;
 
-    protected $vacancy;
-
-    protected $finder;
+    protected $calendar;
 
     public function setUp()
     {
@@ -36,7 +34,7 @@ class VacancyCalendarTest extends TestCaseDB
      */
     public function it_finds_a_vacancy_slot_for_a_date_and_time_when_available()
     {
-        $vacancyCalendar = $this->finder
+        $vacancyCalendar = $this->calendar
                           ->forServiceAndDateTime($this->vacancy->service->id, $this->vacancy->start_at);
 
         $this->assertEquals(1, count($vacancyCalendar->find()));
@@ -47,10 +45,8 @@ class VacancyCalendarTest extends TestCaseDB
      */
     public function it_doesnt_find_a_vacancy_slot_for_a_date_and_time_when_not_available()
     {
-        $vacancyCalendar = $this->finder
+        $vacancyCalendar = $this->calendar
                               ->forServiceAndDateTime($this->vacancy->service, $this->vacancy->start_at->addDays(1));
-
-                              #dd($vacancyCalendar->find());
 
         $this->assertEquals(0, count($vacancyCalendar->find()));
     }
@@ -68,7 +64,9 @@ class VacancyCalendarTest extends TestCaseDB
     {
         $this->user = $this->createUser();
 
-        $this->business = $this->createBusiness();
+        $this->business = $this->createBusiness([
+            'strategy' => 'timeslot'
+            ]);
 
         $this->service = $this->createService([
             'business_id' => $this->business->id,
@@ -76,12 +74,18 @@ class VacancyCalendarTest extends TestCaseDB
 
         $this->contact = $this->createContact();
 
-        $this->vacancy = $this->makeVacancy();
+        $this->vacancy = $this->makeVacancy([
+            'business_id' => $this->business->id,
+            'service_id'  => $this->service->id,
+            'date'        => Carbon\Carbon::parse('today 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'start_at'    => Carbon\Carbon::parse('today 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'finish_at'   => Carbon\Carbon::parse('today 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
+            'capacity'    => 1,
+            ]);
         $this->vacancy->business()->associate($this->business);
         $this->vacancy->service()->associate($this->service);
         $this->business->vacancies()->save($this->vacancy);
 
-        $this->finder = new VacancyCalendar();
-        $this->finder->business($this->business);
+        $this->calendar = new VacancyCalendar($this->business->strategy, $this->business->timezone, $this->business->vacancies());
     }
 }
