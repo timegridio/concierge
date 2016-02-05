@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Timegridio\Concierge\Booking\Strategies\BookingStrategy;
 use Timegridio\Concierge\Calendar\Calendar;
 use Timegridio\Concierge\Exceptions\DuplicatedAppointmentException;
+use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Service;
 
@@ -37,7 +38,7 @@ class Concierge extends Workspace
         return $this->booking;
     }
 
-    public function takeReservation($request)
+    public function takeReservation(array $request)
     {
         $issuer = $request['issuer'];
         $service = $request['service'];
@@ -64,14 +65,16 @@ class Concierge extends Workspace
             $vacancy = $vacancies->first();
         }
 
-        $datetime = $this->makeDateTimeUTC($request['date'], $request['time'], $request['timezone']);
+        $startAt = $this->makeDateTimeUTC($request['date'], $request['time'], $request['timezone']);
+        $finishAt = $startAt->copy()->addMinutes($service->duration);
 
-        $appointment = $this->booking()->generateAppointment(
+        $appointment = $this->generateAppointment(
             $issuer,
-            $this->business,
-            $contact,
-            $service,
-            $datetime,
+            $this->business->id,
+            $contact->id,
+            $service->id,
+            $startAt,
+            $finishAt,
             $comments
         );
 
@@ -83,6 +86,23 @@ class Concierge extends Workspace
         /* Should be moved inside generateAppointment() */
         $appointment->vacancy()->associate($vacancy);
         $appointment->save();
+
+        return $appointment;
+    }
+
+    protected function generateAppointment($issuerId, $businessId, $contactId, $serviceId, Carbon $startAt, Carbon $finishAt, $comments = null)
+    {
+        $appointment = new Appointment();
+
+        $appointment->doReserve();
+        $appointment->setStartAtAttribute($startAt);
+        $appointment->setFinishAtAttribute($finishAt);
+        $appointment->business()->associate($businessId);
+        $appointment->issuer()->associate($issuerId);
+        $appointment->contact()->associate($contactId);
+        $appointment->service()->associate($serviceId);
+        $appointment->comments = $comments;
+        $appointment->doHash();
 
         return $appointment;
     }
