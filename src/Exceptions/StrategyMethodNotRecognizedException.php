@@ -1,11 +1,11 @@
-<?php namespace Timegridio\Concierge\Exceptions;
+<?php
+
+namespace Timegridio\Concierge\Exceptions;
 
 use Exception;
 
 /**
- * Class StrategyMethodNotRecognizedException
- *
- * @package Timegridio\Concierge\Exceptions
+ * Class StrategyMethodNotRecognizedException.
  */
 class StrategyMethodNotRecognizedException extends Exception
 {

@@ -1,9 +1,11 @@
-<?php namespace Timegridio\Concierge\Exceptions;
+<?php
+
+namespace Timegridio\Concierge\Exceptions;
 
 use Exception;
 
 /**
- * Class StrategyNotRecognizedException
+ * Class StrategyNotRecognizedException.
  *
  * @package Timegridio\Concierge\Exceptions
  */
