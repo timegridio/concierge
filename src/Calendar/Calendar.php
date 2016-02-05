@@ -3,12 +3,14 @@
 namespace Timegridio\Concierge\Calendar;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Timegridio\Concierge\Exceptions\StrategyMethodNotRecognizedException;
+use Timegridio\Concierge\Exceptions\StrategyNotRecognizedException;
 
 class Calendar
 {
     /**
      * Strategy Calendar.
-     * 
+     *
      * @var TimeslotCalendar|DateslotCalendar
      */
     protected $strategy = null;
@@ -19,6 +21,8 @@ class Calendar
      * @param string $strategyName
      * @param HasMany $vacancies    The entity relationship to Vacancies.
      * @param string $timezone
+     *
+     * @throws Timegridio\Concierge\Exceptions\StrategyNotRecognizedException
      */
     public function __construct($strategyName, HasMany $vacancies, $timezone = null)
     {
@@ -40,7 +44,7 @@ class Calendar
      * @param  string $name
      * @param  mixed $arguments
      *
-     * @throws StrategyMethodNotRecognizedException
+     * @throws Timegridio\Concierge\Exceptions\StrategyMethodNotRecognizedException
      *
      * @return mixed
      */
