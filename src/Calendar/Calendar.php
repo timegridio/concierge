@@ -2,13 +2,27 @@
 
 namespace Timegridio\Concierge\Calendar;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Calendar
 {
-    protected $strategy;
+    /**
+     * Strategy Calendar.
+     * 
+     * @var TimeslotCalendar|DateslotCalendar
+     */
+    protected $strategy = null;
 
-    public function __construct($strategyName, $vacancies, $timezone = null)
+    /**
+     * Construct the class and load the strategy Calendar.
+     *
+     * @param string $strategyName
+     * @param HasMany $vacancies    The entity relationship to Vacancies.
+     * @param string $timezone
+     */
+    public function __construct($strategyName, HasMany $vacancies, $timezone = null)
     {
-        switch ($strategyName) {
+        switch (strtolower($strategyName)) {
             case 'timeslot':
                 $this->strategy = new TimeslotCalendar($vacancies, $timezone);
                 break;
@@ -16,19 +30,26 @@ class Calendar
                 $this->strategy = new DateslotCalendar($vacancies, $timezone);
                 break;
             default:
-                // Throw exception
-                break;
+                throw new StrategyNotRecognizedException();
         }
     }
 
+    /**
+     * Pass method call to the Calendar strategy.
+     *
+     * @param  string $name
+     * @param  mixed $arguments
+     *
+     * @throws StrategyMethodNotRecognizedException
+     *
+     * @return mixed
+     */
     public function __call($name, $arguments)
     {
-        if(method_exists($this->strategy, $name))
-        {
-            return $this->strategy->$name($arguments);
+        if (!method_exists($this->strategy, $name)) {
+            throw new StrategyMethodNotRecognizedException();
         }
 
-        // Throw exception
-        return false;
+        return $this->strategy->$name($arguments);
     }
 }
