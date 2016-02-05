@@ -8,6 +8,8 @@ use Orchestra\Testbench\TestCase;
  */
 abstract class TestCaseDB extends TestCase
 {
+    protected $database = 'testbench';
+
     /**
      * @param \Illuminate\Foundation\Application $app
      *
@@ -84,7 +86,7 @@ abstract class TestCaseDB extends TestCase
     private function migrate($artisan, $path = '/../../../../migrations')
     {
         $artisan->call('migrate', [
-            '--database' => 'testbench',
+            '--database' => $this->database,
             '--path'     => $path,
         ]);
     }
