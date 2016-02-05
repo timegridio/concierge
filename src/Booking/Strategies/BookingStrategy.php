@@ -14,7 +14,6 @@ class BookingStrategy
 
     public function __construct($strategyId)
     {
-        info("BookingStrategy: Using {$strategyId}");
         switch ($strategyId) {
             case 'timeslot':
                 $this->strategy = new BookingTimeslotStrategy(new Timetable());
@@ -23,7 +22,6 @@ class BookingStrategy
                 $this->strategy = new BookingDateslotStrategy(new Timetable());
                 break;
             default:
-                logger("BookingStrategy: __construct: Illegal strategy:{$strategyId}");
                 break;
         }
     }
