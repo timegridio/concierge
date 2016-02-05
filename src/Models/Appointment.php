@@ -81,7 +81,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the issuer (the User that generated the Appointment).
      *
-     * @return Timegridio\Concierge\Models\User
+     * @return Illuminate\Database\Eloquent\belongsTo
      */
     public function issuer()
     {
@@ -91,7 +91,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the target Contact (for whom is reserved the Appointment).
      *
-     * @return Contact
+     * @return Illuminate\Database\Eloquent\belongsTo
      */
     public function contact()
     {
@@ -101,7 +101,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the holding Business (that has taken the reservation).
      *
-     * @return Business
+     * @return Illuminate\Database\Eloquent\belongsTo
      */
     public function business()
     {
@@ -111,7 +111,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the reserved Service.
      *
-     * @return Service
+     * @return Illuminate\Database\Eloquent\belongsTo
      */
     public function service()
     {
@@ -122,7 +122,7 @@ class Appointment extends EloquentModel implements HasPresenter
      * Get the Vacancy (that justifies the availability of resources for the
      * Appointment generation).
      *
-     * @return Vacancy
+     * @return Illuminate\Database\Eloquent\belongsTo
      */
     public function vacancy()
     {
@@ -136,7 +136,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the User through Contact.
      *
-     * @return Timegridio\Concierge\Models\User
+     * @return User
      */
     public function user()
     {
