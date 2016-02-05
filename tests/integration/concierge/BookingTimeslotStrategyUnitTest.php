@@ -10,6 +10,15 @@ class BookingTimeslotStrategyUnitTest extends TestCaseDB
 
     /**
      * @test
+     * @expectedException Timegridio\Concierge\Exceptions\StrategyNotRecognizedException
+     */
+    public function it_rejects_unrecognized_strategies()
+    {
+        new BookingStrategy('invalid');
+    }
+
+    /**
+     * @test
      */
     public function it_generates_a_timeslot_timetable()
     {
