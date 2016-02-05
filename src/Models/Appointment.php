@@ -365,18 +365,6 @@ class Appointment extends EloquentModel implements HasPresenter
     /////////////////////////
 
     /**
-     * Scope to Contacts Collection.
-     *
-     * @param Illuminate\Database\Query $query
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeForContacts($query, $contacts)
-    {
-        return $query->whereIn('contact_id', $contacts->pluck('id'));
-    }
-
-    /**
      * Scope to Unarchived Appointments.
      *
      * @param Illuminate\Database\Query $query
