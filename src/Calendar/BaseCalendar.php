@@ -4,7 +4,7 @@ namespace Timegridio\Concierge\Calendar;
 
 use Carbon\Carbon;
 
-abstract class VacancyCalendar
+abstract class BaseCalendar
 {
     protected $vacancies = [];
 

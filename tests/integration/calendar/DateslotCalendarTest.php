@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
-use Timegridio\Concierge\Calendar\DateslotCalendar;
+use Timegridio\Concierge\Calendar\Calendar;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Vacancy;
@@ -126,6 +126,6 @@ class DateslotCalendarTest extends TestCaseDB
             'capacity'    => 4,
             ]);
 
-        $this->calendar = new DateslotCalendar($this->business->vacancies(), $this->business->timezone);
+        $this->calendar = new Calendar('dateslot', $this->business->vacancies(), $this->business->timezone);
     }
 }
