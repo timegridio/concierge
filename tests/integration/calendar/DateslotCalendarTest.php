@@ -31,6 +31,14 @@ class DateslotCalendarTest extends TestCaseDB
     /**
      * @test
      */
+    public function it_sets_a_timezone()
+    {
+        $this->calendar->timezone($this->business->timezone);
+    }
+
+    /**
+     * @test
+     */
     public function it_finds_all_vacancies_for_a_service_dateslot()
     {
         $vacancies = $this->calendar

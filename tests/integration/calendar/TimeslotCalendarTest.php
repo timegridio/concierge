@@ -24,17 +24,17 @@ class TimeslotCalendarTest extends TestCaseDB
     /**
      * @test
      */
-    public function it_sets_a_timezone()
+    public function it_sets_a_service()
     {
-        $this->calendar->timezone($this->business->timezone);
+        $this->calendar->forService($this->service->id);
     }
 
     /**
      * @test
      */
-    public function it_sets_a_service()
+    public function it_sets_a_timezone()
     {
-        $this->calendar->forService($this->service->id);
+        $this->calendar->timezone($this->business->timezone);
     }
 
     /**

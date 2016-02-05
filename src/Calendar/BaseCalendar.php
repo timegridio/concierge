@@ -22,14 +22,12 @@ abstract class BaseCalendar
     {
         $this->vacancies = $vacancies;
 
-        $this->timezone = $timezone;
+        $this->timezone($timezone);
     }
 
     public function timezone($timezone = null)
     {
-        if ($timezone === null) {
-            return $this->timezone;
-        }
+        $this->timezone = $timezone;
 
         return $this;
     }
