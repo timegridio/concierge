@@ -8,7 +8,7 @@ class Repository
 {
     /**
      * Default lookup identificator.
-     * 
+     *
      * @var string
      */
     private $identificator = 'slug';
@@ -23,7 +23,7 @@ class Repository
     public function getService($business, $id, $identificator = null)
     {
         $identificator = $identificator ?: $this->identificator;
-        
+
         return $business->services()->where($identificator, $id)->first();
     }
 }

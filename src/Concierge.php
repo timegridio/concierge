@@ -38,7 +38,7 @@ class Concierge extends Workspace
 
     public function takeReservation($request)
     {
-//        $datetime = $this->makeDateTimeUTC($request['date'], $request['time'], $request['timezone']);
+        //        $datetime = $this->makeDateTimeUTC($request['date'], $request['time'], $request['timezone']);
 //
 //        $appointment = $this->strategy()->generateAppointment(
 //            $request['issuer'],

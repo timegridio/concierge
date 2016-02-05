@@ -3,12 +3,12 @@
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
-use Timegridio\Concierge\Calendar\VacancyCalendar;
+use Timegridio\Concierge\Calendar\TimeslotCalendar;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Vacancy;
 
-class VacancyCalendarTimeslotTest extends TestCaseDB
+class TimeslotCalendarTest extends TestCaseDB
 {
     use DatabaseTransactions;
     use CreateContact, CreateBusiness, CreateService, CreateVacancy;
@@ -62,7 +62,7 @@ class VacancyCalendarTimeslotTest extends TestCaseDB
         $this->vacancy = $this->makeVacancy([
             'business_id' => $this->business->id,
             'service_id'  => $this->service->id,
-            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->toDateString(),
             'start_at'    => Carbon::parse('2016-01-02 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'finish_at'   => Carbon::parse('2016-01-02 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 1,
@@ -92,7 +92,7 @@ class VacancyCalendarTimeslotTest extends TestCaseDB
         $this->vacancy = $this->makeVacancy([
             'business_id' => $this->business->id,
             'service_id'  => $this->service->id,
-            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->toDateString(),
             'start_at'    => Carbon::parse('2016-01-02 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'finish_at'   => Carbon::parse('2016-01-02 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 1,
@@ -123,7 +123,7 @@ class VacancyCalendarTimeslotTest extends TestCaseDB
         $this->vacancy = $this->makeVacancy([
             'business_id' => $this->business->id,
             'service_id'  => $this->service->id,
-            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'date'        => Carbon::parse('2016-01-02 00:00 '.$this->business->timezone)->toDateString(),
             'start_at'    => Carbon::parse('2016-01-02 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'finish_at'   => Carbon::parse('2016-01-02 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 1,
@@ -170,33 +170,33 @@ class VacancyCalendarTimeslotTest extends TestCaseDB
         $this->vacancy = $this->createVacancy([
             'business_id' => $this->business->id,
             'service_id'  => $this->service->id,
-            'date'        => Carbon::parse('today 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'date'        => Carbon::parse('today 00:00 '.$this->business->timezone)->toDateString(),
             'start_at'    => Carbon::parse('today 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'finish_at'   => Carbon::parse('today 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 1,
             ]);
 
         $this->createVacancy([
-            'date'        => Carbon::parse('tomorrow 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'date'        => Carbon::parse('tomorrow 00:00 '.$this->business->timezone)->toDateString(),
             'start_at'    => Carbon::parse('tomorrow 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'finish_at'   => Carbon::parse('tomorrow 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 2,
             ]);
 
         $this->createVacancy([
-            'date'        => Carbon::parse('tomorrow +1 day 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'date'        => Carbon::parse('tomorrow +1 day 00:00 '.$this->business->timezone)->toDateString(),
             'start_at'    => Carbon::parse('tomorrow +1 day 09:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'finish_at'   => Carbon::parse('tomorrow +1 day 18:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 4,
             ]);
 
         $this->createVacancy([
-            'date'        => Carbon::parse('tomorrow +2 day 00:00 '.$this->business->timezone)->timezone('UTC')->toDateString(),
+            'date'        => Carbon::parse('tomorrow +2 day 00:00 '.$this->business->timezone)->toDateString(),
             'start_at'    => Carbon::parse('tomorrow +2 day 10:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'finish_at'   => Carbon::parse('tomorrow +2 day 20:00 '.$this->business->timezone)->timezone('UTC')->toDateTimeString(),
             'capacity'    => 4,
             ]);
 
-        $this->calendar = new VacancyCalendar($this->business->vacancies(), $this->business->timezone);
+        $this->calendar = new TimeslotCalendar($this->business->vacancies(), $this->business->timezone);
     }
 }
