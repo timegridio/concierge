@@ -64,4 +64,30 @@ class ConciergeUnitTest extends TestCaseDB
 
         $this->assertFalse($appointment);
     }
+
+    /**
+     * @test
+     * @expectedException Timegridio\Concierge\Exceptions\DuplicatedAppointmentException
+     */
+    public function it_rejects_a_duplicated_reservation()
+    {
+        $reservation = [
+            'issuer'   => 1,
+            'business' => $this->business,
+            'contact'  => $this->contact,
+            'service'  => $this->service,
+            'date'     => $this->vacancy->start_at->timezone($this->business->timezone)->toDateString(),
+            'time'     => $this->vacancy->start_at->timezone($this->business->timezone)->toTimeString(),
+            'timezone' => $this->business->timezone,
+            'comments' => 'test',
+        ];
+
+        $appointment = $this->concierge->business($this->business)->takeReservation($reservation);
+
+        $this->assertInstanceOf(Appointment::class, $appointment);
+        $this->assertTrue($appointment->exists);
+
+        // Attempt a duplicated appointment reservation
+        $appointment = $this->concierge->business($this->business)->takeReservation($reservation);
+    }
 }
