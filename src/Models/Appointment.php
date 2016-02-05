@@ -200,20 +200,6 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * Get annulation deadline (target date).
-     *
-     * @return Carbon\Carbon
-     */
-    public function getAnnulationDeadlineAttribute()
-    {
-        $hours = $this->business->pref('appointment_annulation_pre_hs');
-
-        return $this->start_at
-                    ->subHours($hours)
-                    ->timezone($this->business->timezone);
-    }
-
-    /**
      * Get the human readable status name.
      *
      * @return string
