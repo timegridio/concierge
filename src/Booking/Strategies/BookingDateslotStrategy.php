@@ -41,22 +41,6 @@ class BookingDateslotStrategy implements BookingStrategyInterface
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function removeBookedVacancies(Collection $vacancies)
-    {
-        $vacancies = $vacancies->reject(function ($vacancy) {
-            return $vacancy->isFull();
-        });
-
-        return $vacancies;
-    }
-
-    /**
-     * [removeBookedVacancies description].
-     *
-     * @param Collection $vacancies
-     *
-     * @return Illuminate\Database\Eloquent\Collection
-     */
     public function removeSelfBooked(Collection $vacancies, $userId)
     {
         $vacancies = $vacancies->reject(function ($vacancy) use ($userId) {

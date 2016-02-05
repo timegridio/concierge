@@ -42,11 +42,6 @@ class BookingStrategy
         return $this->strategy->generateAppointment($issuerId, $business, $contact, $service, $datetime, $comments);
     }
 
-    public function removeBookedVacancies(Collection $vacancies)
-    {
-        return $this->strategy->removeBookedVacancies($vacancies);
-    }
-
     public function removeSelfBooked(Collection $vacancies, $userId)
     {
         return $this->strategy->removeSelfBooked($vacancies, $userId);

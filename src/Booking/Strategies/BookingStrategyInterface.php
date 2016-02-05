@@ -21,7 +21,5 @@ interface BookingStrategyInterface
         $comments = null
     );
 
-    public function removeBookedVacancies(Collection $vacancies);
-
     public function removeSelfBooked(Collection $vacancies, $userId);
 }
