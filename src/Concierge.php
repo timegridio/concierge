@@ -54,6 +54,15 @@ class Concierge extends Workspace
             return false;
         }
 
+        if ($vacancies->count() > 1) {
+            // Log unexpected behavior message
+            $vacancy = $vacancies->first();
+        }
+
+        if ($vacancies->count() == 1) {
+            $vacancy = $vacancies->first();
+        }
+
         $datetime = $this->makeDateTimeUTC($request['date'], $request['time'], $request['timezone']);
 
         $appointment = $this->booking()->generateAppointment(
@@ -65,25 +74,17 @@ class Concierge extends Workspace
             $comments
         );
 
+        /* Should be moved inside generateAppointment() */
         if ($appointment->duplicates()) {
             // Throw Exception('Duplicated Appointment Attempted')
             return false;
         }
 
+        /* Should be moved inside generateAppointment() */
+        $appointment->vacancy()->associate($vacancy);
         $appointment->save();
 
         return $appointment;
-//
-//        $vacancy = $this->calendar()->getSlotFor($appointment->start_at, $appointment->finish_at, $appointment->service->id);
-//
-//        if ($vacancy != null) {
-//            $appointment->vacancy()->associate($vacancy);
-//            $appointment->save();
-//
-//            return $appointment;
-//        }
-//
-//        return false;
     }
 
     protected function makeDateTime($date, $time, $timezone = null)
