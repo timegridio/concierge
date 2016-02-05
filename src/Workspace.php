@@ -14,15 +14,15 @@ class Workspace
     {
         $this->business = $business;
 
+        $this->timezone($this->business->timezone);
+
         return $this;
     }
 
     public function timezone($timezone = null)
     {
-        if ($timezone == null) {
-            return $this->timezone = $this->business->timezone;
-        }
+        $this->timezone = $this->business->timezone;
 
-        return $this->timezone = $timezone;
+        return $this;
     }
 }
