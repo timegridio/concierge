@@ -11,6 +11,11 @@ use Timegridio\Concierge\Models\Service;
 
 class BookingStrategy
 {
+    /**
+     * Booking Strategy.
+     *
+     * @var BookingTimeslotStrategy|BookingDateslotStrategy
+     */
     protected $strategy = null;
 
     /**
