@@ -3,13 +3,10 @@
 namespace Timegridio\Concierge\Booking\Strategies;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Timegridio\Concierge\Booking\Timetable;
-use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Service;
-use Timegridio\Concierge\Models\Vacancy;
 
 class BookingStrategy
 {
@@ -40,11 +37,6 @@ class BookingStrategy
         $comments = null
     ) {
         return $this->strategy->generateAppointment($issuerId, $business, $contact, $service, $datetime, $comments);
-    }
-
-    public function removeSelfBooked(Collection $vacancies, $userId)
-    {
-        return $this->strategy->removeSelfBooked($vacancies, $userId);
     }
 
     public function buildTimetable($vacancies, $starting = 'today', $days = 1)

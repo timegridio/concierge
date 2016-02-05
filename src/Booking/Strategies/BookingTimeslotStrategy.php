@@ -47,22 +47,6 @@ class BookingTimeslotStrategy implements BookingStrategyInterface
     }
 
     /**
-     * [removeBookedVacancies description].
-     *
-     * @param Collection $vacancies
-     *
-     * @return Illuminate\Database\Eloquent\Collection
-     */
-    public function removeSelfBooked(Collection $vacancies, $userId)
-    {
-        //$vacancies = $vacancies->reject(function ($vacancy) use ($user) {
-        //    return $vacancy->isHoldingAnyFor($user);
-        //});
-
-        return $vacancies;
-    }
-
-    /**
      * Build timetable.
      *
      * @param Illuminate\Database\Eloquent\Collection $vacancies

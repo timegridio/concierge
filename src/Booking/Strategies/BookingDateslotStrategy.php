@@ -3,12 +3,10 @@
 namespace Timegridio\Concierge\Booking\Strategies;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Service;
-use Timegridio\Concierge\Models\Vacancy;
 
 class BookingDateslotStrategy implements BookingStrategyInterface
 {
@@ -32,21 +30,5 @@ class BookingDateslotStrategy implements BookingStrategyInterface
         $appointment->doHash();
 
         return $appointment;
-    }
-
-    /**
-     * [removeBookedVacancies description].
-     *
-     * @param Collection $vacancies
-     *
-     * @return Illuminate\Database\Eloquent\Collection
-     */
-    public function removeSelfBooked(Collection $vacancies, $userId)
-    {
-        $vacancies = $vacancies->reject(function ($vacancy) use ($userId) {
-            return $vacancy->isHoldingAnyFor($userId);
-        });
-
-        return $vacancies;
     }
 }
