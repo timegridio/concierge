@@ -30,6 +30,7 @@
     <filter>
       <whitelist processUncoveredFilesFromWhitelist="false">
         <directory suffix=".php">src/</directory>
+        <directory suffix=".php">migrations/</directory>
         <exclude>
           <directory suffix=".js">src/</directory>
         </exclude>
