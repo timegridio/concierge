@@ -539,18 +539,6 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * User is owner of business.
-     *
-     * @param int $userId
-     *
-     * @return bool
-     */
-    public function isOwner($userId)
-    {
-        return $this->business->owners->contains($userId);
-    }
-
-    /**
      * can be annulated by user.
      *
      * @param int $userId
