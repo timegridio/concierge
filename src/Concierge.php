@@ -5,6 +5,7 @@ namespace Timegridio\Concierge;
 use Carbon\Carbon;
 use Timegridio\Concierge\Booking\Strategies\BookingStrategy;
 use Timegridio\Concierge\Calendar\Calendar;
+use Timegridio\Concierge\Exceptions\DuplicatedAppointmentException;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Service;
 
