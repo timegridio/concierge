@@ -25,7 +25,7 @@ Concierge is a simple reservation library for your Laravel 5 app.
         'business' => $business,
         'contact'  => $contact,
         'service'  => $service,
-        'date'     => '2016-03-26,
+        'date'     => '2016-03-26',
         'time'     => '10:30',
         'timezone' => $business->timezone,
         'comments' => 'I want to visit my doctor',
