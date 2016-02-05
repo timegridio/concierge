@@ -76,8 +76,7 @@ class Concierge extends Workspace
 
         /* Should be moved inside generateAppointment() */
         if ($appointment->duplicates()) {
-            // Throw Exception('Duplicated Appointment Attempted')
-            return false;
+            throw new DuplicatedAppointmentException;
         }
 
         /* Should be moved inside generateAppointment() */
