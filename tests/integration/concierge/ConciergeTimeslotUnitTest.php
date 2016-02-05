@@ -76,13 +76,14 @@ class ConciergeTimeslotUnitTest extends TestCaseDB
             ]);
 
         // ...that has a published availability (Vacancy)...
+        $date = Carbon::parse('today 00:00 '.$this->business->timezone);
         $startAt = Carbon::parse('today 09:00 '.$this->business->timezone)->timezone('UTC');
         $finishAt = Carbon::parse('today 18:00 '.$this->business->timezone)->timezone('UTC');
 
         $this->vacancy = $this->createVacancy([
             'business_id' => $this->business->id,
             'service_id'  => $this->service->id,
-            'date'        => $startAt->timezone($this->business->timezone)->toDateString(),
+            'date'        => $date->toDateString(),
             'start_at'    => $startAt->toDateTimeString(),
             'finish_at'   => $finishAt->toDateTimeString(),
             'capacity'    => 1,
