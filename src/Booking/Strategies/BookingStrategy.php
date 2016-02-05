@@ -4,6 +4,7 @@ namespace Timegridio\Concierge\Booking\Strategies;
 
 use Carbon\Carbon;
 use Timegridio\Concierge\Booking\Timetable;
+use Timegridio\Concierge\Exceptions\StrategyNotRecognizedException;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Service;
@@ -12,6 +13,13 @@ class BookingStrategy
 {
     protected $strategy = null;
 
+    /**
+     * Construct Booking Strategy class.
+     *
+     * @param string $strategyId
+     *
+     * @throws  Timegridio\Concierge\Exceptions\StrategyNotRecognizedException
+     */
     public function __construct($strategyId)
     {
         switch ($strategyId) {
@@ -22,7 +30,7 @@ class BookingStrategy
                 $this->strategy = new BookingDateslotStrategy(new Timetable());
                 break;
             default:
-                break;
+                throw new StrategyNotRecognizedException($strategyId);
         }
     }
 
