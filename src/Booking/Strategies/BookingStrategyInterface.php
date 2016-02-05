@@ -21,8 +21,6 @@ interface BookingStrategyInterface
         $comments = null
     );
 
-    public function hasRoom(Appointment $appointment, Vacancy $vacancy);
-
     public function removeBookedVacancies(Collection $vacancies);
 
     public function removeSelfBooked(Collection $vacancies, $userId);

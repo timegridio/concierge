@@ -34,11 +34,6 @@ class BookingDateslotStrategy implements BookingStrategyInterface
         return $appointment;
     }
 
-    public function hasRoom(Appointment $appointment, Vacancy $vacancy)
-    {
-        return $vacancy->hasRoom();
-    }
-
     /**
      * [removeBookedVacancies description].
      *

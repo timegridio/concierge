@@ -42,11 +42,6 @@ class BookingStrategy
         return $this->strategy->generateAppointment($issuerId, $business, $contact, $service, $datetime, $comments);
     }
 
-    public function hasRoom(Appointment $appointment, Vacancy $vacancy)
-    {
-        return $this->strategy->hasRoom($appointment, $vacancy);
-    }
-
     public function removeBookedVacancies(Collection $vacancies)
     {
         return $this->strategy->removeBookedVacancies($vacancies);

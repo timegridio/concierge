@@ -46,11 +46,6 @@ class BookingTimeslotStrategy implements BookingStrategyInterface
         return $appointment;
     }
 
-    public function hasRoom(Appointment $appointment, Vacancy $vacancy)
-    {
-        return $vacancy->hasRoomBetween($appointment->start_at, $appointment->finish_at);
-    }
-
     /**
      * [removeBookedVacancies description].
      *
