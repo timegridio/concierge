@@ -63,7 +63,6 @@ trait Preferenceable
                 break;
             default:
                 return $value;
-                break;
         }
     }
 }
