@@ -54,6 +54,15 @@ class Concierge extends Workspace
             return false;
         }
 
+        if ($vacancies->count() > 1) {
+            // Log unexpected behavior message
+            $vacancy = $vacancies->first();
+        }
+
+        if ($vacancies->count() == 1) {
+            $vacancy = $vacancies->first();
+        }
+
         $datetime = $this->makeDateTimeUTC($request['date'], $request['time'], $request['timezone']);
 
         $appointment = $this->booking()->generateAppointment(
