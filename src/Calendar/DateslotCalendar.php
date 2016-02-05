@@ -2,7 +2,7 @@
 
 namespace Timegridio\Concierge\Calendar;
 
-class DateslotCalendar extends VacancyCalendar
+class DateslotCalendar extends BaseCalendar
 {
     public function find()
     {
