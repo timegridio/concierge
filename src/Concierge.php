@@ -3,7 +3,6 @@
 namespace Timegridio\Concierge;
 
 use Carbon\Carbon;
-use Timegridio\Concierge\Booking\Strategies\BookingStrategy;
 use Timegridio\Concierge\Calendar\Calendar;
 use Timegridio\Concierge\Exceptions\DuplicatedAppointmentException;
 use Timegridio\Concierge\Models\Appointment;
@@ -27,15 +26,6 @@ class Concierge extends Workspace
         }
 
         return $this->calendar;
-    }
-
-    protected function booking()
-    {
-        if ($this->booking === null) {
-            $this->booking = new BookingStrategy($this->business->strategy);
-        }
-
-        return $this->booking;
     }
 
     public function takeReservation(array $request)
@@ -80,7 +70,7 @@ class Concierge extends Workspace
 
         /* Should be moved inside generateAppointment() */
         if ($appointment->duplicates()) {
-            throw new DuplicatedAppointmentException;
+            throw new DuplicatedAppointmentException();
         }
 
         /* Should be moved inside generateAppointment() */
@@ -90,7 +80,14 @@ class Concierge extends Workspace
         return $appointment;
     }
 
-    protected function generateAppointment($issuerId, $businessId, $contactId, $serviceId, Carbon $startAt, Carbon $finishAt, $comments = null)
+    protected function generateAppointment(
+        $issuerId,
+        $businessId,
+        $contactId,
+        $serviceId,
+        Carbon $startAt,
+        Carbon $finishAt,
+        $comments = null)
     {
         $appointment = new Appointment();
 
