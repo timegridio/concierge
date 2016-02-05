@@ -15,6 +15,29 @@ This is a development Work In Progress branch to get a new (and decoupled) booki
 
 Concierge is a simple reservation library for your Laravel 5 app.
 
+## Usage
+
+``` php
+
+    $concierge = new Concierge();
+
+    $reservation = [
+        'business' => $business,
+        'contact'  => $contact,
+        'service'  => $service,
+        'date'     => '2016-03-26,
+        'time'     => '10:30',
+        'timezone' => $business->timezone,
+        'comments' => 'I want to visit my doctor',
+    ];
+
+    $appointment = $concierge->business($business)->takeReservation($reservation);
+```
+
+> **ADVICE:** This package is under development and API may change. Join development!
+
+See the [Concierge Unit Tests](https://github.com/timegridio/concierge/blob/master/tests/integration/concierge/ConciergeUnitTest.php) for more and current examples.
+
 ## Install
 
 ### Step 1
@@ -48,15 +71,6 @@ Publish the migration as well as the configuration of notifynder with the follow
     php artisan vendor:publish --provider="Timegridio\Concierge\TimegridioConciergeServiceProvider"
 
 Don't forget to migrate.
-
-## Usage
-
-``` php
-$concierge = new Timegridio\Concierge();
-$appointment = $concierge->makeReservation($user, $business, $contact, $service, $date);
-```
-
-> **ADVICE:** This package is under development and API may change. Join development!
 
 ### Applications using this lib
 
