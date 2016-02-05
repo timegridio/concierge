@@ -230,18 +230,6 @@ class Appointment extends EloquentModel implements HasPresenter
                     ->toDateString();
     }
 
-    /**
-     * Get user-friendly unique identification code.
-     *
-     * @return string
-     */
-    public function getCodeAttribute()
-    {
-        $length = $this->business->pref('appointment_code_length');
-
-        return strtoupper(substr($this->hash, 0, $length));
-    }
-
     //////////////
     // Mutators //
     //////////////
