@@ -22,30 +22,6 @@ class BookingTimeslotStrategy implements BookingStrategyInterface
         $this->timetable = $timetable;
     }
 
-    public function generateAppointment(
-        $issuerId,
-        Business $business,
-        Contact $contact,
-        Service $service,
-        Carbon $datetime,
-        $comments = null
-    ) {
-        $appointment = new Appointment();
-
-        $appointment->doReserve();
-        $appointment->setStartAtAttribute($datetime);
-        $appointment->setFinishAtAttribute($datetime->copy()->addMinutes($service->duration));
-        $appointment->duration = $service->duration;
-        $appointment->business()->associate($business);
-        $appointment->issuer()->associate($issuerId);
-        $appointment->contact()->associate($contact);
-        $appointment->service()->associate($service);
-        $appointment->comments = $comments;
-        $appointment->doHash();
-
-        return $appointment;
-    }
-
     /**
      * Build timetable.
      *

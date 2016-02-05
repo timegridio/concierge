@@ -39,17 +39,6 @@ class BookingStrategy
         }
     }
 
-    public function generateAppointment(
-        $issuerId,
-        Business $business,
-        Contact $contact,
-        Service $service,
-        Carbon $datetime,
-        $comments = null
-    ) {
-        return $this->strategy->generateAppointment($issuerId, $business, $contact, $service, $datetime, $comments);
-    }
-
     public function buildTimetable($vacancies, $starting = 'today', $days = 1)
     {
         return $this->strategy->buildTimetable($vacancies, $starting, $days);
