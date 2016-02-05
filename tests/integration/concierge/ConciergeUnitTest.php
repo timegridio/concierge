@@ -9,15 +9,20 @@ class ConciergeUnitTest extends TestCaseDB
     use DatabaseTransactions;
     use ArrangeFixture, CreateUser, CreateContact, CreateBusiness, CreateService, CreateVacancy, CreateAppointment;
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->arrangeFixture();
+
+        $this->concierge = new Concierge();
+    }
+
     /**
      * @test
      */
     public function it_takes_a_reservation()
     {
-        $this->arrangeFixture();
-
-        $this->concierge = new Concierge();
-
         $reservation = [
             'issuer'   => 1,
             'business' => $this->business,
@@ -44,10 +49,6 @@ class ConciergeUnitTest extends TestCaseDB
      */
     public function it_rejects_a_reservation_if_not_available()
     {
-        $this->arrangeFixture();
-
-        $this->concierge = new Concierge();
-
         $reservation = [
             'issuer'   => 1,
             'business' => $this->business,
