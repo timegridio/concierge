@@ -527,18 +527,6 @@ class Appointment extends EloquentModel implements HasPresenter
     //////////////////////////
 
     /**
-     * User is target contact of the appointment.
-     *
-     * @param int $userId
-     *
-     * @return bool
-     */
-    public function isTarget($userId)
-    {
-        return $this->contact->isProfileOf($userId);
-    }
-
-    /**
      * User is issuer of the appointment.
      *
      * @param int $userId
