@@ -109,7 +109,6 @@ class BookingTimeslotStrategyUnitTest extends TestCaseDB
             'comments'    => 'test dont test',
             ]);
 
-
         $vacancies = $this->business->vacancies()->with('appointments')->with('service')->get();
 
         $timetable = $bookingStrategy->buildTimetable($vacancies);

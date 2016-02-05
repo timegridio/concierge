@@ -1,7 +1,7 @@
 <?php
 
-use Timegridio\Concierge\Models\Service;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Timegridio\Concierge\Models\Service;
 
 class ServiceTest extends TestCaseDB
 {
