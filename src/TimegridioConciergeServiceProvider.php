@@ -13,6 +13,7 @@ class TimegridioConciergeServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = false;
+
     /**
      * Perform post-registration booting of services.
      *
@@ -26,17 +27,8 @@ class TimegridioConciergeServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../migrations/' => base_path('/database/migrations'),
         ]);
-
-        // use this if your package needs a config file
-        // $this->publishes([
-        //         __DIR__.'/config/config.php' => config_path('concierge.php'),
-        // ]);
-
-        // use the vendor configuration file as fallback
-        // $this->mergeConfigFrom(
-        //     __DIR__.'/config/config.php', 'concierge'
-        // );
     }
+
     /**
      * Define the routes for the application.
      *
@@ -50,6 +42,7 @@ class TimegridioConciergeServiceProvider extends ServiceProvider
             require __DIR__.'/Http/routes.php';
         });
     }
+
     /**
      * Register any package services.
      *
@@ -58,12 +51,13 @@ class TimegridioConciergeServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerConcierge();
-
-        // use this if your package has a config file
-        // config([
-        //         'config/concierge.php',
-        // ]);
     }
+
+    /**
+     * Register package.
+     *
+     * @return Concierge
+     */
     private function registerConcierge()
     {
         $this->app->bind('concierge', function ($app) {
