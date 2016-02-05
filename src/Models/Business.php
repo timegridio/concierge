@@ -19,8 +19,8 @@ class Business extends EloquentModel implements HasPresenter
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'timezone', 'postal_address',
-        'phone', 'social_facebook', 'strategy', 'plan', 'country_code', 'locale', ];
+    protected $fillable = ['name', 'description', 'timezone', 'postal_address', 'phone', 'social_facebook', 'strategy',
+        'plan', 'country_code', 'locale', ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -45,41 +45,36 @@ class Business extends EloquentModel implements HasPresenter
         });
     }
 
+    /**
+     * Make Slug.
+     *
+     * @param  string $name
+     *
+     * @return string
+     */
     protected function makeSlug($name)
     {
         return str_slug($name);
     }
-
-    /**
-     * Create Business model.
-     *
-     * @param array $attributes Attributes for filling the model
-     */
-//    public function __construct(array $attributes = [])
-//    {
-//        parent::__construct($attributes);
-//        $this->setSlugAttribute();
-//    }
 
     ///////////////////
     // Relationships //
     ///////////////////
 
     /**
-     * belongs to Category.
+     * Belongs to a Category.
      *
-     * @return Illuminate\Database\Query Relationship Business Category query
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
-        /* TODO: Use cache here? */
         return $this->belongsTo(Category::class);
     }
 
     /**
-     * holds Contacts.
+     * Has a Contact addressbook.
      *
-     * @return Illuminate\Database\Query Relationship Business held Contacts query
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function contacts()
     {
@@ -90,9 +85,9 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * provides Services.
+     * Provides a catalog of Services.
      *
-     * @return Illuminate\Database\Query Relationship Business provided Services query
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function services()
     {
@@ -100,9 +95,9 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * provides Service types.
+     * Provides Services of Types.
      *
-     * @return Illuminate\Database\Query Relationship
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function servicetypes()
     {
@@ -110,9 +105,9 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * publishes Vacancies.
+     * Publishes Vacancies.
      *
-     * @return Illuminate\Database\Query Relationship Business published Vacancies query
+     * @return Illuminate\Database\Eloquent\hasMany
      */
     public function vacancies()
     {
@@ -120,10 +115,9 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * ToDo: Should be renamed to "appointments"
-     * holds Appointments booking.
+     * Holds booked Appointments.
      *
-     * @return Illuminate\Database\Query Relationship Business holds Appointments query
+     * @return Illuminate\Database\Eloquent\hasMany
      */
     public function bookings()
     {
@@ -131,31 +125,29 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * belongs to Users.
+     * Is owned by Users.
      *
-     * @return Illuminate\Database\Query Relationship Business belongs to User (owners) query
+     * @return Illuminate\Database\Eloquent\belongsToMany
      */
     public function owners()
     {
-        /* TODO: Use cache here? */
         return $this->belongsToMany(config('auth.providers.users.model'))->withTimestamps();
     }
 
     /**
-     * belongs to User.
+     * Belongs to a User.
      *
-     * @return User Relationship Business belongs to User (owner)
+     * @return User
      */
     public function owner()
     {
-        /* TODO: Use cache here? */
         return $this->owners()->first();
     }
 
     /**
      * Get the real Users subscriptions count.
      *
-     * @return Illuminate\Database\Query Relationship
+     * @return Illuminate\Database\Eloquent\belongsToMany
      */
     public function subscriptionsCount()
     {
@@ -166,7 +158,7 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * get SubscriptionsCount Attribute.
+     * Get SubscriptionsCount Attribute.
      *
      * @return int Count of Contacts with real User held by this Business
      */
@@ -194,7 +186,7 @@ class Business extends EloquentModel implements HasPresenter
     ///////////////
 
     /**
-     * get presenter.
+     * Get presenter.
      *
      * @return BusinessPresenter Presenter class
      */
@@ -222,7 +214,7 @@ class Business extends EloquentModel implements HasPresenter
     //////////////
 
     /**
-     * set Slug.
+     * Set Slug.
      *
      * @return string Generated slug
      */
@@ -232,7 +224,7 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * set name of the business.
+     * Set name of the business.
      *
      * @param string $name Name of business
      */
@@ -243,7 +235,7 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * set Phone.
+     * Set Phone.
      *
      * Expected phone number is international format numeric only
      *
@@ -255,7 +247,7 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * set Postal Address.
+     * Set Postal Address.
      *
      * @param string $postal_address Postal address
      */
@@ -265,7 +257,7 @@ class Business extends EloquentModel implements HasPresenter
     }
 
     /**
-     * set Social Facebook.
+     * Set Social Facebook.
      *
      * @param string $social_facebook Facebook User URL
      */
