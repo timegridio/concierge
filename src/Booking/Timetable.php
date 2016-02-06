@@ -53,7 +53,7 @@ class Timetable
      *
      * @var array
      */
-    protected $services = ['default'];
+    protected $services = [];
 
     /**
      * Dimensions format of the timetable matrix.
