@@ -30,20 +30,6 @@ class TimegridioConciergeServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the routes for the application.
-     *
-     * @param  \Illuminate\Routing\Router  $router
-     *
-     * @return void
-     */
-    public function setupRoutes(Router $router)
-    {
-        $router->group(['namespace' => 'Timegridio\Concierge\Http\Controllers'], function ($router) {
-            require __DIR__.'/Http/routes.php';
-        });
-    }
-
-    /**
      * Register any package services.
      *
      * @return void
