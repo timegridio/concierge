@@ -31,7 +31,7 @@ class Contact extends EloquentModel implements HasPresenter
     /**
      * is profile of User.
      *
-     * @return Illuminate\Database\Query Relationship Contact belongs to User query
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Relationship Contact belongs to User query
      */
     public function user()
     {
@@ -41,7 +41,7 @@ class Contact extends EloquentModel implements HasPresenter
     /**
      * belongs to Business.
      *
-     * @return Illuminate\Database\Query Relationship Contact is part of Businesses addressbooks query
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany Relationship Contact is part of Businesses addressbooks query
      */
     public function businesses()
     {
@@ -51,7 +51,7 @@ class Contact extends EloquentModel implements HasPresenter
     /**
      * has Appointments.
      *
-     * @return Illuminate\Database\Query Relationship Contact has booked Appointments query
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Relationship Contact has booked Appointments query
      */
     public function appointments()
     {
@@ -148,7 +148,7 @@ class Contact extends EloquentModel implements HasPresenter
     /**
      * set Birthdate.
      *
-     * @param string $birthdate Carbon parseable birth date
+     * @param Carbon $birthdate Carbon parseable birth date
      */
     public function setBirthdateAttribute(Carbon $birthdate = null)
     {
