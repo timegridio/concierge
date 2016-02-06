@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Timegridio\Concierge\Models\Service;
+use Timegridio\Concierge\Models\ServiceType;
 
 class ServiceTest extends TestCaseDB
 {
@@ -9,7 +10,6 @@ class ServiceTest extends TestCaseDB
     use CreateBusiness, CreateService;
 
     /**
-     * @covers  Timegridio\Concierge\Models\Service::scopeSlug
      * @test
      */
     public function it_scopes_by_slug()
@@ -23,8 +23,29 @@ class ServiceTest extends TestCaseDB
         $count = $services->count();
         $service = $services->first();
 
-        /* Perform Test */
         $this->assertInstanceOf(Service::class, $service);
         $this->assertEquals($count, 1);
+    }
+
+    /**
+     * @test
+     */
+    public function it_belongs_to_a_nullable_service_type()
+    {
+        $service = $this->createService();
+
+        $this->assertNull($service->type);
+    }
+
+    /**
+     * @test
+     */
+    public function it_belongs_to_a_valid_service_type()
+    {
+        $service = $this->createService([
+            'type_id' => 'factory:Timegridio\Concierge\Models\ServiceType',
+            ]);
+
+        $this->assertInstanceOf(ServiceType::class, $service->type);
     }
 }
