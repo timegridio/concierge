@@ -139,21 +139,22 @@ class ContactTest extends TestCaseDB
     {
         $contact = $this->createContact();
 
-        // Provide Formatted String
-
-        $contact->birthdate = Carbon::parse('1985-01-16');
-
-        $this->assertInstanceOf(Carbon::class, $contact->birthdate);
-        $this->assertEquals('1985-01-16', $contact->birthdate->toDateString());
-
         // Provide Carbon Instance
 
         $contact->birthdate = Carbon::parse('1985-01-16');
 
         $this->assertInstanceOf(Carbon::class, $contact->birthdate);
         $this->assertEquals('1985-01-16', $contact->birthdate->toDateString());
+    }
 
-        // Provide Empty String
+    /**
+     * @test
+     */
+    public function it_may_have_a_nullable_birthdate()
+    {
+        $contact = $this->createContact();
+
+        // Provide Null date
 
         $contact->birthdate = null;
 
