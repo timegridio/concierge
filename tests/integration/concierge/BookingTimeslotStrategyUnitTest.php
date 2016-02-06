@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Timegridio\Concierge\Booking\Strategies\BookingStrategy;
 
@@ -60,8 +61,8 @@ class BookingTimeslotStrategyUnitTest extends TestCaseDB
             'service_id'  => $this->service->id,
             'vacancy_id'  => $this->vacancy->id,
             'status'      => 'C',
-            'start_at'    => Carbon\Carbon::parse("{$this->vacancy->date} 10:00:00 ".$timezone)->timezone('UTC'),
-            'finish_at'   => Carbon\Carbon::parse("{$this->vacancy->date} 10:30:00 ".$timezone)->timezone('UTC'),
+            'start_at'    => Carbon::parse("{$this->vacancy->date} 10:00:00 ".$timezone)->timezone('UTC'),
+            'finish_at'   => Carbon::parse("{$this->vacancy->date} 10:30:00 ".$timezone)->timezone('UTC'),
             'duration'    => 30,
             'comments'    => 'test dont test',
             ]);
@@ -98,8 +99,8 @@ class BookingTimeslotStrategyUnitTest extends TestCaseDB
             'service_id'  => $this->service->id,
             'vacancy_id'  => $this->vacancy->id,
             'status'      => 'C',
-            'start_at'    => Carbon\Carbon::parse("{$this->vacancy->date} 10:00:00 ".$timezone)->timezone('UTC'),
-            'finish_at'   => Carbon\Carbon::parse("{$this->vacancy->date} 10:30:00 ".$timezone)->timezone('UTC'),
+            'start_at'    => Carbon::parse("{$this->vacancy->date} 10:00:00 ".$timezone)->timezone('UTC'),
+            'finish_at'   => Carbon::parse("{$this->vacancy->date} 10:30:00 ".$timezone)->timezone('UTC'),
             'duration'    => 30,
             'comments'    => 'test dont test',
             ]);
@@ -112,8 +113,8 @@ class BookingTimeslotStrategyUnitTest extends TestCaseDB
             'service_id'  => $this->service->id,
             'vacancy_id'  => $this->vacancy->id,
             'status'      => 'C',
-            'start_at'    => Carbon\Carbon::parse("{$this->vacancy->date} 10:00:00 ".$this->business->timezone)->timezone('UTC'),
-            'finish_at'   => Carbon\Carbon::parse("{$this->vacancy->date} 10:30:00 ".$this->business->timezone)->timezone('UTC'),
+            'start_at'    => Carbon::parse("{$this->vacancy->date} 10:00:00 ".$this->business->timezone)->timezone('UTC'),
+            'finish_at'   => Carbon::parse("{$this->vacancy->date} 10:30:00 ".$this->business->timezone)->timezone('UTC'),
             'duration'    => 30,
             'comments'    => 'test dont test',
             ]);
