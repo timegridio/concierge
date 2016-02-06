@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Timegridio\Concierge\Models\Appointment</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Timegridio.html">
+						Timegridio<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Timegridio.Concierge.html">
+						Concierge<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Timegridio.Concierge.Calendar.html">
+						Calendar					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Timegridio.Concierge.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Timegridio.Concierge.Models.html">
+						Models					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Timegridio.Concierge.Presenters.html">
+						Presenters					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Timegridio.Concierge.Timetable.html">
+						Timetable<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Timegridio.Concierge.Timetable.Strategies.html">
+						Strategies					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Timegridio.Concierge.Traits.html">
+						Traits					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Timegridio.Concierge.Models.Appointment.html">Appointment</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.Business.html">Business</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.Category.html">Category</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.Contact.html">Contact</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.Domain.html">Domain</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.Preference.html">Preference</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.Service.html">Service</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.ServiceType.html">ServiceType</a></li>
+				<li><a href="class-Timegridio.Concierge.Models.Vacancy.html">Vacancy</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Timegridio.Concierge.Models.html" title="Summary of Timegridio\Concierge\Models"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Appointment</h1>
+
+
+	<div class="description">
+	<p>An Appointment can be understood as a reservation of a given Service,
+provided by a given Business, targeted to a Contact, which will take place
+on a determined Date and Time, and might have a duration and or comments.</p>
+
+<p>The Appointment can be issued by the Contact's User or by the Business owner.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Illuminate\Database\Eloquent\Model
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Timegridio\Concierge\Models\Appointment</span></b>			
+			 implements 
+<span>McCool\LaravelAutoPresenter\HasPresenter</span>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Timegridio.html">Timegridio</a>\<a href="namespace-Timegridio.Concierge.html">Concierge</a>\<a href="namespace-Timegridio.Concierge.Models.html">Models</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Timegridio.Concierge.Models.Appointment.html#10-620" title="Go to source code">Models/Appointment.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="getPresenterClass" id="_getPresenterClass">
+
+		<td class="attributes"><code>
+			 public 
+
+			App\Presenters\AppointmentPresenter
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPresenterClass">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#53-61" title="Go to source code">getPresenterClass</a>( )</code>
+
+		<div class="description short">
+			<p>Get Presenter Class.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get Presenter Class.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					App\Presenters\AppointmentPresenter
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="save" id="_save">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_save">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#63-75" title="Go to source code">save</a>( <span>array <var>$options</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Generate hash and save the model to the database.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generate hash and save the model to the database.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="issuer" id="_issuer">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Eloquent\Relations\BelongsTo
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_issuer">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#81-89" title="Go to source code">issuer</a>( )</code>
+
+		<div class="description short">
+			<p>Get the issuer (the User that generated the Appointment).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the issuer (the User that generated the Appointment).</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Eloquent\Relations\BelongsTo
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="contact" id="_contact">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Eloquent\Relations\BelongsTo
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_contact">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#91-99" title="Go to source code">contact</a>( )</code>
+
+		<div class="description short">
+			<p>Get the target Contact (for whom is reserved the Appointment).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the target Contact (for whom is reserved the Appointment).</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Eloquent\Relations\BelongsTo
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="business" id="_business">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Eloquent\Relations\BelongsTo
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_business">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#101-109" title="Go to source code">business</a>( )</code>
+
+		<div class="description short">
+			<p>Get the holding Business (that has taken the reservation).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the holding Business (that has taken the reservation).</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Eloquent\Relations\BelongsTo
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="service" id="_service">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Eloquent\Relations\BelongsTo
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_service">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#111-119" title="Go to source code">service</a>( )</code>
+
+		<div class="description short">
+			<p>Get the reserved Service.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the reserved Service.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Eloquent\Relations\BelongsTo
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="vacancy" id="_vacancy">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Eloquent\Relations\BelongsTo
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_vacancy">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#121-130" title="Go to source code">vacancy</a>( )</code>
+
+		<div class="description short">
+			<p>Get the Vacancy (that justifies the availability of resources for the
+Appointment generation).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the Vacancy (that justifies the availability of resources for the
+Appointment generation).</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Eloquent\Relations\BelongsTo
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="user" id="_user">
+
+		<td class="attributes"><code>
+			 public 
+
+			User
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_user">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#136-144" title="Go to source code">user</a>( )</code>
+
+		<div class="description short">
+			<p>Get the User through Contact.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the User through Contact.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					User
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="duplicates" id="_duplicates">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_duplicates">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#146-155" title="Go to source code">duplicates</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if the new Appointment will hash-crash with another existing
+Appointment.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if the new Appointment will hash-crash with another existing
+Appointment.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHashAttribute" id="_getHashAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHashAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#161-171" title="Go to source code">getHashAttribute</a>( )</code>
+
+		<div class="description short">
+			<p>Get Hash.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get Hash.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFinishAtAttribute" id="_getFinishAtAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			Carbon\Carbon
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFinishAtAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#173-190" title="Go to source code">getFinishAtAttribute</a>( )</code>
+
+		<div class="description short">
+			<p>Get Finish At:
+Calculates the start_at time plus duration in minutes.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get Finish At:
+Calculates the start_at time plus duration in minutes.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					Carbon\Carbon
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTZAttribute" id="_getTZAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTZAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#192-200" title="Go to source code">getTZAttribute</a>( )</code>
+
+		<div class="description short">
+			<p>Get TimeZone (from the Business).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get TimeZone (from the Business).</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStatusLabelAttribute" id="_getStatusLabelAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStatusLabelAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#202-219" title="Go to source code">getStatusLabelAttribute</a>( )</code>
+
+		<div class="description short">
+			<p>Get the human readable status name.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the human readable status name.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDateAttribute" id="_getDateAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDateAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#221-231" title="Go to source code">getDateAttribute</a>( )</code>
+
+		<div class="description short">
+			<p>Get the date of the Appointment.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the date of the Appointment.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="doHash" id="_doHash">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_doHash">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#237-250" title="Go to source code">doHash</a>( )</code>
+
+		<div class="description short">
+			<p>Generate Appointment hash.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generate Appointment hash.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setStartAtAttribute" id="_setStartAtAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setStartAtAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#252-260" title="Go to source code">setStartAtAttribute</a>( <span>Carbon\Carbon\Carbon <var>$datetime</var></span> )</code>
+
+		<div class="description short">
+			<p>Set start at.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set start at.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$datetime</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFinishAtAttribute" id="_setFinishAtAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFinishAtAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#262-270" title="Go to source code">setFinishAtAttribute</a>( <span>Carbon\Carbon\Carbon <var>$datetime</var></span> )</code>
+
+		<div class="description short">
+			<p>Set finish_at attribute.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set finish_at attribute.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$datetime</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setCommentsAttribute" id="_setCommentsAttribute">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setCommentsAttribute">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#272-280" title="Go to source code">setCommentsAttribute</a>( <span>string <var>$comments</var></span> )</code>
+
+		<div class="description short">
+			<p>Set Comments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set Comments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$comments</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isReserved" id="_isReserved">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isReserved">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#286-294" title="Go to source code">isReserved</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if is Reserved.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if is Reserved.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isActive" id="_isActive">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isActive">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#317-327" title="Go to source code">isActive</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if is Active.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if is Active.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isPending" id="_isPending">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isPending">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#329-337" title="Go to source code">isPending</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if is Pending.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if is Pending.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isFuture" id="_isFuture">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isFuture">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#339-347" title="Go to source code">isFuture</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if is Future.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if is Future.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isDue" id="_isDue">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isDue">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#349-357" title="Go to source code">isDue</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if is due.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if is due.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeUnarchived" id="_scopeUnarchived">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeUnarchived">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#367-384" title="Go to source code">scopeUnarchived</a>( <span>Illuminate\Database\Query <var>$query</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope to Unarchived Appointments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope to Unarchived Appointments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeServed" id="_scopeServed">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeServed">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#386-396" title="Go to source code">scopeServed</a>( <span>Illuminate\Database\Query <var>$query</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope to Served Appointments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope to Served Appointments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeAnnulated" id="_scopeAnnulated">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeAnnulated">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#398-408" title="Go to source code">scopeAnnulated</a>( <span>Illuminate\Database\Query <var>$query</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope to Annulated Appointments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope to Annulated Appointments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeUnServed" id="_scopeUnServed">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeUnServed">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#414-424" title="Go to source code">scopeUnServed</a>( <span>Illuminate\Database\Query <var>$query</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope to not Served Appointments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope to not Served Appointments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeActive" id="_scopeActive">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeActive">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#426-436" title="Go to source code">scopeActive</a>( <span>Illuminate\Database\Query <var>$query</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope to Active Appointments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope to Active Appointments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeOfBusiness" id="_scopeOfBusiness">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeOfBusiness">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#438-449" title="Go to source code">scopeOfBusiness</a>( <span>Illuminate\Database\Query <var>$query</var></span>, <span>integer <var>$businessId</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope of Business.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope of Business.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+					<dt><var>$businessId</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeOfDate" id="_scopeOfDate">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeOfDate">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#451-462" title="Go to source code">scopeOfDate</a>( <span>Illuminate\Database\Query <var>$query</var></span>, <span>Carbon\Carbon\Carbon <var>$date</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope of date.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope of date.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+					<dt><var>$date</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeFuture" id="_scopeFuture">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeFuture">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#464-476" title="Go to source code">scopeFuture</a>( <span>Illuminate\Database\Query <var>$query</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope only future appointments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope only future appointments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeTillDate" id="_scopeTillDate">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeTillDate">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#478-489" title="Go to source code">scopeTillDate</a>( <span>Illuminate\Database\Query <var>$query</var></span>, <span>Carbon\Carbon\Carbon <var>$date</var></span> )</code>
+
+		<div class="description short">
+			<p>Scope only till date.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Scope only till date.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+					<dt><var>$date</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="scopeAffectingInterval" id="_scopeAffectingInterval">
+
+		<td class="attributes"><code>
+			 public 
+
+			Illuminate\Database\Query
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_scopeAffectingInterval">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#491-523" title="Go to source code">scopeAffectingInterval</a>( <span>Illuminate\Database\Query <var>$query</var></span>, <span>Carbon\Carbon\Carbon <var>$startAt</var></span>, <span>Carbon\Carbon\Carbon <var>$finishAt</var></span> )</code>
+
+		<div class="description short">
+			<p>Between Dates.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Between Dates.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$query</var></dt>
+					<dd></dd>
+					<dt><var>$startAt</var></dt>
+					<dd></dd>
+					<dt><var>$finishAt</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Illuminate\Database\Query
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isServeable" id="_isServeable">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isServeable">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#525-533" title="Go to source code">isServeable</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if the Serve action can be performed.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if the Serve action can be performed.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isConfirmable" id="_isConfirmable">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isConfirmable">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#535-543" title="Go to source code">isConfirmable</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if the Confirm action can be performed.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if the Confirm action can be performed.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isAnnulable" id="_isAnnulable">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isAnnulable">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#545-553" title="Go to source code">isAnnulable</a>( )</code>
+
+		<div class="description short">
+			<p>Determine if the Annulate action can be performed.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine if the Annulate action can be performed.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="doReserve" id="_doReserve">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_doReserve">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#559-571" title="Go to source code">doReserve</a>( )</code>
+
+		<div class="description short">
+			<p>Check and perform Confirm action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check and perform Confirm action.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<br>$this
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="doConfirm" id="_doConfirm">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_doConfirm">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#573-587" title="Go to source code">doConfirm</a>( )</code>
+
+		<div class="description short">
+			<p>Check and perform Confirm action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check and perform Confirm action.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<br>$this
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="doAnnulate" id="_doAnnulate">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_doAnnulate">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#589-603" title="Go to source code">doAnnulate</a>( )</code>
+
+		<div class="description short">
+			<p>Check and perform Annulate action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check and perform Annulate action.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<br>$this
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="doServe" id="_doServe">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_doServe">#</a>
+		<code><a href="source-class-Timegridio.Concierge.Models.Appointment.html#605-619" title="Go to source code">doServe</a>( )</code>
+
+		<div class="description short">
+			<p>Check and perform Serve action.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check and perform Serve action.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<br>$this
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="STATUS_RESERVED" id="STATUS_RESERVED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Timegridio.Concierge.Models.Appointment.html#41-44" title="Go to source code"><b>STATUS_RESERVED</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Appointment Hard Status Constants.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Appointment Hard Status Constants.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATUS_RESERVED" class="anchor">#</a>
+				<code><span class="php-quote">'R'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="STATUS_CONFIRMED" id="STATUS_CONFIRMED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Timegridio.Concierge.Models.Appointment.html#45" title="Go to source code"><b>STATUS_CONFIRMED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATUS_CONFIRMED" class="anchor">#</a>
+				<code><span class="php-quote">'C'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="STATUS_ANNULATED" id="STATUS_ANNULATED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Timegridio.Concierge.Models.Appointment.html#46" title="Go to source code"><b>STATUS_ANNULATED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATUS_ANNULATED" class="anchor">#</a>
+				<code><span class="php-quote">'A'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="STATUS_SERVED" id="STATUS_SERVED">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Timegridio.Concierge.Models.Appointment.html#47" title="Go to source code"><b>STATUS_SERVED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATUS_SERVED" class="anchor">#</a>
+				<code><span class="php-quote">'S'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="fillable" id="$fillable">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Timegridio.Concierge.Models.Appointment.html#19-25" title="Go to source code"><var>$fillable</var></a>
+
+			<div class="description short">
+				<p>The attributes that are mass assignable.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The attributes that are mass assignable.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$fillable" class="anchor">#</a>
+				<code>[<span class="php-quote">'issuer_id'</span>, <span class="php-quote">'contact_id'</span>, <span class="php-quote">'business_id'</span>,
+    <span class="php-quote">'service_id'</span>, <span class="php-quote">'start_at'</span>, <span class="php-quote">'finish_at'</span>, <span class="php-quote">'duration'</span>, <span class="php-quote">'comments'</span>, ]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="guarded" id="$guarded">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Timegridio.Concierge.Models.Appointment.html#27-32" title="Go to source code"><var>$guarded</var></a>
+
+			<div class="description short">
+				<p>The attributes that aren't mass assignable.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The attributes that aren't mass assignable.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$guarded" class="anchor">#</a>
+				<code>[<span class="php-quote">'id'</span>, <span class="php-quote">'hash'</span>, <span class="php-quote">'status'</span>, <span class="php-quote">'vacancy_id'</span>]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="dates" id="$dates">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Timegridio.Concierge.Models.Appointment.html#34-39" title="Go to source code"><var>$dates</var></a>
+
+			<div class="description short">
+				<p>The attributes that should be mutated to dates.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The attributes that should be mutated to dates.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$dates" class="anchor">#</a>
+				<code>[<span class="php-quote">'start_at'</span>, <span class="php-quote">'finish_at'</span>]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
