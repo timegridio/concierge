@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Possible boilerplate code for enhancing classes.
+ */
+
 namespace Timegridio\Concierge;
 
 class ReservationData
