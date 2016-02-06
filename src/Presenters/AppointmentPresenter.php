@@ -22,11 +22,11 @@ class AppointmentPresenter extends BasePresenter
     public function date($format = 'Y-m-d')
     {
         if ($this->wrappedObject->start_at->isToday()) {
-            return studly_case(trans('appointments.text.today'));
+            return studly_case(trans('Concierge::appointments.text.today'));
         }
 
         if ($this->wrappedObject->start_at->isTomorrow()) {
-            return studly_case(trans('appointments.text.tomorrow'));
+            return studly_case(trans('Concierge::appointments.text.tomorrow'));
         }
 
         return $this->wrappedObject
@@ -53,7 +53,7 @@ class AppointmentPresenter extends BasePresenter
                        ->timezone($this->wrappedObject->business->timezone)
                        ->format(config('root.time.format'));
 
-        return ucwords(trans('appointments.text.from_to', ['from' => $fromTime, 'to' => $toTime]));
+        return ucwords(trans('Concierge::appointments.text.from_to', ['from' => $fromTime, 'to' => $toTime]));
     }
 
     public function time()
@@ -89,12 +89,12 @@ class AppointmentPresenter extends BasePresenter
 
     public function statusLetter()
     {
-        return substr(trans('appointments.status.'.$this->wrappedObject->statusLabel), 0, 1);
+        return substr(trans('Concierge::appointments.status.'.$this->wrappedObject->statusLabel), 0, 1);
     }
 
     public function status()
     {
-        return trans('appointments.status.'.$this->wrappedObject->statusLabel);
+        return trans('Concierge::appointments.status.'.$this->wrappedObject->statusLabel);
     }
 
     public function statusIcon()
