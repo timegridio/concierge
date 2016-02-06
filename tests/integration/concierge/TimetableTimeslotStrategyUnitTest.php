@@ -2,9 +2,9 @@
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Timegridio\Concierge\Booking\Strategies\BookingStrategy;
+use Timegridio\Concierge\Timetable\Strategies\TimetableStrategy;
 
-class BookingDateslotStrategyUnitTest extends TestCaseDB
+class TimetableTimeslotStrategyUnitTest extends TestCaseDB
 {
     use DatabaseTransactions;
     use ArrangeFixture, CreateUser, CreateContact, CreateBusiness, CreateService, CreateVacancy, CreateAppointment;
@@ -15,21 +15,21 @@ class BookingDateslotStrategyUnitTest extends TestCaseDB
      */
     public function it_rejects_unrecognized_strategies()
     {
-        new BookingStrategy('invalid');
+        new TimetableStrategy('invalid');
     }
 
     /**
      * @test
      */
-    public function it_generates_a_dateslot_timetable()
+    public function it_generates_a_timeslot_timetable()
     {
         $this->arrangeFixture();
 
-        $bookingStrategy = new BookingStrategy('dateslot');
+        $timetableStrategy = new TimetableStrategy('timeslot');
 
         $vacancies = $this->business->vacancies()->with('appointments')->with('service')->get();
 
-        $timetable = $bookingStrategy->buildTimetable($vacancies);
+        $timetable = $timetableStrategy->buildTimetable($vacancies);
 
         $timezone = $this->vacancy->business->timezone;
 
@@ -47,11 +47,11 @@ class BookingDateslotStrategyUnitTest extends TestCaseDB
     /**
      * @test
      */
-    public function it_generates_a_dateslot_timetable_and_discounts_one_booked_appointment()
+    public function it_generates_a_timeslot_timetable_and_discounts_one_booked_appointment()
     {
         $this->arrangeFixture();
 
-        $bookingStrategy = new BookingStrategy('timeslot');
+        $timetableStrategy = new TimetableStrategy('timeslot');
 
         $timezone = $this->vacancy->business->timezone;
 
@@ -69,7 +69,7 @@ class BookingDateslotStrategyUnitTest extends TestCaseDB
 
         $vacancies = $this->business->vacancies()->with('appointments')->with('service')->get();
 
-        $timetable = $bookingStrategy->buildTimetable($vacancies);
+        $timetable = $timetableStrategy->buildTimetable($vacancies);
 
         $expected = [
             $this->vacancy->date => [
@@ -85,11 +85,11 @@ class BookingDateslotStrategyUnitTest extends TestCaseDB
     /**
      * @test
      */
-    public function it_generates_a_dateslot_timetable_and_discounts_two_booked_appointments()
+    public function it_generates_a_timeslot_timetable_and_discounts_two_booked_appointments()
     {
         $this->arrangeFixture();
 
-        $bookingStrategy = new BookingStrategy('timeslot');
+        $timetableStrategy = new TimetableStrategy('timeslot');
 
         $timezone = $this->vacancy->business->timezone;
 
@@ -121,7 +121,7 @@ class BookingDateslotStrategyUnitTest extends TestCaseDB
 
         $vacancies = $this->business->vacancies()->with('appointments')->with('service')->get();
 
-        $timetable = $bookingStrategy->buildTimetable($vacancies);
+        $timetable = $timetableStrategy->buildTimetable($vacancies);
 
         $expected = [
             $this->vacancy->date => [

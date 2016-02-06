@@ -1,17 +1,17 @@
 <?php
 
-namespace Timegridio\Concierge\Booking\Strategies;
+namespace Timegridio\Concierge\Timetable\Strategies;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Timegridio\Concierge\Booking\Timetable;
+use Timegridio\Concierge\Timetable\Timetable;
 use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Service;
 use Timegridio\Concierge\Models\Vacancy;
 
-class BookingTimeslotStrategy implements BookingStrategyInterface
+class TimetableTimeslotStrategy implements TimetableStrategyInterface
 {
     private $timetable;
 

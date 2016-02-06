@@ -1,10 +1,10 @@
 <?php
 
-namespace Timegridio\Concierge\Booking\Strategies;
+namespace Timegridio\Concierge\Timetable\Strategies;
 
-use Timegridio\Concierge\Booking\Timetable;
+use Timegridio\Concierge\Timetable\Timetable;
 
-interface BookingStrategyInterface
+interface TimetableStrategyInterface
 {
     public function __construct(Timetable $timetable);
 

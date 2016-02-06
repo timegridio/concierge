@@ -1,6 +1,6 @@
 <?php
 
-use Timegridio\Concierge\Booking\Timetable;
+use Timegridio\Concierge\Timetable\Timetable;
 
 class TimetableTest extends TestCaseDB
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Timegridio\Concierge\Booking;
+namespace Timegridio\Concierge\Timetable;
 
 use Illuminate\Support\Arr;
 

@@ -1,25 +1,25 @@
 <?php
 
-namespace Timegridio\Concierge\Booking\Strategies;
+namespace Timegridio\Concierge\Timetable\Strategies;
 
 use Carbon\Carbon;
-use Timegridio\Concierge\Booking\Timetable;
+use Timegridio\Concierge\Timetable\Timetable;
 use Timegridio\Concierge\Exceptions\StrategyNotRecognizedException;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Service;
 
-class BookingStrategy
+class TimetableStrategy
 {
     /**
-     * Booking Strategy.
+     * Timetable Strategy.
      *
-     * @var BookingTimeslotStrategy|BookingDateslotStrategy
+     * @var TimetableTimeslotStrategy|TimetableDateslotStrategy
      */
     protected $strategy = null;
 
     /**
-     * Construct Booking Strategy class.
+     * Construct Timetable Strategy class.
      *
      * @param string $strategyId
      *
@@ -29,10 +29,10 @@ class BookingStrategy
     {
         switch ($strategyId) {
             case 'timeslot':
-                $this->strategy = new BookingTimeslotStrategy(new Timetable());
+                $this->strategy = new TimetableTimeslotStrategy(new Timetable());
                 break;
             case 'dateslot':
-                $this->strategy = new BookingDateslotStrategy(new Timetable());
+                $this->strategy = new TimetableDateslotStrategy(new Timetable());
                 break;
             default:
                 throw new StrategyNotRecognizedException($strategyId);
