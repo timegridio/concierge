@@ -2,7 +2,6 @@
 
 namespace Timegridio\Concierge\Models;
 
-use Fenos\Notifynder\Notifable;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use McCool\LaravelAutoPresenter\HasPresenter;
@@ -12,7 +11,7 @@ use Timegridio\Concierge\Traits\Preferenceable;
 
 class Business extends EloquentModel implements HasPresenter
 {
-    use SoftDeletes, Preferenceable, HasDomain, Notifable;
+    use SoftDeletes, Preferenceable, HasDomain;
 
     /**
      * The attributes that are mass assignable.

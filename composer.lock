@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "51bc32288f58a1d9401f8886f2c5ee76",
-    "content-hash": "f7233d33fb6a2645efc7265999d3125c",
+    "hash": "288106b8cb2bfaa67dfcc684f792fd18",
+    "content-hash": "5fe204292cca493ce3463f5b1e354acb",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -160,56 +160,6 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
-        },
-        {
-            "name": "fenos/notifynder",
-            "version": "3.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fenos/Notifynder.git",
-                "reference": "1604a7451fbc1696b4467f930ec818818b87fc34"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fenos/Notifynder/zipball/1604a7451fbc1696b4467f930ec818818b87fc34",
-                "reference": "1604a7451fbc1696b4467f930ec818818b87fc34",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "5.*",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "laracasts/testdummy": "~2.0",
-                "laravel/framework": "5.0.*",
-                "orchestra/testbench": "3.0.*",
-                "phpspec/phpspec": "~2.1",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [],
-                "psr-4": {
-                    "Fenos\\Notifynder\\": "src/Notifynder"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabrizio Fenoglio",
-                    "email": "fabri_feno@yahoo.it",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Management system of internal notifications for Laravel 5.*",
-            "keywords": [
-                "laravel",
-                "notifications"
-            ],
-            "time": "2015-12-28 05:09:18"
         },
         {
             "name": "jakub-onderka/php-console-color",

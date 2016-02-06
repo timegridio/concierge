@@ -22,8 +22,7 @@
     "require": {
         "php": ">=5.5.0",
         "illuminate/support": "5.*",
-        "mccool/laravel-auto-presenter": "^4.0",
-        "fenos/notifynder": "3.*"
+        "mccool/laravel-auto-presenter": "^4.0"
     },
     "require-dev": {
         "laravel/framework": "5.2.*",
