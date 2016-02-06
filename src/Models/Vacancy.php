@@ -5,6 +5,10 @@ namespace Timegridio\Concierge\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
+/**
+ * @property Timegridio\Concierge\Models\Business $business
+ * @property string $date Local timezone date of the published Vacancy
+ */
 class Vacancy extends EloquentModel
 {
     /**
