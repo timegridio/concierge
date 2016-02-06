@@ -150,21 +150,10 @@ class Contact extends EloquentModel implements HasPresenter
      *
      * @param string $birthdate Carbon parseable birth date
      */
-    public function setBirthdateAttribute($birthdate)
+    public function setBirthdateAttribute(Carbon $birthdate = null)
     {
-        if (is_string($birthdate)) {
-            if (empty(trim($birthdate))) {
-                return $this->attributes['birthdate'] = null;
-            }
-
-            if (stripos($birthdate, '-')) {
-                return $this->attributes['birthdate'] = Carbon::parse($birthdate);
-            }
-
-            return $this->attributes['birthdate'] = Carbon::createFromFormat(
-                trans('app.dateformat.carbon'),
-                $birthdate
-            );
+        if ($birthdate === null) {
+            return $this->attributes['birthdate'] = null;
         }
 
         return $this->attributes['birthdate'] = $birthdate;

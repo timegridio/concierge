@@ -22,7 +22,7 @@ $factory(Timegridio\Concierge\Models\Contact::class, function (Faker\Generator $
         'lastname'       => $faker->lastName,
         'nin'            => $faker->numberBetween(25000000, 50000000),
         'email'          => $faker->safeEmail,
-        'birthdate'      => Carbon\Carbon::now()->subYears(30)->format('Y-m-d'),
+        'birthdate'      => Carbon\Carbon::now()->subYears(30),
         'mobile'         => null,
         'mobile_country' => null,
         'gender'         => $faker->randomElement(['M', 'F']),

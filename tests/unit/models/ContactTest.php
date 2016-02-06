@@ -141,7 +141,7 @@ class ContactTest extends TestCaseDB
 
         // Provide Formatted String
 
-        $contact->birthdate = '1985-01-16';
+        $contact->birthdate = Carbon::parse('1985-01-16');
 
         $this->assertInstanceOf(Carbon::class, $contact->birthdate);
         $this->assertEquals('1985-01-16', $contact->birthdate->toDateString());
@@ -155,7 +155,7 @@ class ContactTest extends TestCaseDB
 
         // Provide Empty String
 
-        $contact->birthdate = '';
+        $contact->birthdate = null;
 
         $this->assertNull($contact->birthdate);
     }
