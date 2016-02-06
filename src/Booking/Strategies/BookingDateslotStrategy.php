@@ -35,13 +35,13 @@ class BookingDateslotStrategy implements BookingStrategyInterface
              ->init();
 
         foreach ($vacancies as $vacancy) {
-            $this->updateTimeslots($vacancy, $this->interval);
+            $this->updateTimeslots($vacancy);
         }
 
         return $this->timetable->get();
     }
 
-    protected function updateTimeslots(Vacancy $vacancy, $step = 30)
+    protected function updateTimeslots(Vacancy $vacancy)
     {
         $fromTime = $vacancy->start_at;
         $toTime = $vacancy->finish_at;
