@@ -23,7 +23,7 @@ class Service extends EloquentModel
     /**
      * Belongs to service type.
      *
-     * @return Illuminate\Database\Query Relationship Service belongs to type query
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Relationship Service belongs to type query
      */
     public function type()
     {
@@ -47,7 +47,7 @@ class Service extends EloquentModel
     /**
      * belongs to Business.
      *
-     * @return Illuminate\Database\Query Relationship Service belongs to Business query
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Relationship Service belongs to Business query
      */
     public function business()
     {

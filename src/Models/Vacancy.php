@@ -39,7 +39,7 @@ class Vacancy extends EloquentModel
     /**
      * belongs to Business.
      *
-     * @return Illuminate\Database\Query Relationship Vacancy belongs to Business query
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Relationship Vacancy belongs to Business query
      */
     public function business()
     {
@@ -49,7 +49,7 @@ class Vacancy extends EloquentModel
     /**
      * for Service.
      *
-     * @return Illuminate\Database\Query Relationship Vacancy is for providing Service query
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Relationship Vacancy is for providing Service query
      */
     public function service()
     {
@@ -59,7 +59,7 @@ class Vacancy extends EloquentModel
     /**
      * holds many Appointments.
      *
-     * @return Illuminate\Database\Query Relationship Vacancy belongs to Business query
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Relationship Vacancy belongs to Business query
      */
     public function appointments()
     {
@@ -94,7 +94,7 @@ class Vacancy extends EloquentModel
     public function scopeForDateTime($query, Carbon $datetime)
     {
         return $query->where('start_at', '<=', $datetime->toDateTimeString())
-                     ->where('finish_at', '>=', $datetime->toDateTimeString());
+                        ->where('finish_at', '>=', $datetime->toDateTimeString());
     }
 
     /**
@@ -199,9 +199,9 @@ class Vacancy extends EloquentModel
     public function hasRoomBetween(Carbon $startAt, Carbon $finishAt)
     {
         return $this->capacity > $this->appointments()
-                                      ->active()
-                                      ->affectingInterval($startAt, $finishAt)
-                                      ->count() &&
+                                        ->active()
+                                        ->affectingInterval($startAt, $finishAt)
+                                        ->count() &&
             ($this->start_at <= $startAt && $this->finish_at >= $finishAt);
     }
 

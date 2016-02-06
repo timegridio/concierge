@@ -81,7 +81,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the issuer (the User that generated the Appointment).
      *
-     * @return Illuminate\Database\Eloquent\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function issuer()
     {
@@ -91,7 +91,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the target Contact (for whom is reserved the Appointment).
      *
-     * @return Illuminate\Database\Eloquent\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contact()
     {
@@ -101,7 +101,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the holding Business (that has taken the reservation).
      *
-     * @return Illuminate\Database\Eloquent\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function business()
     {
@@ -111,7 +111,7 @@ class Appointment extends EloquentModel implements HasPresenter
     /**
      * Get the reserved Service.
      *
-     * @return Illuminate\Database\Eloquent\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function service()
     {
@@ -122,7 +122,7 @@ class Appointment extends EloquentModel implements HasPresenter
      * Get the Vacancy (that justifies the availability of resources for the
      * Appointment generation).
      *
-     * @return Illuminate\Database\Eloquent\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function vacancy()
     {
@@ -374,10 +374,10 @@ class Appointment extends EloquentModel implements HasPresenter
     public function scopeUnarchived($query)
     {
         return $query
-            ->where(function ($query) {
+            ->where(function($query) {
                 $query->whereIn('status', [Self::STATUS_RESERVED, Self::STATUS_CONFIRMED])
                     ->where('start_at', '<=', Carbon::parse('today midnight')->timezone('UTC'))
-                    ->orWhere(function ($query) {
+                    ->orWhere(function($query) {
                         $query->where('start_at', '>=', Carbon::parse('today midnight')->timezone('UTC'));
                     });
             });
@@ -504,19 +504,19 @@ class Appointment extends EloquentModel implements HasPresenter
 
                 $query->where(function ($query) use ($startAt, $finishAt) {
                     $query->where('finish_at', '>=', $finishAt->timezone('UTC'))
-                          ->where('start_at', '<=', $startAt->timezone('UTC'));
+                            ->where('start_at', '<=', $startAt->timezone('UTC'));
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
                     $query->where('finish_at', '<', $finishAt->timezone('UTC'))
-                          ->where('finish_at', '>', $startAt->timezone('UTC'));
+                            ->where('finish_at', '>', $startAt->timezone('UTC'));
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
                     $query->where('start_at', '>', $startAt->timezone('UTC'))
-                          ->where('start_at', '<', $finishAt->timezone('UTC'));
+                            ->where('start_at', '<', $finishAt->timezone('UTC'));
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
                     $query->where('start_at', '>', $startAt->timezone('UTC'))
-                          ->where('finish_at', '<', $finishAt->timezone('UTC'));
+                            ->where('finish_at', '<', $finishAt->timezone('UTC'));
                 });
 
             });

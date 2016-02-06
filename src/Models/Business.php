@@ -38,7 +38,7 @@ class Business extends EloquentModel implements HasPresenter
     {
         parent::boot();
 
-        static::creating(function ($business) {
+        static::creating(function($business) {
 
             $business->slug = $business->makeSlug($business->name);
 
@@ -64,7 +64,7 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Belongs to a Category.
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
@@ -87,7 +87,7 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Provides a catalog of Services.
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function services()
     {
@@ -97,7 +97,7 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Provides Services of Types.
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function servicetypes()
     {
@@ -107,7 +107,7 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Publishes Vacancies.
      *
-     * @return Illuminate\Database\Eloquent\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function vacancies()
     {
@@ -117,7 +117,7 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Holds booked Appointments.
      *
-     * @return Illuminate\Database\Eloquent\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function bookings()
     {
@@ -127,7 +127,7 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Is owned by Users.
      *
-     * @return Illuminate\Database\Eloquent\belongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function owners()
     {
@@ -249,7 +249,7 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Set Postal Address.
      *
-     * @param string $postal_address Postal address
+     * @param string $postalAddress Postal address
      */
     public function setPostalAddressAttribute($postalAddress)
     {
@@ -259,7 +259,6 @@ class Business extends EloquentModel implements HasPresenter
     /**
      * Set Social Facebook.
      *
-     * @param string $social_facebook Facebook User URL
      */
     public function setSocialFacebookAttribute($facebookPageUrl)
     {

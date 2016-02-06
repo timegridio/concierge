@@ -36,7 +36,7 @@ class Preference extends EloquentModel
     /**
      * [getDefault description].
      *
-     * @param [type] $model [description]
+     * @param \Timegridio\Concierge\Traits\Preferenceable $model [description]
      * @param [type] $key   [description]
      *
      * @return [type] [description]
