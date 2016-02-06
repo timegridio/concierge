@@ -2,13 +2,11 @@
 
 namespace Timegridio\Concierge\Timetable\Strategies;
 
-use Timegridio\Concierge\Timetable\Timetable;
 use Timegridio\Concierge\Models\Vacancy;
+use Timegridio\Concierge\Timetable\Timetable;
 
-class TimetableDateslotStrategy implements TimetableStrategyInterface
+class TimetableDateslotStrategy  extends BaseTimetableStrategy  implements TimetableStrategyInterface
 {
-    private $timetable;
-
     private $interval = 30;
 
     public function __construct(Timetable $timetable)
@@ -16,10 +14,19 @@ class TimetableDateslotStrategy implements TimetableStrategyInterface
         $this->timetable = $timetable;
     }
 
+    protected function initTimetable($starting, $days)
+    {
+        $this->timetable
+             ->format('date.service.time')
+             ->from($starting)
+             ->future($days)
+             ->init();
+    }
+
     /**
      * Build timetable.
      *
-     * @param Illuminate\Database\Eloquent\Collection $vacancies
+     * @param \Illuminate\Database\Eloquent\Collection $vacancies
      * @param string                                  $starting
      * @param int                                     $days
      *
@@ -27,12 +34,7 @@ class TimetableDateslotStrategy implements TimetableStrategyInterface
      */
     public function buildTimetable($vacancies, $starting = 'today', $days = 1)
     {
-        $this->timetable
-             ->interval($this->interval)
-             ->format('date.service.time')
-             ->from($starting)
-             ->future($days)
-             ->init();
+        $this->initTimetable($starting, $days);
 
         foreach ($vacancies as $vacancy) {
             $this->updateTimeslots($vacancy);

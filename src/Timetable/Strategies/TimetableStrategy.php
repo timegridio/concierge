@@ -2,12 +2,8 @@
 
 namespace Timegridio\Concierge\Timetable\Strategies;
 
-use Carbon\Carbon;
-use Timegridio\Concierge\Timetable\Timetable;
 use Timegridio\Concierge\Exceptions\StrategyNotRecognizedException;
-use Timegridio\Concierge\Models\Business;
-use Timegridio\Concierge\Models\Contact;
-use Timegridio\Concierge\Models\Service;
+use Timegridio\Concierge\Timetable\Timetable;
 
 class TimetableStrategy
 {

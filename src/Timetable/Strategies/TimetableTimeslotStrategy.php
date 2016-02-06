@@ -2,19 +2,13 @@
 
 namespace Timegridio\Concierge\Timetable\Strategies;
 
-use Carbon\Carbon;
-use Illuminate\Support\Collection;
-use Timegridio\Concierge\Timetable\Timetable;
-use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
-use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Models\Service;
 use Timegridio\Concierge\Models\Vacancy;
+use Timegridio\Concierge\Timetable\Timetable;
 
-class TimetableTimeslotStrategy implements TimetableStrategyInterface
+class TimetableTimeslotStrategy extends BaseTimetableStrategy implements TimetableStrategyInterface
 {
-    private $timetable;
-
     private $interval = 30;
 
     public function __construct(Timetable $timetable)
@@ -22,16 +16,7 @@ class TimetableTimeslotStrategy implements TimetableStrategyInterface
         $this->timetable = $timetable;
     }
 
-    /**
-     * Build timetable.
-     *
-     * @param Illuminate\Database\Eloquent\Collection $vacancies
-     * @param string                                  $starting
-     * @param int                                     $days
-     *
-     * @return array
-     */
-    public function buildTimetable($vacancies, $starting = 'today', $days = 1)
+    protected function initTimetable($starting, $days)
     {
         $this->timetable
              ->interval($this->interval)
@@ -39,6 +24,20 @@ class TimetableTimeslotStrategy implements TimetableStrategyInterface
              ->from($starting)
              ->future($days)
              ->init();
+    }
+
+    /**
+     * Build timetable.
+     *
+     * @param \Illuminate\Database\Eloquent\Collection $vacancies
+     * @param string                                  $starting
+     * @param int                                     $days
+     *
+     * @return array
+     */
+    public function buildTimetable($vacancies, $starting = 'today', $days = 1)
+    {
+        $this->initTimetable($starting, $days);
 
         foreach ($vacancies as $vacancy) {
             $this->updateTimeslots($vacancy, $this->interval);
