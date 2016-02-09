@@ -9,7 +9,7 @@ trait OwnsBusinesses
     /**
      * Owns Businesses relationship.
      *
-     * @return Illuminate\Database\Eloquent\belongsToMany
+     * @return \Illuminate\Database\Eloquent\belongsToMany
      */
     public function businesses()
     {
