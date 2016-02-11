@@ -27,6 +27,6 @@ class ServiceTypeTest extends TestCaseDB
     {
         $serviceType = new ServiceType;
 
-        $this->assertInstanceOf(BelongsTo::class, $serviceType->businesses());
+        $this->assertInstanceOf(BelongsTo::class, $serviceType->business());
     }
 }
