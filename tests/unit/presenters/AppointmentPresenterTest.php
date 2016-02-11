@@ -111,6 +111,26 @@ class AppointmentPresenterTest extends TestCaseDB
         }
     }
 
+    /**
+     * @test
+     */
+    public function it_provides_the_business_phone_number()
+    {
+        $appointment = $this->createAppointmentPresenter();
+
+        $this->assertEquals($appointment->business->phone, $appointment->phone());
+    }
+
+    /**
+     * @test
+     */
+    public function it_provides_the_business_location()
+    {
+        $appointment = $this->createAppointmentPresenter();
+
+        $this->assertEquals($appointment->business->postal_address, $appointment->location());
+    }
+
     /////////////
     // Helpers //
     /////////////
