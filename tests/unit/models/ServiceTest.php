@@ -47,5 +47,7 @@ class ServiceTest extends TestCaseDB
             ]);
 
         $this->assertInstanceOf(ServiceType::class, $service->type);
+
+        $this->assertInternalType('string', $service->typeName);
     }
 }
