@@ -36,12 +36,14 @@ trait Preferenceable
 
         if ($pref = $this->preferences()->forKey($key)->first()) {
             $value = $pref->value();
+            $type = $pref->type();
         } else {
             $default = Preference::getDefault($this, $key);
             $value = $default->value();
+            $type = $default->type();
         }
 
-        return $value;
+        return $this->cast($value, $type);
     }
 
     /**

@@ -80,35 +80,22 @@ class Preference extends EloquentModel
     }
 
     /**
-     * [value description].
+     * Value getter.
      *
-     * @return [type] [description]
+     * @return mixed
      */
     public function value()
     {
-        switch ($this->type) {
-            case 'string':
-                return (string) $this->value;
-                break;
-            case 'bool':
-                return (bool) $this->value;
-                break;
-            case 'int':
-                return (int) $this->value;
-                break;
-            case 'float':
-                return (float) $this->value;
-                break;
-            case 'json':
-                return json_decode($this->value);
-                break;
-            case 'array':
-                return unserialize($this->value);
-                break;
-            default:
-                break;
-        }
-
         return $this->value;
+    }
+
+    /**
+     * Type getter.
+     *
+     * @return string
+     */
+    public function type()
+    {
+        return $this->type;
     }
 }
