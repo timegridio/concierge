@@ -580,7 +580,7 @@ class Appointment extends EloquentModel implements HasPresenter
         if ($this->isConfirmable()) {
             $this->status = self::STATUS_CONFIRMED;
 
-            return $this->save();
+            $this->save();
         }
 
         return $this;
@@ -596,7 +596,7 @@ class Appointment extends EloquentModel implements HasPresenter
         if ($this->isAnnulable()) {
             $this->status = self::STATUS_ANNULATED;
 
-            return $this->save();
+            $this->save();
         }
 
         return $this;
@@ -612,7 +612,7 @@ class Appointment extends EloquentModel implements HasPresenter
         if ($this->isServeable()) {
             $this->status = self::STATUS_SERVED;
 
-            return $this->save();
+            $this->save();
         }
 
         return $this;
