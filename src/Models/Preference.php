@@ -14,16 +14,6 @@ class Preference extends EloquentModel
     protected $fillable = ['key', 'value', 'type'];
 
     /**
-     * [preferenceable description].
-     *
-     * @return [type] [description]
-     */
-    public function preferenceable()
-    {
-        return $this->morphTo();
-    }
-
-    /**
      * [__toString description].
      *
      * @return string [description]
