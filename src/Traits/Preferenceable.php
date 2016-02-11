@@ -9,7 +9,7 @@ trait Preferenceable
     /**
      * Preferences morph.
      *
-     * @return Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function preferences()
     {
