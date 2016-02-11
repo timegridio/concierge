@@ -20,6 +20,6 @@ class Category extends EloquentModel
      */
     public function businesses()
     {
-        return $this->hasMany(Business::class)->withTimestamps();
+        return $this->hasMany(Business::class);
     }
 }
