@@ -1,8 +1,6 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Timegridio\Concierge\Models\Contact;
 use Timegridio\Concierge\Presenters\ContactPresenter;
 
 class ContactPresenterTest extends TestCaseDB
