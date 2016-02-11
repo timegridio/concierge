@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Presenters\BusinessPresenter;
@@ -9,7 +11,7 @@ use Timegridio\Tests\Models\User;
 class BusinessTest extends TestCaseDB
 {
     use DatabaseTransactions;
-    use CreateUser, CreateBusiness;
+    use CreateUser, CreateBusiness, CreateContact;
 
     /**
      * @test
@@ -125,5 +127,35 @@ class BusinessTest extends TestCaseDB
 
         $this->assertInstanceOf(Collection::class, $business->owners);
         $this->assertCount(2, $business->owners);
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_bookings()
+    {
+        $business = $this->createBusiness();
+
+        $this->assertInstanceOf(HasMany::class, $business->bookings());
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_service_types()
+    {
+        $business = $this->createBusiness();
+
+        $this->assertInstanceOf(HasMany::class, $business->serviceTypes());
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_a_category()
+    {
+        $business = $this->createBusiness();
+
+        $this->assertInstanceOf(BelongsTo::class, $business->category());
     }
 }

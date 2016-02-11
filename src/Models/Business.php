@@ -143,37 +143,6 @@ class Business extends EloquentModel implements HasPresenter
         return $this->owners()->first();
     }
 
-    /**
-     * Get the real Users subscriptions count.
-     *
-     * @return Illuminate\Database\Eloquent\belongsToMany
-     */
-    public function subscriptionsCount()
-    {
-        return $this->belongsToMany(Contact::class)
-                    ->selectRaw('id, count(*) as aggregate')
-                    ->whereNotNull('user_id')
-                    ->groupBy('business_id');
-    }
-
-    /**
-     * Get SubscriptionsCount Attribute.
-     *
-     * @return int Count of Contacts with real User held by this Business
-     */
-    public function getSubscriptionsCountAttribute()
-    {
-        // if relation is not loaded already, let's do it first
-        if (!array_key_exists('subscriptionsCount', $this->relations)) {
-            $this->load('subscriptionsCount');
-        }
-
-        $related = $this->getRelation('subscriptionsCount');
-
-        // then return the count directly
-        return ($related->count() > 0) ? (int) $related->first()->aggregate : 0;
-    }
-
     ///////////////
     // Overrides //
     ///////////////
