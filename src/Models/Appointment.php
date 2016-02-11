@@ -190,35 +190,6 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * Get TimeZone (from the Business).
-     *
-     * @return string
-     */
-    public function getTZAttribute()
-    {
-        return $this->business->timezone;
-    }
-
-    /**
-     * Get the human readable status name.
-     *
-     * @return string
-     */
-    public function getStatusLabelAttribute()
-    {
-        $labels = [
-            Self::STATUS_RESERVED  => 'reserved',
-            Self::STATUS_CONFIRMED => 'confirmed',
-            Self::STATUS_ANNULATED => 'annulated',
-            Self::STATUS_SERVED    => 'served',
-            ];
-
-        return array_key_exists($this->status, $labels)
-            ? $labels[$this->status]
-            : '';
-    }
-
-    /**
      * Get the date of the Appointment.
      *
      * @return string
@@ -361,53 +332,6 @@ class Appointment extends EloquentModel implements HasPresenter
     ////////////
 
     /////////////////////////
-    // Hard Status Scoping //
-    /////////////////////////
-
-    /**
-     * Scope to Unarchived Appointments.
-     *
-     * @param Illuminate\Database\Query $query
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeUnarchived($query)
-    {
-        return $query
-            ->where(function($query) {
-                $query->whereIn('status', [Self::STATUS_RESERVED, Self::STATUS_CONFIRMED])
-                    ->where('start_at', '<=', Carbon::parse('today midnight')->timezone('UTC'))
-                    ->orWhere(function($query) {
-                        $query->where('start_at', '>=', Carbon::parse('today midnight')->timezone('UTC'));
-                    });
-            });
-    }
-
-    /**
-     * Scope to Served Appointments.
-     *
-     * @param Illuminate\Database\Query $query
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeServed($query)
-    {
-        return $query->where('status', '=', Self::STATUS_SERVED);
-    }
-
-    /**
-     * Scope to Annulated Appointments.
-     *
-     * @param Illuminate\Database\Query $query
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeAnnulated($query)
-    {
-        return $query->where('status', '=', Self::STATUS_ANNULATED);
-    }
-
-    /////////////////////////
     // Soft Status Scoping //
     /////////////////////////
 
@@ -433,59 +357,6 @@ class Appointment extends EloquentModel implements HasPresenter
     public function scopeActive($query)
     {
         return $query->whereIn('status', [Self::STATUS_RESERVED, Self::STATUS_CONFIRMED]);
-    }
-
-    /**
-     * Scope of Business.
-     *
-     * @param Illuminate\Database\Query $query
-     * @param int                       $businessId
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeOfBusiness($query, $businessId)
-    {
-        return $query->where('business_id', '=', $businessId);
-    }
-
-    /**
-     * Scope of date.
-     *
-     * @param Illuminate\Database\Query $query
-     * @param Carbon                    $date
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeOfDate($query, Carbon $date)
-    {
-        return $query->whereRaw('date(`start_at`) = ?', [$date->timezone('UTC')->toDateString()]);
-    }
-
-    /**
-     * Scope only future appointments.
-     *
-     * @param Illuminate\Database\Query $query
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeFuture($query)
-    {
-        $todayMidnight = Carbon::parse('today midnight')->timezone('UTC');
-
-        return $query->where('start_at', '>=', $todayMidnight);
-    }
-
-    /**
-     * Scope only till date.
-     *
-     * @param Illuminate\Database\Query $query
-     * @param Carbon                    $date
-     *
-     * @return Illuminate\Database\Query
-     */
-    public function scopeTillDate($query, Carbon $date)
-    {
-        return $query->where('start_at', '<=', $date->timezone('UTC'));
     }
 
     /**
