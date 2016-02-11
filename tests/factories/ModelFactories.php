@@ -33,6 +33,19 @@ $factory(Timegridio\Concierge\Models\Contact::class, function (Faker\Generator $
 });
 
 //////////////
+// Category //
+//////////////
+
+$factory(Timegridio\Concierge\Models\Category::class, function (Faker\Generator $faker) {
+    return [
+        'name'        => $faker->sentence(3),
+        'slug'        => str_slug($faker->name),
+        'description' => $faker->paragraph,
+        'strategy'    => 'dateslot',
+    ];
+});
+
+//////////////
 // Business //
 //////////////
 
@@ -45,7 +58,7 @@ $factory(Timegridio\Concierge\Models\Business::class, [
     'social_facebook' => 'https://www.facebook.com/example?fref=ts',
     'strategy'        => 'dateslot',
     'plan'            => 'free',
-    'category_id'     => $faker->randomElement([1, 2, 3]),
+    'category_id'     => 'factory:Timegridio\Concierge\Models\Category',
 ]);
 
 //////////////////
