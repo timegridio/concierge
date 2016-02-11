@@ -14,16 +14,6 @@ class Preference extends EloquentModel
     protected $fillable = ['key', 'value', 'type'];
 
     /**
-     * [__toString description].
-     *
-     * @return string [description]
-     */
-    public function __toString()
-    {
-        return $this->attributes['value'];
-    }
-
-    /**
      * [getDefault description].
      *
      * @param \Timegridio\Concierge\Traits\Preferenceable $model [description]
