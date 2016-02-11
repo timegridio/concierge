@@ -84,6 +84,22 @@ class PreferenceableTest extends TestCaseDB
         $this->assertEquals($setValue, $getValue);
     }
 
+    /**
+     * @test
+     */
+    public function it_sets_and_gets_a_array_preference()
+    {
+        $this->arrangeScenario();
+
+        $setValue = ['element', 7, 'key' => true];
+
+        $this->preferenceable->pref('test-preference', $setValue, 'array');
+
+        $getValue = $this->preferenceable->pref('test-preference');
+
+        $this->assertEquals($setValue, $getValue);
+    }
+
     /////////////
     // Helpers //
     /////////////

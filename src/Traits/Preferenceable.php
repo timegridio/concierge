@@ -61,6 +61,13 @@ trait Preferenceable
             case 'string':
                 return $value;
                 break;
+            case 'array':
+                if (is_array($value)) {
+                    return serialize($value);
+                } else {
+                    return unserialize($value);
+                }
+                break;
             default:
                 return $value;
         }
