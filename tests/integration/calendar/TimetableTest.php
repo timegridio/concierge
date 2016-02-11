@@ -1,5 +1,6 @@
 <?php
 
+use Timegridio\Concierge\Exceptions\StrategyNotRecognizedException;
 use Timegridio\Concierge\Timetable\Timetable;
 
 class TimetableTest extends TestCaseDB
@@ -11,6 +12,15 @@ class TimetableTest extends TestCaseDB
         parent::setUp();
 
         $this->timetable = new Timetable();
+    }
+
+    /**
+     * @test
+     * @ExpectedException Timegridio\Concierge\Exceptions\StrategyNotRecognizedException
+     */
+    public function it_rejects_an_unknown_strategy()
+    {
+        new Timetable('unknown-strategy', []);
     }
 
     /**
