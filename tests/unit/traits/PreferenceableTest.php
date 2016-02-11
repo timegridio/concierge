@@ -100,6 +100,22 @@ class PreferenceableTest extends TestCaseDB
         $this->assertEquals($setValue, $getValue);
     }
 
+    /**
+     * @test
+     */
+    public function it_sets_and_gets_a_unknown_type_preference()
+    {
+        $this->arrangeScenario();
+
+        $setValue = 'sample';
+
+        $this->preferenceable->pref('test-preference', $setValue, 'other');
+
+        $getValue = $this->preferenceable->pref('test-preference');
+
+        $this->assertEquals($setValue, $getValue);
+    }
+
     /////////////
     // Helpers //
     /////////////
