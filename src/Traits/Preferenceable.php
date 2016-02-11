@@ -33,9 +33,15 @@ trait Preferenceable
 
             return $value;
         }
-        $default = Preference::getDefault($this, $key);
 
-        return($pref = $this->preferences()->forKey($key)->first()) ? $pref->value() : $default->value();
+        if ($pref = $this->preferences()->forKey($key)->first()) {
+            $value = $pref->value();
+        } else {
+            $default = Preference::getDefault($this, $key);
+            $value = $default->value();
+        }
+
+        return $value;
     }
 
     /**
