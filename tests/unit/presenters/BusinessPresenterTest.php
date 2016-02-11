@@ -87,20 +87,6 @@ class BusinessPresenterTest extends TestCaseDB
         $this->assertInternalType('string', $icon);
     }
 
-    /**
-     * @test
-     */
-    public function it_has_profile_fulfilment_quality_score()
-    {
-        $business = $this->createBusinessPresenter();
-
-        $quality = $business->quality();
-
-        $this->assertInternalType('float', $quality);
-        $this->assertGreaterThan(0, $quality);
-        $this->assertLessThan(100, $quality);
-    }
-
     /////////////
     // Helpers //
     /////////////
