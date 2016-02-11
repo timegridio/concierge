@@ -117,7 +117,6 @@ class AppointmentPresenter extends BasePresenter
             case Appointment::STATUS_SERVED:
             default:
                 return 'default';
-                break;
         }
     }
 
