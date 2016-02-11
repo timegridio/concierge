@@ -98,18 +98,6 @@ class Vacancy extends EloquentModel
     }
 
     /**
-     * Scope only Future.
-     *
-     * @param Illuminate\Database\Query $query
-     *
-     * @return Illuminate\Database\Query Scoped query
-     */
-    public function scopeFuture($query)
-    {
-        return $query->where('date', '>', Carbon::now());
-    }
-
-    /**
      * Scope For Service.
      *
      * @param Illuminate\Database\Query $query
@@ -147,28 +135,6 @@ class Vacancy extends EloquentModel
         }
 
         return false;
-    }
-
-    /**
-     * is Full.
-     *
-     * @return bool Vacancy is fully booked
-     */
-    public function isFull()
-    {
-        return $this->getFreeSlotsCount() <= 0;
-    }
-
-    /**
-     * get free slots count.
-     *
-     * @return int Count Capacity minus Used
-     */
-    public function getFreeSlotsCount()
-    {
-        $count = $this->appointments()->active()->count();
-
-        return $this->capacity - $count;
     }
 
     /**
@@ -219,44 +185,5 @@ class Vacancy extends EloquentModel
         $count = $this->appointments()->active()->affectingInterval($startAt, $finishAt)->count();
 
         return $this->capacity - intval($count);
-    }
-
-    /**
-     * is holding given Appointment.
-     *
-     * ToDo: Remove from here as needs knowledge from Appointment
-     *
-     * @param Appointment $appointment Appointment to check against
-     *
-     * @return bool Appointment is held by the Vacancy
-     */
-    public function isHolding(Appointment $appointment)
-    {
-        return
-            $appointment->isActive() &&
-            ($this->start_at <= $appointment->start_at) &&
-            ($this->finish_at >= $appointment->finish_at) &&
-            ($this->service_id == $appointment->service_id) &&
-            ($this->business_id == $appointment->business_id);
-    }
-
-    /**
-     * holds Any of the given Appointments.
-     *
-     * ToDo: Remove from here as needs knowledge from Appointment
-     *
-     * @param Collection $appointments Appointments to check agains
-     *
-     * @return bool The Vacancy holds at least one of the inquired Appointments
-     */
-    public function isHoldingAny(Collection $appointments)
-    {
-        foreach ($appointments as $appointment) {
-            if ($this->isHolding($appointment)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
