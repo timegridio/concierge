@@ -50,4 +50,18 @@ class ServiceTest extends TestCaseDB
 
         $this->assertInternalType('string', $service->typeName);
     }
+
+    /**
+     * @test
+     */
+    public function it_belongs_to_a_default_empty_string_service_type()
+    {
+        $service = $this->createService([
+            'type_id' => null,
+            ]);
+
+        $this->assertInternalType('string', $service->typeName);
+
+        $this->assertEquals('', $service->typeName);
+    }
 }
