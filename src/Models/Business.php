@@ -194,20 +194,6 @@ class Business extends EloquentModel implements HasPresenter
         return BusinessPresenter::class;
     }
 
-    ///////////////
-    // Accessors //
-    ///////////////
-
-    /**
-     * get route key.
-     *
-     * @return string Model slug
-     */
-    public function getRouteKey()
-    {
-        return $this->slug;
-    }
-
     //////////////
     // Mutators //
     //////////////
