@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use Timegridio\Concierge\Presenters\BusinessPresenter;
-use Timegridio\Concierge\Traits\HasDomain;
+use Timegridio\Concierge\Traits\IsIntoDomain;
 use Timegridio\Concierge\Traits\Preferenceable;
 
 class Business extends EloquentModel implements HasPresenter
 {
-    use SoftDeletes, Preferenceable, HasDomain;
+    use SoftDeletes, Preferenceable, IsIntoDomain;
 
     /**
      * The attributes that are mass assignable.

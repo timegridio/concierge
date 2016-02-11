@@ -4,12 +4,12 @@ namespace Timegridio\Concierge\Traits;
 
 use Timegridio\Concierge\Models\Domain;
 
-trait HasDomain
+trait IsIntoDomain
 {
     /**
      * Belongs to a Domain relationship.
      *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function domain()
     {
