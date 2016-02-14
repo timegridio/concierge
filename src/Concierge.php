@@ -3,6 +3,7 @@
 namespace Timegridio\Concierge;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Timegridio\Concierge\Calendar\Calendar;
 use Timegridio\Concierge\Exceptions\DuplicatedAppointmentException;
 use Timegridio\Concierge\Models\Appointment;
@@ -124,7 +125,13 @@ class Concierge extends Workspace
      */
     public function isBookable()
     {
-        return count($this->timetable()->buildTimetable($this->business->vacancies)) > 0;
+        $timetable = $this->timetable()->buildTimetable($this->business->vacancies);
+
+        $timetable = Arr::flatten($timetable);
+
+        $sum = array_sum($timetable);
+
+        return $sum > 0;
     }
 
     protected function makeDateTime($date, $time, $timezone = null)
