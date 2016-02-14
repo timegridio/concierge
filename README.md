@@ -1,4 +1,4 @@
-# Concierge 0.1 - Laravel 5
+# Concierge - Laravel 5.x
 
 ## ABOUT THIS BRANCH
 
@@ -28,7 +28,7 @@ Concierge is a simple reservation library for your Laravel 5 app.
         'date'     => '2016-03-26',
         'time'     => '10:30',
         'timezone' => $business->timezone,
-        'comments' => 'I want to visit my doctor',
+        'comments' => 'Hello, Dr.!',
     ];
 
     $appointment = $concierge->business($business)->takeReservation($reservation);
@@ -45,7 +45,7 @@ See the [Concierge Unit Tests](https://github.com/timegridio/concierge/blob/mast
 Via Composer
 
 ``` bash
-$ composer require timegridio/concierge=dev-master
+$ composer require timegridio/concierge=0.2-dev
 ```
 
 > **ADVICE:** Note that this library is currently under development and API may change.
