@@ -120,8 +120,8 @@ class Concierge extends Workspace
 
     /**
      * Determine if the Business has any published Vacancies available for booking.
-     * 
-     * @return boolean
+     *
+     * @return bool
      */
     public function isBookable($fromDate = 'today', $days = 7)
     {
