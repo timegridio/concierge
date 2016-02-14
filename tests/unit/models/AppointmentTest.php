@@ -308,4 +308,71 @@ class AppointmentTest extends TestCaseDB
 
         $this->assertEquals(Appointment::STATUS_SERVED, $appointment->status);
     }
+
+    /**
+     * @test
+     */
+    public function it_is_considered_active_if_in_reserved_status()
+    {
+        $appointment = $this->createAppointment([
+            'start_at' => Carbon::now()->addDays(1),
+            'status'   => Appointment::STATUS_RESERVED,
+            ]);
+
+        $this->assertTrue($appointment->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function it_is_considered_active_if_in_confirmed_status()
+    {
+        $appointment = $this->createAppointment([
+            'start_at' => Carbon::now()->addDays(1),
+            'status'   => Appointment::STATUS_CONFIRMED,
+            ]);
+
+        $this->assertTrue($appointment->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function it_is_considered_due_if_in_the_past()
+    {
+        $appointment = $this->createAppointment([
+            'start_at' => Carbon::now()->subDays(1),
+            'status'   => Appointment::STATUS_CONFIRMED,
+            ]);
+
+        $this->assertTrue($appointment->isDue());
+        $this->assertFalse($appointment->isFuture());
+    }
+
+    /**
+     * @test
+     */
+    public function it_is_considered_future_if_in_the_future()
+    {
+        $appointment = $this->createAppointment([
+            'start_at' => Carbon::now()->addDays(1),
+            'status'   => Appointment::STATUS_CONFIRMED,
+            ]);
+
+        $this->assertTrue($appointment->isFuture());
+        $this->assertFalse($appointment->isDue());
+    }
+
+    /**
+     * @test
+     */
+    public function it_is_considered_pending_if_in_the_future_and_active()
+    {
+        $appointment = $this->createAppointment([
+            'start_at' => Carbon::now()->addDays(1),
+            'status'   => Appointment::STATUS_CONFIRMED,
+            ]);
+
+        $this->assertTrue($appointment->isPending());
+    }
 }
