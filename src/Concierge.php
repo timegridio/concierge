@@ -42,14 +42,15 @@ class Concierge extends Workspace
                           ->find();
 
         if ($vacancies->count() == 0) {
-            // Log failure feedback message
+            // TODO: Log failure feedback message / raise exception
             return false;
         }
 
-        if ($vacancies->count() > 1) {
-            // Log unexpected behavior message
-            $vacancy = $vacancies->first();
-        }
+//      DEBUG / INCONSISTENT DB RECORDS CHECK
+//        if ($vacancies->count() > 1) {
+//            // Log unexpected behavior message / raise exception
+//            $vacancy = $vacancies->first();
+//        }
 
         if ($vacancies->count() == 1) {
             $vacancy = $vacancies->first();
