@@ -123,9 +123,9 @@ class Concierge extends Workspace
      * 
      * @return boolean
      */
-    public function isBookable()
+    public function isBookable($fromDate = 'today', $days = 7)
     {
-        $timetable = $this->timetable()->buildTimetable($this->business->vacancies);
+        $timetable = $this->timetable()->buildTimetable($this->business->vacancies, $fromDate, $days);
 
         $timetable = Arr::flatten($timetable);
 
