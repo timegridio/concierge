@@ -3,6 +3,7 @@
 namespace Timegridio\Concierge\Presenters;
 
 use McCool\LaravelAutoPresenter\BasePresenter;
+use Timegridio\Concierge\Exceptions\InvalidContactAgeException;
 use Timegridio\Concierge\Models\Contact;
 
 class ContactPresenter extends BasePresenter
@@ -70,7 +71,7 @@ class ContactPresenter extends BasePresenter
         $born = new \DateTime($this->wrappedObject->birthdate);
 
         if ($this->wrappedObject->birthdate > $reference) {
-            return;
+            throw new InvalidContactAgeException;
         }
 
         $diff = $reference->diff($born);

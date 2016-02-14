@@ -1,6 +1,8 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Timegridio\Concierge\Exceptions\InvalidContactAgeException;
 use Timegridio\Concierge\Presenters\ContactPresenter;
 
 class ContactPresenterTest extends TestCaseDB
@@ -65,6 +67,34 @@ class ContactPresenterTest extends TestCaseDB
 
         $this->assertInternalType('int', $age);
         $this->assertGreaterThan(0, $age);
+    }
+
+    /**
+     * @test
+     */
+    public function it_may_have_an_unknown_age()
+    {
+        $contact = $this->createContactPresenter([
+            'birthdate' => null,
+            ]);
+
+        $age = $contact->age();
+
+        $this->assertNull($age);
+        $this->assertNotInternalType('int', $age);
+    }
+
+    /**
+     * @test
+     * @expectedException Timegridio\Concierge\Exceptions\InvalidContactAgeException
+     */
+    public function it_rejects_invalid_age()
+    {
+        $contact = $this->createContactPresenter([
+            'birthdate' => Carbon::now()->addDays(1),
+            ]);
+
+        $age = $contact->age();
     }
 
     /////////////
