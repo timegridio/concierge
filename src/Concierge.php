@@ -8,6 +8,7 @@ use Timegridio\Concierge\Exceptions\DuplicatedAppointmentException;
 use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Service;
+use Timegridio\Concierge\Timetable\Strategies\TimetableStrategy;
 
 /*******************************************************************************
  * Concierge Service Layer
@@ -15,6 +16,8 @@ use Timegridio\Concierge\Models\Service;
  ******************************************************************************/
 class Concierge extends Workspace
 {
+    protected $timetable = null;
+
     protected $calendar = null;
 
     protected $booking = null;
@@ -26,6 +29,15 @@ class Concierge extends Workspace
         }
 
         return $this->calendar;
+    }
+
+    protected function timetable()
+    {
+        if ($this->timetable === null) {
+            $this->timetable = new TimetableStrategy($this->business->strategy);
+        }
+
+        return $this->timetable;
     }
 
     public function takeReservation(array $request)
@@ -103,6 +115,16 @@ class Concierge extends Workspace
         $appointment->doHash();
 
         return $appointment;
+    }
+
+    /**
+     * Determine if the Business has any published Vacancies available for booking.
+     * 
+     * @return boolean
+     */
+    public function isBookable()
+    {
+        return count($this->timetable()->buildTimetable($this->business->vacancies)) > 0;
     }
 
     protected function makeDateTime($date, $time, $timezone = null)

@@ -179,4 +179,32 @@ class ConciergeTimeslotUnitTest extends TestCaseDB
         // Attempt a duplicated appointment reservation
         $appointment = $this->concierge->business($this->business)->takeReservation($reservation);
     }
+
+    /**
+     * @test
+     */
+    public function it_checks_for_bookable_slots_when_available()
+    {
+        $bookable = $this->concierge->business($this->business)->isBookable();
+
+        $this->assertTrue($bookable);
+
+        $this->business->vacancies()->delete();
+
+        $bookable = $this->concierge->business($this->business)->isBookable();
+
+        $this->assertFalse($bookable);
+    }
+
+    /**
+     * @test
+     */
+    public function it_checks_for_bookable_slots_when_unavailable()
+    {
+        $this->business->vacancies()->delete();
+
+        $bookable = $this->concierge->business($this->business)->isBookable();
+
+        $this->assertFalse($bookable);
+    }
 }
