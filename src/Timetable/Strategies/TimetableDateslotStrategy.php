@@ -7,8 +7,6 @@ use Timegridio\Concierge\Timetable\Timetable;
 
 class TimetableDateslotStrategy  extends BaseTimetableStrategy  implements TimetableStrategyInterface
 {
-    private $interval = 30;
-
     public function __construct(Timetable $timetable)
     {
         $this->timetable = $timetable;
