@@ -72,10 +72,10 @@ class AppointmentPresenter extends BasePresenter
 //                    ->format(config('root.time.format'));
 //    }
 
-    public function diffForHumans()
-    {
-        return $this->wrappedObject->start_at->timezone($this->wrappedObject->business->timezone)->diffForHumans();
-    }
+//    public function diffForHumans()
+//    {
+//        return $this->wrappedObject->start_at->timezone($this->wrappedObject->business->timezone)->diffForHumans();
+//    }
 
     public function phone()
     {
