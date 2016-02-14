@@ -32,7 +32,7 @@ class Concierge extends Workspace
         return $this->calendar;
     }
 
-    protected function timetable()
+    public function timetable()
     {
         if ($this->timetable === null) {
             $this->timetable = new TimetableStrategy($this->business->strategy);
