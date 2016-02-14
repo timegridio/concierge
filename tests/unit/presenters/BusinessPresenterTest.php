@@ -30,7 +30,7 @@ class BusinessPresenterTest extends TestCaseDB
     /**
      * @test
      */
-    public function it_has_a_facebook_image()
+    public function it_has_a_facebook_image_with_profile_alias()
     {
         $business = $this->createBusinessPresenter([
             'social_facebook' => 'https://www.facebook.com/timegrid.io/',
@@ -39,6 +39,23 @@ class BusinessPresenterTest extends TestCaseDB
         $img = $business->facebookImg();
 
         $expected = "<img class=\"img-thumbnail media-object\" src='http://graph.facebook.com/timegrid.io/picture?type=square' />";
+
+        $this->assertInternalType('string', $img);
+        $this->assertEquals($expected, $img);
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_a_facebook_image_with_profile_id()
+    {
+        $business = $this->createBusinessPresenter([
+            'social_facebook' => 'https://www.facebook.com/profile.php?id=1000000000000000',
+            ]);
+
+        $img = $business->facebookImg();
+
+        $expected = "<img class=\"img-thumbnail media-object\" src='http://graph.facebook.com/1000000000000000/picture?type=square' />";
 
         $this->assertInternalType('string', $img);
         $this->assertEquals($expected, $img);
