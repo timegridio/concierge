@@ -120,6 +120,7 @@
 			<h3>Exceptions</h3>
 			<ul>
 				<li><a href="class-Timegridio.Concierge.Exceptions.DuplicatedAppointmentException.html">Timegridio\Concierge\Exceptions\DuplicatedAppointmentException</a></li>
+				<li><a href="class-Timegridio.Concierge.Exceptions.InvalidContactAgeException.html">Timegridio\Concierge\Exceptions\InvalidContactAgeException</a></li>
 				<li><a href="class-Timegridio.Concierge.Exceptions.StrategyMethodNotRecognizedException.html">Timegridio\Concierge\Exceptions\StrategyMethodNotRecognizedException</a></li>
 				<li><a href="class-Timegridio.Concierge.Exceptions.StrategyNotRecognizedException.html">Timegridio\Concierge\Exceptions\StrategyNotRecognizedException</a></li>
 			</ul>
@@ -178,7 +179,7 @@
 </span><span id="21" class="l"><a href="#21">21: </a>
 </span><span id="22" class="l"><a href="#22">22: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> timezone(<span class="php-var">$timezone</span> = <span class="php-keyword1">null</span>)
 </span><span id="23" class="l"><a href="#23">23: </a>    {
-</span><span id="24" class="l"><a href="#24">24: </a>        <span class="php-var">$this</span>-&gt;timezone = <span class="php-var">$this</span>-&gt;business-&gt;timezone;
+</span><span id="24" class="l"><a href="#24">24: </a>        <span class="php-var">$this</span>-&gt;timezone = (<span class="php-var">$timezone</span> !== <span class="php-keyword1">null</span>) ?: <span class="php-var">$this</span>-&gt;business-&gt;timezone;
 </span><span id="25" class="l"><a href="#25">25: </a>
 </span><span id="26" class="l"><a href="#26">26: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
 </span><span id="27" class="l"><a href="#27">27: </a>    }
@@ -191,6 +192,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?2bb255345f452f568320084dbed900feb7a1ebd0"></script>
+<script src="elementlist.js?cef2afd6b32bc9c1766e2f0087b01b5ca022c91a"></script>
 </body>
 </html>
