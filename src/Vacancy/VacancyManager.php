@@ -47,4 +47,31 @@ class VacancyManager
 
         return Vacancy::updateOrCreate($vacancyKeys, $vacancyValues);
     }
+
+
+    /**
+     * [generateAvailability description].
+     *
+     * @param Illuminate\Database\Eloquent\Collection $vacancies
+     * @param string                                  $startDate
+     * @param int                                     $futureDays
+     *
+     * @return array
+     */
+    public static function generateAvailability($vacancies, $startDate = 'today', $futureDays = 10)
+    {
+        $dates = [];
+        for ($i = 0; $i < $futureDays; $i++) {
+            $dates[date('Y-m-d', strtotime("$startDate +$i days"))] = [];
+        }
+
+        foreach ($vacancies as $vacancy) {
+            if (array_key_exists($vacancy->date, $dates)) {
+                $dates[$vacancy->date][$vacancy->service->slug] = $vacancy;
+            }
+        }
+
+        return $dates;
+    }
+
 }
