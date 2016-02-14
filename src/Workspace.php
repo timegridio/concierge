@@ -21,7 +21,7 @@ class Workspace
 
     public function timezone($timezone = null)
     {
-        $this->timezone = $this->business->timezone;
+        $this->timezone = ($timezone !== null) ?: $this->business->timezone;
 
         return $this;
     }
