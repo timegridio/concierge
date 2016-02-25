@@ -98,6 +98,18 @@ class Vacancy extends EloquentModel
     }
 
     /**
+     * Scope only Future.
+     *
+     * @param Illuminate\Database\Query $query
+     *
+     * @return Illuminate\Database\Query Scoped query
+     */
+    public function scopeFuture($query)
+    {
+        return $query->where('date', '>', Carbon::now());
+    }
+
+    /**
      * Scope For Service.
      *
      * @param Illuminate\Database\Query $query
@@ -135,6 +147,28 @@ class Vacancy extends EloquentModel
         }
 
         return false;
+    }
+
+    /**
+     * is Full.
+     *
+     * @return bool Vacancy is fully booked
+     */
+    public function isFull()
+    {
+        return $this->getFreeSlotsCount() <= 0;
+    }
+
+    /**
+     * get free slots count.
+     *
+     * @return int Count Capacity minus Used
+     */
+    public function getFreeSlotsCount()
+    {
+        $count = $this->appointments()->active()->count();
+
+        return $this->capacity - $count;
     }
 
     /**

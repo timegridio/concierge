@@ -190,6 +190,39 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
+     * Get annulation deadline (target date).
+     *
+     * @return Carbon\Carbon
+     */
+    public function getAnnulationDeadlineAttribute()
+    {
+        $hours = $this->business->pref('appointment_annulation_pre_hs');
+
+        return $this->start_at
+                    ->subHours($hours)
+                    ->timezone($this->business->timezone);
+    }
+
+    /**
+     * Get the human readable status name.
+     *
+     * @return string
+     */
+    public function getStatusLabelAttribute()
+    {
+        $labels = [
+            Self::STATUS_RESERVED  => 'reserved',
+            Self::STATUS_CONFIRMED => 'confirmed',
+            Self::STATUS_ANNULATED => 'annulated',
+            Self::STATUS_SERVED    => 'served',
+            ];
+
+        return array_key_exists($this->status, $labels)
+            ? $labels[$this->status]
+            : '';
+    }
+
+    /**
      * Get the date of the Appointment.
      *
      * @return string
@@ -199,6 +232,18 @@ class Appointment extends EloquentModel implements HasPresenter
         return $this->start_at
                     ->timezone($this->business->timezone)
                     ->toDateString();
+    }
+
+    /**
+     * Get user-friendly unique identification code.
+     *
+     * @return string
+     */
+    public function getCodeAttribute()
+    {
+        $length = $this->business->pref('appointment_code_length');
+
+        return strtoupper(substr($this->hash, 0, $length));
     }
 
     //////////////
@@ -332,6 +377,65 @@ class Appointment extends EloquentModel implements HasPresenter
     ////////////
 
     /////////////////////////
+    // Hard Status Scoping //
+    /////////////////////////
+
+    /**
+     * Scope to Contacts Collection.
+     *
+     * @param Illuminate\Database\Query $query
+     *
+     * @return Illuminate\Database\Query
+     */
+    public function scopeForContacts($query, $contacts)
+    {
+        return $query->whereIn('contact_id', $contacts->pluck('id'));
+    }
+
+    /**
+     * Scope to Unarchived Appointments.
+     *
+     * @param Illuminate\Database\Query $query
+     *
+     * @return Illuminate\Database\Query
+     */
+    public function scopeUnarchived($query)
+    {
+        return $query
+            ->where(function ($query) {
+                $query->whereIn('status', [Self::STATUS_RESERVED, Self::STATUS_CONFIRMED])
+                    ->where('start_at', '<=', Carbon::parse('today midnight')->timezone('UTC'))
+                    ->orWhere(function ($query) {
+                        $query->where('start_at', '>=', Carbon::parse('today midnight')->timezone('UTC'));
+                    });
+            });
+    }
+
+    /**
+     * Scope to Served Appointments.
+     *
+     * @param Illuminate\Database\Query $query
+     *
+     * @return Illuminate\Database\Query
+     */
+    public function scopeServed($query)
+    {
+        return $query->where('status', '=', Self::STATUS_SERVED);
+    }
+
+    /**
+     * Scope to Annulated Appointments.
+     *
+     * @param Illuminate\Database\Query $query
+     *
+     * @return Illuminate\Database\Query
+     */
+    public function scopeAnnulated($query)
+    {
+        return $query->where('status', '=', Self::STATUS_ANNULATED);
+    }
+
+    /////////////////////////
     // Soft Status Scoping //
     /////////////////////////
 
@@ -357,6 +461,19 @@ class Appointment extends EloquentModel implements HasPresenter
     public function scopeActive($query)
     {
         return $query->whereIn('status', [Self::STATUS_RESERVED, Self::STATUS_CONFIRMED]);
+    }
+
+    /**
+     * Scope of date.
+     *
+     * @param Illuminate\Database\Query $query
+     * @param Carbon                    $date
+     *
+     * @return Illuminate\Database\Query
+     */
+    public function scopeOfDate($query, Carbon $date)
+    {
+        return $query->whereRaw('date(`start_at`) = ?', [$date->timezone('UTC')->toDateString()]);
     }
 
     /**
@@ -391,6 +508,171 @@ class Appointment extends EloquentModel implements HasPresenter
                 });
 
             });
+    }
+
+    //////////////////////////
+    // Soft Status Checkers //
+    //////////////////////////
+
+    /**
+     * User is target contact of the appointment.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isTarget($userId)
+    {
+        return $this->contact->isProfileOf($userId);
+    }
+
+    /**
+     * User is issuer of the appointment.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isIssuer($userId)
+    {
+        return $this->issuer->id == $userId;
+    }
+
+    /**
+     * User is owner of business.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isOwner($userId)
+    {
+        return $this->business->owners->contains($userId);
+    }
+
+    /**
+     * can be annulated by user.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function canAnnulate($userId)
+    {
+        return $this->isOwner($userId) ||
+            ($this->isIssuer($userId) && $this->isOnTimeToAnnulate()) ||
+            ($this->isTarget($userId) && $this->isOnTimeToAnnulate());
+    }
+
+    /**
+     * Determine if it is still possible to annulate according business policy.
+     *
+     * @return bool
+     */
+    public function isOnTimeToAnnulate()
+    {
+        $graceHours = $this->business->pref('appointment_annulation_pre_hs');
+
+        $diff = $this->start_at->diffInHours(Carbon::now());
+
+        return intval($diff) >= intval($graceHours);
+    }
+
+    /**
+     * can Serve.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function canServe($userId)
+    {
+        return $this->isOwner($userId);
+    }
+
+    /**
+     * can confirm.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function canConfirm($userId)
+    {
+        return $this->isIssuer($userId) || $this->isOwner($userId);
+    }
+
+    /**
+     * is Serveable by user.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isServeableBy($userId)
+    {
+        return $this->isServeable() && $this->canServe($userId);
+    }
+
+    /**
+     * is Confirmable By user.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isConfirmableBy($userId)
+    {
+        return
+            $this->isConfirmable() &&
+            $this->shouldConfirmBy($userId) &&
+            $this->canConfirm($userId);
+    }
+
+    /**
+     * is Annulable By user.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function isAnnulableBy($userId)
+    {
+        return $this->isAnnulable() && $this->canAnnulate($userId);
+    }
+
+    /**
+     * Determine if the queried userId may confirm the appointment or not.
+     *
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function shouldConfirmBy($userId)
+    {
+        return ($this->isSelfIssued() && $this->isOwner($userId)) ||
+               ($this->isOwner($this->issuer->id) && $this->isIssuer($userId));
+    }
+
+    /**
+     * Determine if the target Contact's User is the same of the Appointment
+     * issuer User.
+     *
+     * @return bool
+     */
+    public function isSelfIssued()
+    {
+        if (!$this->issuer) {
+            return false;
+        }
+        if (!$this->contact) {
+            return false;
+        }
+        if (!$this->contact->user) {
+            return false;
+        }
+
+        return $this->issuer->id == $this->contact->user->id;
     }
 
     /**

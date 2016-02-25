@@ -45,6 +45,16 @@ class AppointmentPresenter extends BasePresenter
         return $this->wrappedObject->business->postal_address;
     }
 
+    public function statusLetter()
+    {
+        return substr(trans('appointments.status.'.$this->wrappedObject->statusLabel), 0, 1);
+    }
+
+    public function status()
+    {
+        return trans('appointments.status.'.$this->wrappedObject->statusLabel);
+    }
+
     public function statusToCssClass()
     {
         switch ($this->wrappedObject->status) {
@@ -61,5 +71,15 @@ class AppointmentPresenter extends BasePresenter
             default:
                 return 'default';
         }
+    }
+
+    public function panel()
+    {
+        return view('widgets.appointment.panel._body', ['appointment' => $this, 'user' => auth()->user()])->render();
+    }
+
+    public function row()
+    {
+        return view('widgets.appointment.row._body', ['appointment' => $this, 'user' => auth()->user()])->render();
     }
 }
