@@ -162,6 +162,17 @@ class Concierge extends Workspace
             ->get();
     }
 
+    public function getUnservedAppointments()
+    {
+        return $this->business
+            ->bookings()->with('contact')
+            ->with('business')
+            ->with('service')
+            ->unserved()
+            ->orderBy('start_at')
+            ->get();
+    }
+
     protected function makeDateTime($date, $time, $timezone = null)
     {
         return Carbon::parse("{$date} {$time} {$timezone}");
