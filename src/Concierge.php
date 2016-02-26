@@ -10,6 +10,7 @@ use Timegridio\Concierge\Models\Appointment;
 use Timegridio\Concierge\Models\Business;
 use Timegridio\Concierge\Models\Service;
 use Timegridio\Concierge\Timetable\Strategies\TimetableStrategy;
+use Timegridio\Concierge\Vacancy\VacancyManager;
 
 /*******************************************************************************
  * Concierge Service Layer
@@ -22,6 +23,8 @@ class Concierge extends Workspace
     protected $calendar = null;
 
     protected $booking = null;
+
+    protected $vacancies = null;
 
     protected function calendar()
     {
@@ -39,6 +42,15 @@ class Concierge extends Workspace
         }
 
         return $this->timetable;
+    }
+
+    public function vacancies()
+    {
+        if ($this->vacancies === null && $this->business !== null) {
+            $this->vacancies = new VacancyManager($this->business);
+        }
+
+        return $this->vacancies;
     }
 
     public function takeReservation(array $request)
