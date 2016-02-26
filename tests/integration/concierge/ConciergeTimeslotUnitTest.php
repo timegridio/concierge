@@ -86,7 +86,7 @@ class ConciergeTimeslotUnitTest extends TestCaseDB
             'date'        => $date->toDateString(),
             'start_at'    => $startAt->toDateTimeString(),
             'finish_at'   => $finishAt->toDateTimeString(),
-            'capacity'    => 1,
+            'capacity'    => 2,
             ]);
 
         // ...and there is another user that may issue reservation requests...
@@ -177,7 +177,7 @@ class ConciergeTimeslotUnitTest extends TestCaseDB
         $this->assertTrue($appointment->exists);
 
         // Attempt a duplicated appointment reservation
-        $appointment = $this->concierge->business($this->business)->takeReservation($reservation);
+        $appointmentTwo = $this->concierge->business($this->business)->takeReservation($reservation);
     }
 
     /**
