@@ -147,6 +147,21 @@ class Concierge extends Workspace
         return $sum > 0;
     }
 
+    //////////////////
+    // FOR REFACTOR //
+    //////////////////
+
+    public function getActiveAppointments()
+    {
+        return $this->business
+            ->bookings()->with('contact')
+            ->with('business')
+            ->with('service')
+            ->active()
+            ->orderBy('start_at')
+            ->get();
+    }
+
     protected function makeDateTime($date, $time, $timezone = null)
     {
         return Carbon::parse("{$date} {$time} {$timezone}");
