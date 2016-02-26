@@ -29,7 +29,7 @@ class TimeslotCalendar extends BaseCalendar
             $this->vacancies->forService($this->service);
         }
 
-        if ($this->date !== null &&  $this->time !== null) {
+        if ($this->date !== null && $this->time !== null) {
             $this->vacancies->forDateTime($this->getUTCDateTime());
         }
 
