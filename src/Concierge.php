@@ -4,6 +4,7 @@ namespace Timegridio\Concierge;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Timegridio\Concierge\Booking\BookingManager;
 use Timegridio\Concierge\Calendar\Calendar;
 use Timegridio\Concierge\Exceptions\DuplicatedAppointmentException;
 use Timegridio\Concierge\Models\Appointment;
@@ -51,6 +52,15 @@ class Concierge extends Workspace
         }
 
         return $this->vacancies;
+    }
+
+    public function booking()
+    {
+        if ($this->booking === null && $this->business !== null) {
+            $this->booking = new BookingManager($this->business);
+        }
+
+        return $this->booking;
     }
 
     public function takeReservation(array $request)
