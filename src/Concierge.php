@@ -50,6 +50,7 @@ class Concierge extends Workspace
 
         $vacancies = $this->calendar()
                           ->forService($service->id)
+                          ->withDuration($service->duration)
                           ->forDate($request['date'])
                           ->atTime($request['time'])
                           ->find();
