@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Timegridio\Concierge\Models\Service;
 use Timegridio\Concierge\Models\Vacancy;
 use Timegridio\Concierge\Vacancy\VacancyManager;
 use Timegridio\Concierge\Vacancy\VacancyParser;
@@ -76,6 +77,52 @@ EOD;
             $this->assertInstanceOf(Vacancy::class, $vacancy);
             $this->assertEquals($vacancy->capacity, $capacity);
             $this->assertEquals($vacancy->service->id, $this->service->id);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_publishes_a_batch_vacancy_statement_with_unidentified_service()
+    {
+        $capacity = 1;
+
+        $vacancyStatement = <<<EOD
+unidentified:{$capacity}
+ mon,tue
+  8-12,14-20
+EOD;
+
+        $publishedVacancies = $this->vacancyParser->parseStatements($vacancyStatement);
+
+        $this->vacancyManager->updateBatch($this->business, $publishedVacancies);
+
+        $vacancies = $this->business->vacancies()->get();
+
+        $this->assertCount(0, $vacancies);
+    }
+
+    /**
+     * @test
+     */
+    public function it_generates_availability_array()
+    {
+        $this->arrangeFixture();
+
+        $future = 10;
+        $start = 'today';
+
+        $availability = $this->vacancyManager->generateAvailability($this->business->vacancies, $start, $future);
+
+        $this->assertInternalType('array', $availability);
+        $this->assertCount($future, $availability);
+
+        foreach ($availability as $date => $vacancies) {
+            foreach ($availability as $date => $vacancies) {
+                foreach ($vacancies as $vacancy) {
+                    $this->assertInstanceOf(Vacancy::class, $vacancy);
+                }
+            }
         }
     }
 }
