@@ -93,6 +93,54 @@ class AppointmentPresenterTest extends TestCaseDB
     /**
      * @test
      */
+    public function it_has_a_strict_arrival_time()
+    {
+        $carbon = Carbon::parse('today')->addDays(7);
+
+        $appointment = $this->createAppointmentPresenter([
+            'start_at' => $carbon,
+            'finish_at' => $carbon->addHours(1),
+            ]);
+
+        $timeFormat = 'H:i';
+
+        $appointment->business->pref('time_format', $timeFormat);
+        $appointment->business->pref('appointment_flexible_arrival', false);
+
+        $arriveAt = $appointment->arriveAt();
+
+        $this->assertInternalType('array', $arriveAt);
+        $this->assertInternalType('string', $arriveAt['at']);
+        $this->assertNotEmpty($arriveAt['at']);
+        $this->assertEquals(Carbon::parse($arriveAt['at'])->format($timeFormat), $carbon->format($timeFormat));
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_a_flexible_arrival_time()
+    {
+        $carbon = Carbon::parse('today')->addDays(7);
+
+        $appointment = $this->createAppointmentPresenter([
+            'start_at' => $carbon,
+            'finish_at' => $carbon->addHours(1),
+            ]);
+
+        $timeFormat = 'H:i';
+
+        $appointment->business->pref('time_format', $timeFormat);
+        $appointment->business->pref('appointment_flexible_arrival', true);
+
+        $arriveAt = $appointment->arriveAt();
+
+        $this->assertInternalType('array', $arriveAt);
+        $this->assertCount(2, $arriveAt);
+    }
+
+    /**
+     * @test
+     */
     public function it_maps_statuses_to_a_bootstrap_css_class()
     {
         $statuses = [

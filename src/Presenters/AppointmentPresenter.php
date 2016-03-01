@@ -35,6 +35,39 @@ class AppointmentPresenter extends BasePresenter
                     ->format($format);
     }
 
+    public function time()
+    {
+        $timeFormat = $this->timeFormat();
+
+        return $this->wrappedObject
+                    ->start_at
+                    ->timezone($this->wrappedObject->business->timezone)
+                    ->format($timeFormat);
+    }
+
+    public function arriveAt()
+    {
+        $timeFormat = $this->timeFormat();
+
+        if (!$this->wrappedObject->business->pref('appointment_flexible_arrival')) {
+            return ['at' => $this->time];
+        }
+
+        $fromTime = $this->wrappedObject
+                         ->vacancy
+                         ->start_at
+                         ->timezone($this->wrappedObject->business->timezone)
+                         ->format($timeFormat);
+
+        $toTime = $this->wrappedObject
+                       ->vacancy
+                       ->finish_at
+                       ->timezone($this->wrappedObject->business->timezone)
+                       ->format($timeFormat);
+
+        return ['from' => $fromTime, 'to' => $toTime];
+    }
+
     public function phone()
     {
         return $this->wrappedObject->business->phone;
@@ -81,5 +114,10 @@ class AppointmentPresenter extends BasePresenter
     public function row()
     {
         return view('widgets.appointment.row._body', ['appointment' => $this, 'user' => auth()->user()])->render();
+    }
+
+    protected function timeFormat()
+    {
+        return $this->wrappedObject->business->pref('time_format') ?: 'H:i a';
     }
 }
