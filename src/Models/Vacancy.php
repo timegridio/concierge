@@ -154,22 +154,22 @@ class Vacancy extends EloquentModel
      *
      * @return bool Vacancy is fully booked
      */
-    public function isFull()
-    {
-        return $this->getFreeSlotsCount() <= 0;
-    }
+#    public function isFull()
+#    {
+#        return $this->getFreeSlotsCount() <= 0;
+#    }
 
     /**
      * get free slots count.
      *
      * @return int Count Capacity minus Used
      */
-    public function getFreeSlotsCount()
-    {
-        $count = $this->appointments()->active()->count();
-
-        return $this->capacity - $count;
-    }
+#    public function getFreeSlotsCount()
+#    {
+#        $count = $this->appointments()->active()->count();
+#
+#        return $this->capacity - $count;
+#    }
 
     /**
      * get capacity.
