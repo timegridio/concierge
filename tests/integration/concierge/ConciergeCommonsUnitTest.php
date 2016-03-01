@@ -2,8 +2,10 @@
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Collection;
 use Timegridio\Concierge\Concierge;
 use Timegridio\Concierge\Models\Appointment;
+use Timegridio\Concierge\Vacancy\VacancyManager;
 
 class ConciergeCommonsUnitTest extends TestCaseDB
 {
@@ -156,5 +158,45 @@ class ConciergeCommonsUnitTest extends TestCaseDB
         $appointment = $this->concierge->business($this->business)->booking()->appointment($appointment->hash)->serve();
 
         $this->assertEquals(Appointment::STATUS_SERVED, $appointment->status);
+    }
+
+    /**
+     * @test
+     */
+    public function it_provides_access_to_vacancy_manager()
+    {
+        $vacancyManager = $this->concierge->business($this->business)->vacancies();
+
+        $this->assertInstanceOf(VacancyManager::class, $vacancyManager);
+    }
+
+    /**
+     * @test
+     */
+    public function it_provides_active_appointments()
+    {
+        $appointments = $this->concierge->business($this->business)->getActiveAppointments();
+
+        $this->assertInstanceOf(Collection::class, $appointments);
+
+        foreach ($appointments as $appointment) {
+            $this->assertInstanceOf(Appointment::class, $appointment);
+            $this->assertTrue($appointment->isActive());
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_provides_unserved_appointments()
+    {
+        $appointments = $this->concierge->business($this->business)->getActiveAppointments();
+
+        $this->assertInstanceOf(Collection::class, $appointments);
+
+        foreach ($appointments as $appointment) {
+            $this->assertInstanceOf(Appointment::class, $appointment);
+            $this->assertTrue($appointment->isUnserved());
+        }
     }
 }
