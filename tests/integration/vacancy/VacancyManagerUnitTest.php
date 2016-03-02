@@ -57,7 +57,8 @@ class VacancyManagerUnitTest extends TestCaseDB
      */
     public function it_publishes_a_batch_vacancy_statement()
     {
-        $this->arrangeFixture();
+        $this->business = $this->createBusiness();
+        $this->service = $this->createService();
 
         $capacity = 1;
 
