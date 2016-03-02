@@ -376,6 +376,18 @@ class Appointment extends EloquentModel implements HasPresenter
     // Scopes //
     ////////////
 
+    /**
+     * Scope to Business.
+     *
+     * @param Illuminate\Database\Query $query
+     *
+     * @return Illuminate\Database\Query
+     */
+    public function scopeOfBusiness($query, $businessId)
+    {
+        return $query->where('business_id', $businessId);
+    }
+
     /////////////////////////
     // Hard Status Scoping //
     /////////////////////////

@@ -40,6 +40,15 @@ class AppointmentTest extends TestCaseDB
     }
 
     /**
+     * @covers \Timegridio\Concierge\Models\Appointment::scopeOfBusiness
+     * @test
+     */
+    public function it_scopes_for_business()
+    {
+        $this->assertInstanceOf(Illuminate\Database\Eloquent\Builder::class, Appointment::ofBusiness(1));
+    }
+
+    /**
      * @covers \Timegridio\Concierge\Models\Appointment::user
      * @test
      */
