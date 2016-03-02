@@ -68,6 +68,16 @@ class AppointmentPresenter extends BasePresenter
         return ['from' => $fromTime, 'to' => $toTime];
     }
 
+    public function finishTime()
+    {
+        $timeFormat = $this->timeFormat();
+
+        return $this->wrappedObject
+                    ->finish_at
+                    ->timezone($this->wrappedObject->business->timezone)
+                    ->format($timeFormat);
+    }
+
     public function phone()
     {
         return $this->wrappedObject->business->phone;
