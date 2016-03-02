@@ -128,6 +128,6 @@ class AppointmentPresenter extends BasePresenter
 
     protected function timeFormat()
     {
-        return $this->wrappedObject->business->pref('time_format') ?: 'H:i a';
+        return $this->wrappedObject->business->pref('time_format') ?: 'h:i a';
     }
 }
