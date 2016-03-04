@@ -177,7 +177,12 @@ class ConciergeTimeslotUnitTest extends TestCaseDB
         $this->assertTrue($appointment->exists);
 
         // Attempt a duplicated appointment reservation
-        $appointmentTwo = $this->concierge->business($this->business)->takeReservation($reservation);
+        $this->concierge->business($this->business)->takeReservation($reservation);
+
+        // The duplicated appointment is accessible for query
+        $duplicatedAppointment = $this->concierge->appointment();
+
+        $this->assertInstanceOf(Appointment::class, $duplicatedAppointment);
     }
 
     /**

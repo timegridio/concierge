@@ -27,6 +27,8 @@ class Concierge extends Workspace
 
     protected $vacancies = null;
 
+    protected $appointment = null;
+
     protected function calendar()
     {
         if ($this->calendar === null) {
@@ -107,7 +109,10 @@ class Concierge extends Workspace
 
         /* Should be moved inside generateAppointment() */
         if ($appointment->duplicates()) {
-            throw new DuplicatedAppointmentException();
+            
+            $this->appointment = $appointment;
+
+            throw new DuplicatedAppointmentException($appointment->code);
         }
 
         /* Should be moved inside generateAppointment() */
@@ -191,5 +196,10 @@ class Concierge extends Workspace
     protected function makeDateTimeUTC($date, $time, $timezone = null)
     {
         return $this->makeDateTime($date, $time, $timezone)->timezone('UTC');
+    }
+
+    public function appointment()
+    {
+        return $this->appointment;
     }
 }
