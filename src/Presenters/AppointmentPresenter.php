@@ -31,10 +31,12 @@ class AppointmentPresenter extends BasePresenter
         //     return studly_case(trans('Concierge::appointments.text.tomorrow'));
         // }
 
+        $dateFormat = $this->dateFormat($format);
+
         return $this->wrappedObject
                     ->start_at
                     ->timezone($this->wrappedObject->business->timezone)
-                    ->format($format);
+                    ->format($dateFormat);
     }
 
     public function time()
@@ -131,5 +133,10 @@ class AppointmentPresenter extends BasePresenter
     protected function timeFormat()
     {
         return $this->wrappedObject->business->pref('time_format') ?: 'h:i a';
+    }
+
+    protected function dateFormat($defaultFormat = 'Y-m-d')
+    {
+        return $this->wrappedObject->business->pref('date_format') ?: $defaultFormat;
     }
 }
