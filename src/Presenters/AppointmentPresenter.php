@@ -21,13 +21,15 @@ class AppointmentPresenter extends BasePresenter
 
     public function date($format = 'Y-m-d')
     {
-        if ($this->wrappedObject->start_at->isToday()) {
-            return studly_case(trans('Concierge::appointments.text.today'));
-        }
+        // Translated text for friendly date should not be resposibility of this class
 
-        if ($this->wrappedObject->start_at->isTomorrow()) {
-            return studly_case(trans('Concierge::appointments.text.tomorrow'));
-        }
+        // if ($this->wrappedObject->start_at->isToday()) {
+        //     return studly_case(trans('Concierge::appointments.text.today'));
+        // }
+
+        // if ($this->wrappedObject->start_at->isTomorrow()) {
+        //     return studly_case(trans('Concierge::appointments.text.tomorrow'));
+        // }
 
         return $this->wrappedObject
                     ->start_at

@@ -46,36 +46,6 @@ class AppointmentPresenterTest extends TestCaseDB
     /**
      * @test
      */
-    public function it_has_a_human_friendly_date_for_today()
-    {
-        $appointment = $this->createAppointmentPresenter([
-            'start_at' => Carbon::parse('today'),
-            ]);
-
-        $date = $appointment->date();
-
-        $this->assertInternalType('string', $date);
-        $this->assertEquals('Concierge::appointments.text.today', $date);
-    }
-
-    /**
-     * @test
-     */
-    public function it_has_a_human_friendly_date_for_tomorrow()
-    {
-        $appointment = $this->createAppointmentPresenter([
-            'start_at' => Carbon::parse('tomorrow'),
-            ]);
-
-        $date = $appointment->date();
-
-        $this->assertInternalType('string', $date);
-        $this->assertEquals('Concierge::appointments.text.tomorrow', $date);
-    }
-
-    /**
-     * @test
-     */
     public function it_has_a_normal_date_for_any_other_date()
     {
         $carbon = Carbon::parse('today')->addDays(7);
