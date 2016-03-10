@@ -2,6 +2,7 @@
 
 namespace Timegridio\Concierge\Presenters;
 
+use JsonLd\Context;
 use McCool\LaravelAutoPresenter\BasePresenter;
 use Timegridio\Concierge\Models\Appointment;
 
@@ -128,6 +129,25 @@ class AppointmentPresenter extends BasePresenter
     public function row()
     {
         return view('widgets.appointment.row._body', ['appointment' => $this, 'user' => auth()->user()])->render();
+    }
+
+    public function jsonLd()
+    {
+        $attributes = [
+            'name'         => $this->wrappedObject->business->name,
+            'description'  => $this->wrappedObject->service->description,
+            'telephone'    => $this->wrappedObject->business->phone,
+            'startDate'    => $this->wrappedObject->start_at->toIso8601String(),
+            'url'          => '#',
+            'location'     => [
+                'name'    => $this->wrappedObject->business->name,
+                'address' => [
+                    'streetAddress'   => $this->wrappedObject->business->postal_address,
+                ],
+            ],
+        ];
+
+        return Context::create('event', $attributes);
     }
 
     protected function timeFormat()

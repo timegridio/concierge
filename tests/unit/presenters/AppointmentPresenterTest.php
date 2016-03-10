@@ -149,6 +149,19 @@ class AppointmentPresenterTest extends TestCaseDB
         $this->assertEquals($appointment->business->postal_address, $appointment->location());
     }
 
+    /**
+     * @test
+     */
+    public function it_provides_jsonld_data()
+    {
+        $appointment = $this->createAppointmentPresenter();
+
+        $script = $appointment->jsonLd()->generate();
+
+        $this->assertNotEmpty($script);
+        $this->assertInternalType('string', $script);
+    }
+
     /////////////
     // Helpers //
     /////////////
