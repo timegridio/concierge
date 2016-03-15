@@ -154,6 +154,11 @@ class Appointment extends EloquentModel implements HasPresenter
         return !self::where('hash', $this->hash)->get()->isEmpty();
     }
 
+    public function duration()
+    {
+        return $this->start_at->diffInMinutes($this->finish_at);
+    }
+
     ///////////////
     // Accessors //
     ///////////////

@@ -384,4 +384,14 @@ class AppointmentTest extends TestCaseDB
 
         $this->assertTrue($appointment->isPending());
     }
+
+    /**
+     * @test
+     */
+    public function it_provides_a_duration_in_minutes_based_on_start_and_finish_time()
+    {
+        $appointment = $this->createAppointment();
+
+        $this->assertInternalType('int', $appointment->duration());
+    }
 }

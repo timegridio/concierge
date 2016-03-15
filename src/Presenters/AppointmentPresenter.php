@@ -83,6 +83,11 @@ class AppointmentPresenter extends BasePresenter
                     ->format($timeFormat);
     }
 
+    public function duration()
+    {
+        return $this->wrappedObject->duration() . '&prime;';
+    }
+
     public function phone()
     {
         return $this->wrappedObject->business->phone;

@@ -162,6 +162,16 @@ class AppointmentPresenterTest extends TestCaseDB
         $this->assertInternalType('string', $script);
     }
 
+    /**
+     * @test
+     */
+    public function it_provides_a_duration_string_in_minutes()
+    {
+        $appointment = $this->createAppointmentPresenter();
+
+        $this->assertInternalType('string', $appointment->duration());
+    }
+
     /////////////
     // Helpers //
     /////////////
