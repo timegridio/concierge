@@ -12,8 +12,6 @@ class VacancyManagerUnitTest extends TestCaseDB
     use DatabaseTransactions;
     use ArrangeFixture, CreateUser, CreateBusiness, CreateService, CreateAppointment, CreateContact, CreateVacancy;
 
-    protected $business;
-
     protected $vacancyManager;
 
     protected $vacancyParser;
