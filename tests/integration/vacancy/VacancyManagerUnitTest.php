@@ -104,6 +104,33 @@ EOD;
     /**
      * @test
      */
+    public function regression_it_alters_only_owned_service_slug()
+    {
+        $this->business = $this->createBusiness();
+
+        $serviceOne = $this->createService(['name' => 'support']); // Belongs to another business
+        $serviceTwo = $this->createService(['name' => 'support', 'business_id' => $this->business->id]);
+
+        $capacity = 1;
+
+        $vacancyStatement = <<<EOD
+{$serviceTwo->slug}:{$capacity}
+ mon
+  8-12
+EOD;
+
+        $publishedVacancies = $this->vacancyParser->parseStatements($vacancyStatement);
+
+        $this->vacancyManager->updateBatch($this->business, $publishedVacancies);
+
+        $vacancies = $this->business->vacancies()->get();
+
+        $this->assertCount(1, $vacancies);
+    }
+
+    /**
+     * @test
+     */
     public function it_generates_availability_array()
     {
         $this->arrangeFixture();

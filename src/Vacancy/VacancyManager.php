@@ -4,7 +4,6 @@ namespace Timegridio\Concierge\Vacancy;
 
 use Carbon\Carbon;
 use Timegridio\Concierge\Models\Business;
-use Timegridio\Concierge\Models\Service;
 use Timegridio\Concierge\Models\Vacancy;
 
 class VacancyManager
@@ -42,7 +41,7 @@ class VacancyManager
     {
         $changed = false;
         foreach ($services as $serviceSlug => $statements) {
-            $service = Service::where('slug', $serviceSlug)->get()->first();
+            $service = $business->services()->where('slug', $serviceSlug)->get()->first();
 
             if ($service === null) {
 
