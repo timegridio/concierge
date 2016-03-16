@@ -140,7 +140,7 @@ EOD;
         $hours = $this->vacancyParser->hours('830-1130,14-20,2215-2330,2330-2345');
 
         $array = [
-            ['startAt' =>  '8:30', 'finishAt' => '11:30'],
+            ['startAt' => '8:30', 'finishAt' => '11:30'],
             ['startAt' => '14:00', 'finishAt' => '20:00'],
             ['startAt' => '22:15', 'finishAt' => '23:30'],
             ['startAt' => '23:30', 'finishAt' => '23:45'],
@@ -157,7 +157,7 @@ EOD;
         $hours = $this->vacancyParser->hours('830 - 1130, 14 - 20, 2215 - 2330, 2330 - 2345');
 
         $array = [
-            ['startAt' =>  '8:30', 'finishAt' => '11:30'],
+            ['startAt' => '8:30', 'finishAt' => '11:30'],
             ['startAt' => '14:00', 'finishAt' => '20:00'],
             ['startAt' => '22:15', 'finishAt' => '23:30'],
             ['startAt' => '23:30', 'finishAt' => '23:45'],

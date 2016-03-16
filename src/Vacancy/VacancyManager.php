@@ -10,9 +10,20 @@ class VacancyManager
 {
     protected $business;
 
+    protected $builder;
+
     public function __construct(Business $business)
     {
         $this->business = $business;
+    }
+
+    public function builder()
+    {
+        if ($this->builder === null) {
+            $this->builder = new VacancyTemplateBuilder();
+        }
+
+        return $this->builder;
     }
 
     /**

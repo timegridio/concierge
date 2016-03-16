@@ -6,6 +6,7 @@ use Timegridio\Concierge\Models\Service;
 use Timegridio\Concierge\Models\Vacancy;
 use Timegridio\Concierge\Vacancy\VacancyManager;
 use Timegridio\Concierge\Vacancy\VacancyParser;
+use Timegridio\Concierge\Vacancy\VacancyTemplateBuilder;
 
 class VacancyManagerUnitTest extends TestCaseDB
 {
@@ -150,5 +151,15 @@ EOD;
                 }
             }
         }
+    }
+
+    /**
+     * @test
+     */
+    public function it_provides_a_template_builder()
+    {
+        $builder = $this->vacancyManager->builder();
+
+        $this->assertInstanceOf(VacancyTemplateBuilder::class, $builder);
     }
 }
