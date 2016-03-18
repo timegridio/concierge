@@ -28,7 +28,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('service_id')->unsigned()->nullable();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->integer('vacancy_id')->unsigned()->nullable();
-            $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
+            $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('set null');
             $table->string('comments')->nullable();
             $table->nullableTimestamps();
             $table->softDeletes();
