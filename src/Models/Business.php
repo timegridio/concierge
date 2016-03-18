@@ -5,6 +5,7 @@ namespace Timegridio\Concierge\Models;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use McCool\LaravelAutoPresenter\HasPresenter;
+use Timegridio\Concierge\Models\Humanresource;
 use Timegridio\Concierge\Presenters\BusinessPresenter;
 use Timegridio\Concierge\Traits\IsIntoDomain;
 use Timegridio\Concierge\Traits\Preferenceable;
@@ -111,6 +112,16 @@ class Business extends EloquentModel implements HasPresenter
     public function vacancies()
     {
         return $this->hasMany(Vacancy::class);
+    }
+
+    /**
+     * Has many human resources.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function humanresources()
+    {
+        return $this->hasMany(Humanresource::class);
     }
 
     /**

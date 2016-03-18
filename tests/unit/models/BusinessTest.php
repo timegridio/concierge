@@ -132,6 +132,16 @@ class BusinessTest extends TestCaseDB
     /**
      * @test
      */
+    public function it_has_humanresources()
+    {
+        $business = $this->createBusiness();
+
+        $this->assertInstanceOf(HasMany::class, $business->humanresources());
+    }
+
+    /**
+     * @test
+     */
     public function it_has_bookings()
     {
         $business = $this->createBusiness();

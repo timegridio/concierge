@@ -5,7 +5,7 @@ namespace Timegridio\Concierge\Timetable\Strategies;
 use Timegridio\Concierge\Models\Vacancy;
 use Timegridio\Concierge\Timetable\Timetable;
 
-class TimetableDateslotStrategy  extends BaseTimetableStrategy  implements TimetableStrategyInterface
+class TimetableDateslotStrategy extends BaseTimetableStrategy implements TimetableStrategyInterface
 {
     public function __construct(Timetable $timetable)
     {

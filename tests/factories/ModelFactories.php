@@ -131,3 +131,14 @@ $factory(Timegridio\Concierge\Models\Domain::class, function ($faker) {
         'owner_id' => 'factory:Timegridio\Tests\Models\User',
     ];
 });
+
+///////////////////
+// Humanresource //
+///////////////////
+
+$factory(Timegridio\Concierge\Models\Humanresource::class, function ($faker) {
+    return [
+        'name'        => $faker->name,
+        'business_id' => 'factory:Timegridio\Concierge\Models\Business',
+    ];
+});

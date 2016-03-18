@@ -21,6 +21,8 @@ class CreateVacanciesTable extends Migration
             $table->foreign('business_id')->references('id')->on('businesses');
             $table->integer('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+            $table->integer('humanresource_id')->unsigned()->nullable();
+            $table->foreign('humanresource_id')->references('id')->on('humanresources')->onDelete('cascade');
             $table->integer('capacity')->unsigned()->default(1);
             $table->nullableTimestamps();
         });

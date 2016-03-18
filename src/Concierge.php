@@ -84,15 +84,17 @@ class Concierge extends Workspace
             return false;
         }
 
-//      DEBUG / INCONSISTENT DB RECORDS CHECK
-//        if ($vacancies->count() > 1) {
-//            // Log unexpected behavior message / raise exception
-//            $vacancy = $vacancies->first();
-//        }
+        if ($vacancies->count() > 1) {
+            // Log unexpected behavior message / raise exception
+            dd('TEST');
+            $vacancy = $vacancies->first();
+        }
 
         if ($vacancies->count() == 1) {
             $vacancy = $vacancies->first();
         }
+
+        $humanresourceId = $vacancy->humanresource ? $vacancy->humanresource->id : null;
 
         $startAt = $this->makeDateTimeUTC($request['date'], $request['time'], $request['timezone']);
         $finishAt = $startAt->copy()->addMinutes($service->duration);
@@ -104,7 +106,8 @@ class Concierge extends Workspace
             $service->id,
             $startAt,
             $finishAt,
-            $comments
+            $comments,
+            $humanresourceId
         );
 
         /* Should be moved inside generateAppointment() */
@@ -129,7 +132,8 @@ class Concierge extends Workspace
         $serviceId,
         Carbon $startAt,
         Carbon $finishAt,
-        $comments = null)
+        $comments = null,
+        $humanresourceId = null)
     {
         $appointment = new Appointment();
 
@@ -140,6 +144,7 @@ class Concierge extends Workspace
         $appointment->issuer()->associate($issuerId);
         $appointment->contact()->associate($contactId);
         $appointment->service()->associate($serviceId);
+        $appointment->humanresource()->associate($humanresourceId);
         $appointment->comments = $comments;
         $appointment->doHash();
 
