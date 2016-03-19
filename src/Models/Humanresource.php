@@ -13,7 +13,7 @@ class Humanresource extends EloquentModel
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'capacity'];
 
     protected $guarded = ['id', 'slug'];
 

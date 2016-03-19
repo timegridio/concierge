@@ -75,6 +75,23 @@ EOD;
         $this->assertEquals($services, $array);
     }
 
+    /**
+     * @test
+     */
+    public function it_splits_service_humanresource()
+    {
+        $services = $this->vacancyParser->services('massage:human-resource-1, relax:human-resource-2, stones, massage-other:1');
+
+        $array = [
+            ['slug' => 'massage', 'capacity' => 'human-resource-1'],
+            ['slug' => 'relax', 'capacity' => 'human-resource-2'],
+            ['slug' => 'stones', 'capacity' => 1],
+            ['slug' => 'massage-other', 'capacity' => 1],
+        ];
+
+        $this->assertEquals($services, $array);
+    }
+
     //////////////////
     // DATE PARSING //
     //////////////////

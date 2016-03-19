@@ -89,7 +89,7 @@ class VacancyParser
             list($service, $capacity) = explode(':', $service);
         }
 
-        return ['slug' => $service, 'capacity' => $capacity];
+        return ['slug' => $service, 'capacity' => trim($capacity)];
     }
 
     //////////////////
