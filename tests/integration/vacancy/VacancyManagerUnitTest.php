@@ -11,7 +11,8 @@ use Timegridio\Concierge\Vacancy\VacancyTemplateBuilder;
 class VacancyManagerUnitTest extends TestCaseDB
 {
     use DatabaseTransactions;
-    use ArrangeFixture, CreateUser, CreateBusiness, CreateService, CreateAppointment, CreateContact, CreateVacancy;
+    use ArrangeFixture;
+    use CreateUser, CreateBusiness, CreateService, CreateAppointment, CreateContact, CreateVacancy, CreateHumanresource;
 
     protected $vacancyManager;
 
@@ -127,6 +128,34 @@ EOD;
         $vacancies = $this->business->vacancies()->get();
 
         $this->assertCount(1, $vacancies);
+    }
+
+    /**
+     * @test
+     */
+    public function it_publishes_a_batch_vacancy_statement_for_a_humanresource()
+    {
+        $this->business = $this->createBusiness();
+
+        $humanresource = $this->createHumanresource(['business_id' => $this->business->id]);
+
+        $serviceOne = $this->createService(['name' => 'support']); // Belongs to another business
+        $serviceTwo = $this->createService(['name' => 'support', 'business_id' => $this->business->id]);
+
+        $vacancyStatement = <<<EOD
+{$serviceTwo->slug}:{$humanresource->slug}
+ mon
+  8-12
+EOD;
+
+        $publishedVacancies = $this->vacancyParser->parseStatements($vacancyStatement);
+
+        $this->vacancyManager->updateBatch($this->business, $publishedVacancies);
+
+        $vacancies = $this->business->vacancies()->get();
+
+        $this->assertCount(1, $vacancies);
+        $this->assertEquals($humanresource->id, $vacancies->first()->humanresource->id);
     }
 
     /**

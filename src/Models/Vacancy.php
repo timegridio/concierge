@@ -16,7 +16,15 @@ class Vacancy extends EloquentModel
      *
      * @var array
      */
-    protected $fillable = ['business_id', 'service_id', 'date', 'start_at', 'finish_at', 'capacity'];
+    protected $fillable = [
+        'business_id',
+        'service_id',
+        'humanresource_id',
+        'date',
+        'start_at',
+        'finish_at',
+        'capacity',
+    ];
 
     /**
      * The attributes that aren't mass assignable.
@@ -54,6 +62,16 @@ class Vacancy extends EloquentModel
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    /**
+     * Humanresource.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function humanresource()
+    {
+        return $this->belongsTo(Humanresource::class);
     }
 
     /**
@@ -178,6 +196,10 @@ class Vacancy extends EloquentModel
      */
     public function getCapacityAttribute()
     {
+        if ($this->humanresource) {
+            return intval($this->humanresource->capacity);
+        }
+
         return intval($this->attributes['capacity']);
     }
 
@@ -198,10 +220,12 @@ class Vacancy extends EloquentModel
      */
     public function hasRoomBetween(Carbon $startAt, Carbon $finishAt)
     {
-        return $this->capacity > $this->appointments()
-                                        ->active()
-                                        ->affectingInterval($startAt, $finishAt)
-                                        ->count() &&
+        return $this->capacity > $this->business
+                                      ->bookings()
+                                      ->active()
+                                      ->affectingInterval($startAt, $finishAt)
+                                      ->affectingHumanresource($this->humanresource_id)
+                                      ->count() &&
             ($this->start_at <= $startAt && $this->finish_at >= $finishAt);
     }
 
@@ -216,7 +240,13 @@ class Vacancy extends EloquentModel
             return 0;
         }
 
-        $count = $this->appointments()->active()->affectingInterval($startAt, $finishAt)->count();
+        $count = $this->business
+                      ->bookings()
+                      ->with('humanresource')
+                      ->active()
+                      ->affectingHumanresource($this->humanresource_id)
+                      ->affectingInterval($startAt, $finishAt)
+                      ->count();
 
         return $this->capacity - intval($count);
     }

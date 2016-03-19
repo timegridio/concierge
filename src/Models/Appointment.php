@@ -21,8 +21,17 @@ class Appointment extends EloquentModel implements HasPresenter
      *
      * @var array
      */
-    protected $fillable = ['issuer_id', 'contact_id', 'business_id',
-        'service_id', 'start_at', 'finish_at', 'duration', 'comments', ];
+    protected $fillable = [
+        'issuer_id',
+        'contact_id',
+        'business_id',
+        'service_id',
+        'resource_id',
+        'start_at',
+        'finish_at',
+        'duration',
+        'comments',
+    ];
 
     /**
      * The attributes that aren't mass assignable.
@@ -116,6 +125,16 @@ class Appointment extends EloquentModel implements HasPresenter
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    /**
+     * Humanresource.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function humanresource()
+    {
+        return $this->belongsTo(Humanresource::class);
     }
 
     /**
@@ -525,6 +544,22 @@ class Appointment extends EloquentModel implements HasPresenter
                 });
 
             });
+    }
+
+    /**
+     * Scope Affecting Humanresource.
+     *
+     * @param Illuminate\Database\Query $query
+     *
+     * @return Illuminate\Database\Query
+     */
+    public function scopeAffectingHumanresource($query, $humanresourceId)
+    {
+        if (is_null($humanresourceId)) {
+            return $query;
+        }
+
+        return $query->where('humanresource_id', $humanresourceId);
     }
 
     //////////////////////////

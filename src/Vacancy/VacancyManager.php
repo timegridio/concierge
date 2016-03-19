@@ -97,10 +97,22 @@ class VacancyManager
             'business_id' => $business->id,
             'service_id'  => $service->id,
             'date'        => $statement['date'],
-            'capacity'    => intval($statement['capacity']),
             'start_at'    => $startAt,
             'finish_at'   => $finishAt,
             ];
+
+        // If capacity is a slug, grab the humanresource
+        if(!is_numeric($statement['capacity']))
+        {
+            $vacancyValues['humanresource_id'] = $business->humanresources()
+                                                          ->where('slug', $statement['capacity'])
+                                                          ->first()
+                                                          ->id;
+        }
+        else
+        {
+            $vacancyValues['capacity'] = intval($statement['capacity']);
+        }
 
         $vacancy = Vacancy::create($vacancyValues);
 
