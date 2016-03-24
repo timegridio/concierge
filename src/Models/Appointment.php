@@ -175,7 +175,7 @@ class Appointment extends EloquentModel implements HasPresenter
 
     public function duration()
     {
-        return $this->start_at->diffInMinutes($this->finish_at);
+        return $this->finish_at->diffInMinutes($this->start_at);
     }
 
     ///////////////

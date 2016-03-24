@@ -3,6 +3,7 @@
 namespace Timegridio\Concierge\Presenters;
 
 use McCool\LaravelAutoPresenter\BasePresenter;
+use Timegridio\Concierge\Duration;
 use Timegridio\Concierge\Models\Appointment;
 
 class AppointmentPresenter extends BasePresenter
@@ -84,7 +85,15 @@ class AppointmentPresenter extends BasePresenter
 
     public function duration()
     {
-        return $this->wrappedObject->duration() . '&prime;';
+        $duration = new Duration(intval($this->wrappedObject->duration()) * 60000);
+        $format = [
+            'template'=>'{hours} {minutes} {seconds}',
+            '{hours}'=>'{hours} hours',
+            '{minutes}'=>'{minutes} minutes',
+            '{seconds}'=>'{seconds} seconds'
+        ];
+
+        return $duration->format($format);
     }
 
     public function phone()
