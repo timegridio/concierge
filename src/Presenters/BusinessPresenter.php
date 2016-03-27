@@ -22,7 +22,7 @@ class BusinessPresenter extends BasePresenter
     public function facebookImg($type = 'square')
     {
         if (!$this->wrappedObject->social_facebook) {
-            return '<img class="img-thumbnail" src="//placehold.it/100x100"/>';
+            return '<img class="img-thumbnail" src="//placehold.it/100x100" alt=\"{$this->wrappedObject->name}\"/>';
         }
         $url = parse_url($this->wrappedObject->social_facebook);
 
@@ -35,7 +35,7 @@ class BusinessPresenter extends BasePresenter
 
         $url = "http://graph.facebook.com/{$userId}/picture?type=$type";
 
-        return "<img class=\"img-thumbnail media-object\" src='$url' />";
+        return "<img class=\"img-thumbnail media-object\" src=\"$url\" alt=\"{$this->wrappedObject->name}\"/>";
     }
 
     /**
