@@ -223,19 +223,19 @@ class AppointmentTest extends TestCaseDB
     }
 
     /**
-     * @covers \Timegridio\Concierge\Models\Appointment::doAnnulate
+     * @covers \Timegridio\Concierge\Models\Appointment::doCancel
      * @test
      */
-    public function it_changes_status_to_annulated()
+    public function it_changes_status_to_canceled()
     {
         $appointment = $this->createAppointment([
             'start_at' => Carbon::now()->addDays(1),
-            'status'   => Appointment::STATUS_ANNULATED,
+            'status'   => Appointment::STATUS_CANCELED,
             ]);
 
-        $appointment->doAnnulate();
+        $appointment->doCancel();
 
-        $this->assertEquals(Appointment::STATUS_ANNULATED, $appointment->status);
+        $this->assertEquals(Appointment::STATUS_CANCELED, $appointment->status);
     }
 
     /**
@@ -249,7 +249,7 @@ class AppointmentTest extends TestCaseDB
             'status'   => Appointment::STATUS_SERVED,
             ]);
 
-        $appointment->doAnnulate();
+        $appointment->doCancel();
 
         $this->assertEquals(Appointment::STATUS_SERVED, $appointment->status);
     }
@@ -274,39 +274,39 @@ class AppointmentTest extends TestCaseDB
      * @covers \Timegridio\Concierge\Models\Appointment::doServe
      * @test
      */
-    public function it_cannot_serve_if_annulated()
+    public function it_cannot_serve_if_canceled()
     {
         $appointment = $this->createAppointment([
             'start_at' => Carbon::now()->subDays(1),
-            'status'   => Appointment::STATUS_ANNULATED,
+            'status'   => Appointment::STATUS_CANCELED,
             ]);
 
         $appointment->doServe();
 
-        $this->assertEquals(Appointment::STATUS_ANNULATED, $appointment->status);
+        $this->assertEquals(Appointment::STATUS_CANCELED, $appointment->status);
     }
 
     /**
      * @covers \Timegridio\Concierge\Models\Appointment::doServe
      * @test
      */
-    public function it_cannot_confirm_if_annulated()
+    public function it_cannot_confirm_if_canceled()
     {
         $appointment = $this->createAppointment([
             'start_at' => Carbon::now()->subDays(1),
-            'status'   => Appointment::STATUS_ANNULATED,
+            'status'   => Appointment::STATUS_CANCELED,
             ]);
 
         $appointment->doConfirm();
 
-        $this->assertEquals(Appointment::STATUS_ANNULATED, $appointment->status);
+        $this->assertEquals(Appointment::STATUS_CANCELED, $appointment->status);
     }
 
     /**
      * @covers \Timegridio\Concierge\Models\Appointment::doServe
      * @test
      */
-    public function it_cannot_annulate_if_served()
+    public function it_cannot_cancel_if_served()
     {
         $appointment = $this->createAppointment([
             'start_at' => Carbon::now()->subDays(1),

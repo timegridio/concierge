@@ -52,7 +52,7 @@ class Appointment extends EloquentModel implements HasPresenter
      */
     const STATUS_RESERVED = 'R';
     const STATUS_CONFIRMED = 'C';
-    const STATUS_ANNULATED = 'A';
+    const STATUS_CANCELED = 'A';
     const STATUS_SERVED = 'S';
 
     ///////////////
@@ -214,13 +214,13 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * Get annulation deadline (target date).
+     * Get cancellation deadline (target date).
      *
      * @return Carbon\Carbon
      */
-    public function getAnnulationDeadlineAttribute()
+    public function getCancellationDeadlineAttribute()
     {
-        $hours = $this->business->pref('appointment_annulation_pre_hs');
+        $hours = $this->business->pref('appointment_cancellation_pre_hs');
 
         return $this->start_at
                     ->subHours($hours)
@@ -237,7 +237,7 @@ class Appointment extends EloquentModel implements HasPresenter
         $labels = [
             Self::STATUS_RESERVED  => 'reserved',
             Self::STATUS_CONFIRMED => 'confirmed',
-            Self::STATUS_ANNULATED => 'annulated',
+            Self::STATUS_CANCELED  => 'canceled',
             Self::STATUS_SERVED    => 'served',
             ];
 
@@ -346,12 +346,12 @@ class Appointment extends EloquentModel implements HasPresenter
      * Suggested transitions (Binding is not mandatory)
      *     Reserved -> Confirmed -> Served
      *     Reserved -> Served
-     *     Reserved -> Annulated
-     *     Reserved -> Confirmed -> Annulated
+     *     Reserved -> Canceled
+     *     Reserved -> Confirmed -> Canceled
      *
      * Soft Status
      *     (Active)   [ Reserved  | Confirmed ]
-     *     (InActive) [ Annulated | Served    ]
+     *     (InActive) [ Canceled  | Served    ]
      */
 
     /**
@@ -460,15 +460,15 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * Scope to Annulated Appointments.
+     * Scope to Canceled Appointments.
      *
      * @param Illuminate\Database\Query $query
      *
      * @return Illuminate\Database\Query
      */
-    public function scopeAnnulated($query)
+    public function scopeCanceled($query)
     {
-        return $query->where('status', '=', Self::STATUS_ANNULATED);
+        return $query->where('status', '=', Self::STATUS_CANCELED);
     }
 
     /////////////////////////
@@ -603,27 +603,27 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * can be annulated by user.
+     * can be canceled by user.
      *
      * @param int $userId
      *
      * @return bool
      */
-    public function canAnnulate($userId)
+    public function canCancel($userId)
     {
         return $this->isOwner($userId) ||
-            ($this->isIssuer($userId) && $this->isOnTimeToAnnulate()) ||
-            ($this->isTarget($userId) && $this->isOnTimeToAnnulate());
+            ($this->isIssuer($userId) && $this->isOnTimeToCancel()) ||
+            ($this->isTarget($userId) && $this->isOnTimeToCancel());
     }
 
     /**
-     * Determine if it is still possible to annulate according business policy.
+     * Determine if it is still possible to cancel according business policy.
      *
      * @return bool
      */
-    public function isOnTimeToAnnulate()
+    public function isOnTimeToCancel()
     {
-        $graceHours = $this->business->pref('appointment_annulation_pre_hs');
+        $graceHours = $this->business->pref('appointment_cancellation_pre_hs');
 
         $diff = $this->start_at->diffInHours(Carbon::now());
 
@@ -682,15 +682,15 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * is Annulable By user.
+     * is cancelable By user.
      *
      * @param int $userId
      *
      * @return bool
      */
-    public function isAnnulableBy($userId)
+    public function isCancelableBy($userId)
     {
-        return $this->isAnnulable() && $this->canAnnulate($userId);
+        return $this->isCancelable() && $this->canCancel($userId);
     }
 
     /**
@@ -748,11 +748,11 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * Determine if the Annulate action can be performed.
+     * Determine if the cancelable action can be performed.
      *
      * @return bool
      */
-    public function isAnnulable()
+    public function isCancelable()
     {
         return $this->isActive();
     }
@@ -792,14 +792,14 @@ class Appointment extends EloquentModel implements HasPresenter
     }
 
     /**
-     * Check and perform Annulate action.
+     * Check and perform cancel action.
      *
      * @return $this
      */
-    public function doAnnulate()
+    public function doCancel()
     {
-        if ($this->isAnnulable()) {
-            $this->status = self::STATUS_ANNULATED;
+        if ($this->isCancelable()) {
+            $this->status = self::STATUS_CANCELED;
 
             $this->save();
         }

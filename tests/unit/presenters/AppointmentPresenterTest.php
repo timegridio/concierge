@@ -114,7 +114,7 @@ class AppointmentPresenterTest extends TestCaseDB
     public function it_maps_statuses_to_a_bootstrap_css_class()
     {
         $statuses = [
-            Appointment::STATUS_ANNULATED => 'danger',
+            Appointment::STATUS_CANCELED => 'danger',
             Appointment::STATUS_RESERVED  => 'warning',
             Appointment::STATUS_CONFIRMED => 'success',
             Appointment::STATUS_SERVED    => 'default',

@@ -112,7 +112,7 @@ class ConciergeCommonsUnitTest extends TestCaseDB
     /**
      * @test
      */
-    public function it_annulates_an_appointment()
+    public function it_cancels_an_appointment()
     {
         $appointment = $this->createAppointment([
             'business_id' => $this->business->id,
@@ -121,9 +121,9 @@ class ConciergeCommonsUnitTest extends TestCaseDB
             'status'      => Appointment::STATUS_RESERVED,
             ]);
 
-        $appointment = $this->concierge->business($this->business)->booking()->appointment($appointment->hash)->annulate();
+        $appointment = $this->concierge->business($this->business)->booking()->appointment($appointment->hash)->cancel();
 
-        $this->assertEquals(Appointment::STATUS_ANNULATED, $appointment->status);
+        $this->assertEquals(Appointment::STATUS_CANCELED, $appointment->status);
     }
 
     /**

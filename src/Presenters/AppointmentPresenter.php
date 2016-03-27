@@ -119,7 +119,7 @@ class AppointmentPresenter extends BasePresenter
     public function statusToCssClass()
     {
         switch ($this->wrappedObject->status) {
-            case Appointment::STATUS_ANNULATED:
+            case Appointment::STATUS_CANCELED:
                 return 'danger';
                 break;
             case Appointment::STATUS_CONFIRMED:

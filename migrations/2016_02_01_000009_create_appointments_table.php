@@ -21,7 +21,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('business_id')->unsigned();
             $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
             $table->string('hash', 32)->unique();
-            $table->enum('status', ['R', 'C', 'A', 'S']); // Reserved, Confirmed, Annulated, Served
+            $table->enum('status', ['R', 'C', 'A', 'S']); // Reserved, Confirmed, Canceled, Served
             $table->timestamp('start_at')->nullable()->index();
             $table->timestamp('finish_at')->nullable()->index();
             $table->integer('duration')->nullable();

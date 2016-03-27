@@ -22,9 +22,9 @@ class BookingManager
         return $this;
     }
 
-    public function annulate()
+    public function cancel()
     {
-        return $this->appointment->doAnnulate();
+        return $this->appointment->doCancel();
     }
 
     public function confirm()
