@@ -528,18 +528,18 @@ class Appointment extends EloquentModel implements HasPresenter
 
                 $query->where(function ($query) use ($startAt, $finishAt) {
                     $query->where('finish_at', '>=', $finishAt->timezone('UTC'))
-                            ->where('start_at', '<', $startAt->timezone('UTC'));
+                            ->where('start_at', '<=', $startAt->timezone('UTC'));
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
-                    $query->where('finish_at', '<', $finishAt->timezone('UTC'))
-                            ->where('finish_at', '>', $startAt->timezone('UTC'));
+                    $query->where('finish_at', '<=', $finishAt->timezone('UTC'))
+                            ->where('finish_at', '>=', $startAt->timezone('UTC'));
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
                     $query->where('start_at', '>', $startAt->timezone('UTC'))
                             ->where('start_at', '<', $finishAt->timezone('UTC'));
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
-                    $query->where('start_at', '>=', $startAt->timezone('UTC'))
+                    $query->where('start_at', '>', $startAt->timezone('UTC'))
                             ->where('finish_at', '<', $finishAt->timezone('UTC'));
                 });
 
