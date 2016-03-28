@@ -55,6 +55,28 @@ class VacancyManagerUnitTest extends TestCaseDB
     /**
      * @test
      */
+    public function it_unpublishes_all_vacancies()
+    {
+        $count = rand(2, 20);
+
+        for ($i=0; $i < $count ; $i++) { 
+            $this->createVacancy(['business_id' => $this->business->id]);
+        }
+        
+        $vacancies = $this->business->fresh()->vacancies;
+
+        $this->assertCount($count, $vacancies);
+
+        $this->vacancyManager->unpublish();
+
+        $vacancies = $this->business->fresh()->vacancies;
+
+        $this->assertCount(0, $vacancies);
+    }
+
+    /**
+     * @test
+     */
     public function it_publishes_a_batch_vacancy_statement()
     {
         $this->business = $this->createBusiness();

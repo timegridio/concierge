@@ -48,6 +48,11 @@ class VacancyManager
         return $changed;
     }
 
+    public function unpublish()
+    {
+        return $this->business->vacancies()->delete();
+    }
+
     protected function processServiceStatements($business, $date, $services)
     {
         $changed = false;
