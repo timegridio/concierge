@@ -437,12 +437,15 @@ class Appointment extends EloquentModel implements HasPresenter
      */
     public function scopeUnarchived($query)
     {
+        $carbon = Carbon::parse('today midnight')->timezone('UTC');
+
         return $query
-            ->where(function ($query) {
+            ->where(function ($query) use ($carbon) {
+
                 $query->whereIn('status', [Self::STATUS_RESERVED, Self::STATUS_CONFIRMED])
-                    ->where('start_at', '<=', Carbon::parse('today midnight')->timezone('UTC'))
-                    ->orWhere(function ($query) {
-                        $query->where('start_at', '>=', Carbon::parse('today midnight')->timezone('UTC'));
+                    ->where('start_at', '<=', $carbon)
+                    ->orWhere(function ($query) use ($carbon) {
+                        $query->where('start_at', '>=', $carbon);
                     });
             });
     }
@@ -509,7 +512,9 @@ class Appointment extends EloquentModel implements HasPresenter
      */
     public function scopeOfDate($query, Carbon $date)
     {
-        return $query->whereRaw('date(`start_at`) = ?', [$date->timezone('UTC')->toDateString()]);
+        $date->timezone('UTC');
+
+        return $query->whereRaw('date(`start_at`) = ?', [$date->toDateString()]);
     }
 
     /**
@@ -523,24 +528,27 @@ class Appointment extends EloquentModel implements HasPresenter
      */
     public function scopeAffectingInterval($query, Carbon $startAt, Carbon $finishAt)
     {
+        $startAt->timezone('UTC');
+        $finishAt->timezone('UTC');
+
         return $query
             ->where(function ($query) use ($startAt, $finishAt) {
 
                 $query->where(function ($query) use ($startAt, $finishAt) {
-                    $query->where('finish_at', '>=', $finishAt->timezone('UTC'))
-                            ->where('start_at', '<', $startAt->timezone('UTC'));
+                    $query->where('finish_at', '>=', $finishAt)
+                            ->where('start_at', '<', $startAt);
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
-                    $query->where('finish_at', '<=', $finishAt->timezone('UTC'))
-                            ->where('finish_at', '>', $startAt->timezone('UTC'));
+                    $query->where('finish_at', '<=', $finishAt)
+                            ->where('finish_at', '>', $startAt);
                 })
                 ->orWhere(function ($query) use ($startAt, $finishAt) {
-                    $query->where('start_at', '>=', $startAt->timezone('UTC'))
-                            ->where('start_at', '<', $finishAt->timezone('UTC'));
+                    $query->where('start_at', '>=', $startAt)
+                            ->where('start_at', '<', $finishAt);
                 });
 //                ->orWhere(function ($query) use ($startAt, $finishAt) {
-//                    $query->where('start_at', '>', $startAt->timezone('UTC'))
-//                            ->where('finish_at', '>', $finishAt->timezone('UTC'));
+//                    $query->where('start_at', '>', $startAt)
+//                            ->where('finish_at', '>', $finishAt);
 //                });
 
             });
