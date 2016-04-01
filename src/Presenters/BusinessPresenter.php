@@ -21,10 +21,11 @@ class BusinessPresenter extends BasePresenter
      */
     public function facebookImg($type = 'square')
     {
-        if (!$this->wrappedObject->social_facebook) {
+        $url = parse_url($this->wrappedObject->social_facebook);
+
+        if(!$this->wrappedObject->social_facebook || !array_key_exists('path', $url)){
             return "<img class=\"img-thumbnail\" src=\"//placehold.it/100x100\" alt=\"{$this->wrappedObject->name}\"/>";
         }
-        $url = parse_url($this->wrappedObject->social_facebook);
 
         $userId = trim($url['path'], '/');
 
