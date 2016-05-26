@@ -8,11 +8,11 @@ use Timegridio\Concierge\Models\Appointment;
 
 class AppointmentPresenter extends BasePresenter
 {
-    protected function timezone()
-    {
-        $userTimezone = auth()->user()->pref('timezone');
+    protected $timezone;
 
-        return ($userTimezone) ?: $this->wrappedObject->business->timezone;
+    protected function timezone($timezone = null)
+    {
+        $this->timezone = $timezone ?: $this->wrappedObject->business->timezone;
     }
 
     public function __construct(Appointment $resource)
@@ -43,7 +43,7 @@ class AppointmentPresenter extends BasePresenter
 
         return $this->wrappedObject
                     ->start_at
-                    ->timezone($this->timezone())
+                    ->timezone($this->timezone)
                     ->format($dateFormat);
     }
 
@@ -53,7 +53,7 @@ class AppointmentPresenter extends BasePresenter
 
         return $this->wrappedObject
                     ->start_at
-                    ->timezone($this->timezone())
+                    ->timezone($this->timezone)
                     ->format($timeFormat);
     }
 
@@ -68,13 +68,13 @@ class AppointmentPresenter extends BasePresenter
         $fromTime = $this->wrappedObject
                          ->vacancy
                          ->start_at
-                         ->timezone($this->timezone())
+                         ->timezone($this->timezone)
                          ->format($timeFormat);
 
         $toTime = $this->wrappedObject
                        ->vacancy
                        ->finish_at
-                       ->timezone($this->timezone())
+                       ->timezone($this->timezone)
                        ->format($timeFormat);
 
         return ['from' => $fromTime, 'to' => $toTime];
@@ -86,7 +86,7 @@ class AppointmentPresenter extends BasePresenter
 
         return $this->wrappedObject
                     ->finish_at
-                    ->timezone($this->timezone())
+                    ->timezone($this->timezone)
                     ->format($timeFormat);
     }
 
