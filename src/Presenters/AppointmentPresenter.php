@@ -66,7 +66,7 @@ class AppointmentPresenter extends BasePresenter
         $timeFormat = $this->timeFormat();
 
         if (!$this->wrappedObject->business->pref('appointment_flexible_arrival')) {
-            return ['at' => $this->time];
+            return ['at' => $this->time, 'timezone' => $this->timezone];
         }
 
         $fromTime = $this->wrappedObject
@@ -81,7 +81,7 @@ class AppointmentPresenter extends BasePresenter
                        ->timezone($this->timezone)
                        ->format($timeFormat);
 
-        return ['from' => $fromTime, 'to' => $toTime];
+        return ['from' => $fromTime, 'to' => $toTime, 'timezone' => $this->timezone];
     }
 
     public function finishTime()

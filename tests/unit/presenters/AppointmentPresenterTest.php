@@ -82,6 +82,7 @@ class AppointmentPresenterTest extends TestCaseDB
         $this->assertInternalType('array', $arriveAt);
         $this->assertInternalType('string', $arriveAt['at']);
         $this->assertNotEmpty($arriveAt['at']);
+        $this->assertNotEmpty($arriveAt['timezone']);
         $this->assertEquals(Carbon::parse($arriveAt['at'])->format($timeFormat), $carbon->format($timeFormat));
     }
 
@@ -105,7 +106,9 @@ class AppointmentPresenterTest extends TestCaseDB
         $arriveAt = $appointment->arriveAt();
 
         $this->assertInternalType('array', $arriveAt);
-        $this->assertCount(2, $arriveAt);
+        $this->assertNotEmpty($arriveAt['from']);
+        $this->assertNotEmpty($arriveAt['to']);
+        $this->assertNotEmpty($arriveAt['timezone']);
     }
 
     /**
