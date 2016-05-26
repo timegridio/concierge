@@ -10,14 +10,18 @@ class AppointmentPresenter extends BasePresenter
 {
     protected $timezone;
 
-    protected function timezone($timezone = null)
+    public function timezone($timezone = false)
     {
         $this->timezone = $timezone ?: $this->wrappedObject->business->timezone;
+
+        return $this;
     }
 
     public function __construct(Appointment $resource)
     {
         $this->wrappedObject = $resource;
+
+        $this->timezone(session()->get('timezone'));
     }
 
     public function code()
@@ -94,10 +98,10 @@ class AppointmentPresenter extends BasePresenter
     {
         $duration = new Duration(intval($this->wrappedObject->duration()) * 60000);
         $format = [
-            'template'=>'{hours} {minutes} {seconds}',
-            '{hours}'=>'{hours} hours',
-            '{minutes}'=>'{minutes} minutes',
-            '{seconds}'=>'{seconds} seconds'
+            'template' => '{hours} {minutes} {seconds}',
+            '{hours}'  => '{hours} hours',
+            '{minutes}' => '{minutes} minutes',
+            '{seconds}' => '{seconds} seconds',
         ];
 
         return $duration->format($format);
