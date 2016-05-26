@@ -76,7 +76,7 @@ class Concierge extends Workspace
                           ->forService($service->id)
                           ->withDuration($service->duration)
                           ->forDate($request['date'])
-                          ->atTime($request['time'])
+                          ->atTime($request['time'], $request['timezone'])
                           ->find();
 
         if ($vacancies->count() == 0) {

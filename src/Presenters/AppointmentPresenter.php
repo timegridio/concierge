@@ -8,6 +8,13 @@ use Timegridio\Concierge\Models\Appointment;
 
 class AppointmentPresenter extends BasePresenter
 {
+    protected function timezone()
+    {
+        $userTimezone = auth()->user()->pref('timezone');
+
+        return ($userTimezone) ?: $this->wrappedObject->business->timezone;
+    }
+
     public function __construct(Appointment $resource)
     {
         $this->wrappedObject = $resource;
@@ -36,7 +43,7 @@ class AppointmentPresenter extends BasePresenter
 
         return $this->wrappedObject
                     ->start_at
-                    ->timezone($this->wrappedObject->business->timezone)
+                    ->timezone($this->timezone())
                     ->format($dateFormat);
     }
 
@@ -46,7 +53,7 @@ class AppointmentPresenter extends BasePresenter
 
         return $this->wrappedObject
                     ->start_at
-                    ->timezone($this->wrappedObject->business->timezone)
+                    ->timezone($this->timezone())
                     ->format($timeFormat);
     }
 
@@ -61,13 +68,13 @@ class AppointmentPresenter extends BasePresenter
         $fromTime = $this->wrappedObject
                          ->vacancy
                          ->start_at
-                         ->timezone($this->wrappedObject->business->timezone)
+                         ->timezone($this->timezone())
                          ->format($timeFormat);
 
         $toTime = $this->wrappedObject
                        ->vacancy
                        ->finish_at
-                       ->timezone($this->wrappedObject->business->timezone)
+                       ->timezone($this->timezone())
                        ->format($timeFormat);
 
         return ['from' => $fromTime, 'to' => $toTime];
@@ -79,7 +86,7 @@ class AppointmentPresenter extends BasePresenter
 
         return $this->wrappedObject
                     ->finish_at
-                    ->timezone($this->wrappedObject->business->timezone)
+                    ->timezone($this->timezone())
                     ->format($timeFormat);
     }
 
