@@ -8,20 +8,29 @@ use Timegridio\Concierge\Models\Appointment;
 
 class AppointmentPresenter extends BasePresenter
 {
-    protected $timezone;
-
-    public function timezone($timezone = false)
-    {
-        $this->timezone = $timezone ?: $this->wrappedObject->business->timezone;
-
-        return $this;
-    }
+    protected $timezone = null;
 
     public function __construct(Appointment $resource)
     {
         $this->wrappedObject = $resource;
 
-        $this->timezone(session()->get('timezone'));
+        $this->setTimezone(session()->get('timezone'));
+    }
+
+    public function setTimezone($timezone = false)
+    {
+        $this->timezone = $timezone;
+
+        return $this;
+    }
+
+    public function timezone()
+    {
+        if ($this->timezone === null) {
+            $this->timezone = $this->wrappedObject->business->timezone;
+        }
+
+        return $this->timezone;
     }
 
     public function code()
@@ -66,7 +75,7 @@ class AppointmentPresenter extends BasePresenter
         $timeFormat = $this->timeFormat();
 
         if (!$this->wrappedObject->business->pref('appointment_flexible_arrival')) {
-            return ['at' => $this->time, 'timezone' => $this->timezone];
+            return ['at' => $this->time];
         }
 
         $fromTime = $this->wrappedObject
@@ -81,7 +90,7 @@ class AppointmentPresenter extends BasePresenter
                        ->timezone($this->timezone)
                        ->format($timeFormat);
 
-        return ['from' => $fromTime, 'to' => $toTime, 'timezone' => $this->timezone];
+        return ['from' => $fromTime, 'to' => $toTime];
     }
 
     public function finishTime()
@@ -98,8 +107,8 @@ class AppointmentPresenter extends BasePresenter
     {
         $duration = new Duration(intval($this->wrappedObject->duration()) * 60000);
         $format = [
-            'template' => '{hours} {minutes} {seconds}',
-            '{hours}'  => '{hours} hours',
+            'template'  => '{hours} {minutes} {seconds}',
+            '{hours}'   => '{hours} hours',
             '{minutes}' => '{minutes} minutes',
             '{seconds}' => '{seconds} seconds',
         ];

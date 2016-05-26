@@ -82,7 +82,6 @@ class AppointmentPresenterTest extends TestCaseDB
         $this->assertInternalType('array', $arriveAt);
         $this->assertInternalType('string', $arriveAt['at']);
         $this->assertNotEmpty($arriveAt['at']);
-        $this->assertNotEmpty($arriveAt['timezone']);
         $this->assertEquals(Carbon::parse($arriveAt['at'])->format($timeFormat), $carbon->format($timeFormat));
     }
 
@@ -108,7 +107,23 @@ class AppointmentPresenterTest extends TestCaseDB
         $this->assertInternalType('array', $arriveAt);
         $this->assertNotEmpty($arriveAt['from']);
         $this->assertNotEmpty($arriveAt['to']);
-        $this->assertNotEmpty($arriveAt['timezone']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_has_a_timezone_attribute()
+    {
+        $carbon = Carbon::parse('today')->addDays(7);
+
+        $appointment = $this->createAppointmentPresenter([
+            'start_at' => $carbon,
+            'finish_at' => $carbon->addHours(1),
+            ]);
+
+        $appointment->setTimezone('Europe/Madrid');
+
+        $this->assertInternalType('string', $appointment->timezone());
     }
 
     /**
