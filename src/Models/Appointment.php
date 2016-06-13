@@ -595,7 +595,7 @@ class Appointment extends EloquentModel implements HasPresenter
      */
     public function isIssuer($userId)
     {
-        return $this->issuer->id == $userId;
+        return $this->issuer ? $this->issuer->id == $userId : false;
     }
 
     /**
@@ -710,8 +710,7 @@ class Appointment extends EloquentModel implements HasPresenter
      */
     public function shouldConfirmBy($userId)
     {
-        return ($this->isSelfIssued() && $this->isOwner($userId)) ||
-               ($this->isOwner($this->issuer->id) && $this->isIssuer($userId));
+        return ($this->isSelfIssued() && $this->isOwner($userId)) || $this->isIssuer($userId);
     }
 
     /**
