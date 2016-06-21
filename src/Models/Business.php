@@ -5,6 +5,7 @@ namespace Timegridio\Concierge\Models;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use McCool\LaravelAutoPresenter\HasPresenter;
+use Timegridio\Concierge\Addressbook;
 use Timegridio\Concierge\Models\Humanresource;
 use Timegridio\Concierge\Presenters\BusinessPresenter;
 use Timegridio\Concierge\Traits\IsIntoDomain;
@@ -69,6 +70,16 @@ class Business extends EloquentModel implements HasPresenter
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Has a Contact addressbook.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function addressbook()
+    {
+        return new Addressbook($this);
     }
 
     /**
