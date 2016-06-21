@@ -109,19 +109,17 @@ class Addressbook
         return $contact->fresh();
     }
 
-    public function copyFrom(Contact $existingContact, $userId)
+    public function copyFrom(Contact $contact, $userId)
     {
-        $existingContactData = $existingContact->toArray();
-        $this->sanitizeDate($existingContactData['birthdate']);
-        $contact = Contact::create($existingContactData);
-        $contact->user()->associate($userId);
-        $contact->businesses()->detach();
-        $contact->save();
+        $replicatedContact = $contact->replicate(['id']);
+        $replicatedContact->user()->associate($userId);
+        $replicatedContact->businesses()->detach();
+        $replicatedContact->save();
 
-        $this->business->contacts()->attach($contact);
+        $this->business->contacts()->attach($replicatedContact);
         $this->business->save();
 
-        return $contact;
+        return $replicatedContact;
     }
 
     protected function updateNotes(Contact $contact, $notes = null)
@@ -129,6 +127,11 @@ class Addressbook
         if ($notes) {
             $this->business->contacts()->find($contact->id)->pivot->update(compact('notes'));
         }
+    }
+
+    protected function getDateFormat()
+    {
+        return $this->business->pref('date_format');
     }
 
     protected function sanitizeDate(&$value)
@@ -146,7 +149,7 @@ class Addressbook
         }
 
         if (strlen($value) == 10) {
-            return $value = Carbon::createFromFormat(trans('app.dateformat.carbon'), $value);
+            return $value = Carbon::createFromFormat('m/d/Y', $value);
         }
     }
 }
