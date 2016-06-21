@@ -105,11 +105,6 @@ class Addressbook
         return $this->business->contacts()->where('user_id', '=', $userId)->first();
     }
 
-    public function reuseExistingByUserId($userId)
-    {
-        return $this->business->contacts()->where('user_id', '=', $userId)->first();
-    }
-
     public function remove(Contact $contact)
     {
         return $this->business->contacts()->detach($contact->id);
