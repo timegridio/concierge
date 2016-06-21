@@ -31,7 +31,7 @@ class Addressbook
 
     public function register($data)
     {
-        $contact = $this->reuseExisting($data['email']);
+        $contact = $this->getSubscribed($data['email']);
 
         if ($contact) {
             return $contact;
@@ -73,7 +73,7 @@ class Addressbook
         return $contact;
     }
 
-    public function reuseExisting($email)
+    public function getSubscribed($email)
     {
         if (trim($email) == '') {
             return false;
@@ -89,15 +89,6 @@ class Addressbook
         }
 
         return Contact::whereNotNull('user_id')->where('email', '=', $email)->first();
-    }
-
-    public function getSubscribed($email)
-    {
-        if (trim($email) == '') {
-            return false;
-        }
-
-        return $this->business->contacts()->where('email', '=', $email)->first();
     }
 
     public function getRegisteredUserId($userId)

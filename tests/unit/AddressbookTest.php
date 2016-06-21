@@ -89,7 +89,7 @@ class AddressbookTest extends TestCaseDB
 
         $this->business->contacts()->save($contact);
 
-        $reuseContact = $this->business->addressbook()->reuseExisting('reuseme@example.org');
+        $reuseContact = $this->business->addressbook()->getSubscribed('reuseme@example.org');
 
         $this->assertInstanceOf(Contact::class, $reuseContact);
         $this->assertTrue($reuseContact->businesses->contains($this->business));
