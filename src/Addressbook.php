@@ -41,12 +41,7 @@ class Addressbook
 
         $contact = Contact::create($data);
 
-        $this->business->contacts()->attach($contact);
-        $this->business->save();
-
-        if (array_key_exists('notes', $data)) {
-            $this->updateNotes($contact, $data['notes']);
-        }
+        $this->business->contacts()->attach($contact, array_only($data, 'notes'));
 
         return $contact;
     }
@@ -56,15 +51,8 @@ class Addressbook
         $birthdate = array_get($data, 'birthdate');
         $this->sanitizeDate($birthdate);
 
-        $contact->firstname = array_get($data, 'firstname');
-        $contact->lastname = array_get($data, 'lastname');
-        $contact->email = array_get($data, 'email');
-        $contact->nin = array_get($data, 'nin');
-        $contact->gender = array_get($data, 'gender');
+        $contact->fill(array_except($data, 'birthdate'));
         $contact->birthdate = $birthdate;
-        $contact->mobile = array_get($data, 'mobile');
-        $contact->mobile_country = array_get($data, 'mobile_country');
-        $contact->postal_address = array_get($data, 'postal_address');
 
         $contact->save();
 
