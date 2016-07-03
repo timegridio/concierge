@@ -122,11 +122,9 @@ class Addressbook
         return $replicatedContact;
     }
 
-    protected function updateNotes(Contact $contact, $notes = null)
+    protected function updateNotes(Contact $contact, $notes)
     {
-        if ($notes) {
-            $this->business->contacts()->find($contact->id)->pivot->update(compact('notes'));
-        }
+        $this->business->contacts()->find($contact->id)->pivot->update(compact('notes'));
     }
 
     protected function getDateFormat()
