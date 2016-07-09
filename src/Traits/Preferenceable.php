@@ -2,6 +2,7 @@
 
 namespace Timegridio\Concierge\Traits;
 
+use Illuminate\Support\Facades\Cache;
 use Timegridio\Concierge\Models\Preference;
 
 trait Preferenceable
@@ -31,6 +32,12 @@ trait Preferenceable
             $this->preferences()->updateOrCreate(['key' => $key], ['value' => $this->cast($value, $type),
                                                                    'type'  => $type, ]);
 
+            Cache::put("{$this->slug}.'/'.{$key}", $value, 60);
+            return $value;
+        }
+
+        if($value = Cache::get("{$this->slug}.'/'.{$key}"))
+        {
             return $value;
         }
 
@@ -42,7 +49,8 @@ trait Preferenceable
             $value = $default->value();
             $type = $default->type();
         }
-
+        
+        Cache::put("{$this->slug}.'/'.{$key}", $value, 60);
         return $this->cast($value, $type);
     }
 
