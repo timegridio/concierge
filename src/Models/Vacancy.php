@@ -84,6 +84,21 @@ class Vacancy extends EloquentModel
         return $this->hasMany(Appointment::class);
     }
 
+    /**
+     * Humanresource Slug.
+     *
+     * @return string
+     */
+    public function humanresourceSlug()
+    {
+        if($this->humanresource)
+        {
+            return $this->humanresource->slug;
+        }
+
+        return '';
+    }
+
     ////////////
     // Scopes //
     ////////////
