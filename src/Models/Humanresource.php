@@ -4,8 +4,13 @@ namespace Timegridio\Concierge\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Timegridio\Concierge\Models\Business;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property int $capacity
+ * @property string $slug
+ */
 class Humanresource extends EloquentModel
 {
     /**

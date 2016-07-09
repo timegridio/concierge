@@ -6,8 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 /**
- * @property Timegridio\Concierge\Models\Business $business
- * @property string $date Local timezone date of the published Vacancy
+ * @property int $id
+ * @property int $business_id
+ * @property int $service_id
+ * @property int $humanresource_id
+ * @property string $date
+ * @property Carbon\Carbon $start_at
+ * @property Carbon\Carbon $finish_at
+ * @property int $capacity
  */
 class Vacancy extends EloquentModel
 {
@@ -91,8 +97,7 @@ class Vacancy extends EloquentModel
      */
     public function humanresourceSlug()
     {
-        if($this->humanresource)
-        {
+        if ($this->humanresource) {
             return $this->humanresource->slug;
         }
 
