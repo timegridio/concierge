@@ -86,7 +86,6 @@ class Concierge extends Workspace
 
         if ($vacancies->count() > 1) {
             // Log unexpected behavior message / raise exception
-            dd('TEST');
             $vacancy = $vacancies->first();
         }
 
