@@ -33,11 +33,8 @@ class Duration
 
     /**
      * @param int $interval timestamp interval
-     * @param DateTime $interval the first date
-     * @param DateTime $last_date the last date so we can find the interval of 
-     * the first and the last date
-     *
-     * @return self object
+     * @param \DateTime $interval the first date
+     * @param \DateTime $last_date the last date so we can find the interval of the first and the last date
      */
     public function __construct($interval = 0, \DateTime $last_date = null)
     {
@@ -47,8 +44,6 @@ class Duration
             $interval = $last_interval - $first_interval;
         }
         $this->interval = $interval;
-
-        return $this;
     }
 
     /**
@@ -136,7 +131,6 @@ class Duration
             '{seconds}' => $seconds,
         ]);
         } else {
-            $template = $format['template'];
             if ($seconds <= 0) {
                 $format['{seconds}'] = '';
             }
