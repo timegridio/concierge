@@ -199,4 +199,19 @@ class ConciergeCommonsUnitTest extends TestCaseDB
             $this->assertTrue($appointment->isUnserved());
         }
     }
+
+    /**
+     * @test
+     */
+    public function it_provides_unarchived_appointments()
+    {
+        $appointments = $this->concierge->business($this->business)->getUnarchivedAppointments();
+
+        $this->assertInstanceOf(Collection::class, $appointments);
+
+        foreach ($appointments as $appointment) {
+            $this->assertInstanceOf(Appointment::class, $appointment);
+            $this->assertTrue($appointment->isUnserved());
+        }
+    }
 }

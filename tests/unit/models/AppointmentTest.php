@@ -49,6 +49,24 @@ class AppointmentTest extends TestCaseDB
     }
 
     /**
+     * @covers \Timegridio\Concierge\Models\Appointment::scopeOfBusiness
+     * @test
+     */
+    public function it_scopes_unarchived()
+    {
+        $this->assertInstanceOf(Illuminate\Database\Eloquent\Builder::class, Appointment::unarchived());
+    }
+
+    /**
+     * @covers \Timegridio\Concierge\Models\Appointment::scopeOfBusiness
+     * @test
+     */
+    public function it_scopes_unserved()
+    {
+        $this->assertInstanceOf(Illuminate\Database\Eloquent\Builder::class, Appointment::unserved());
+    }
+
+    /**
      * @covers \Timegridio\Concierge\Models\Appointment::user
      * @test
      */
