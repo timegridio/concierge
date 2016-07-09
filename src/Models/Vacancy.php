@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
  * @property int $humanresource_id
  * @property Timegridio\Concierge\Models\Humanresource $humanresource
  * @property string $date
- * @property Carbon\Carbon $start_at
- * @property Carbon\Carbon $finish_at
+ * @property \Carbon\Carbon $start_at
+ * @property \Carbon\Carbon $finish_at
  * @property int $capacity
  */
 class Vacancy extends EloquentModel

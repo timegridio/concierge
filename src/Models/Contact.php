@@ -13,7 +13,7 @@ use Timegridio\Concierge\Presenters\ContactPresenter;
  * @property string $lastname
  * @property string $nin
  * @property string $email
- * @property Carbon\Carbon $birthdate
+ * @property \Carbon\Carbon $birthdate
  * @property string $mobile
  * @property string $mobile_country
  * @property string $gender
