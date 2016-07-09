@@ -16,13 +16,19 @@ use Timegridio\Concierge\Presenters\AppointmentPresenter;
  *
  * @property int $id
  * @property int $issuer_id
+ * @property mixed $issuer
  * @property int $contact_id
+ * @property Timegridio\Concierge\Models\Contact $contact
  * @property int $business_id
+ * @property Timegridio\Concierge\Models\Business $business
  * @property int $service_id
+ * @property Timegridio\Concierge\Models\Service $service
  * @property int $resource_id
+ * @property Timegridio\Concierge\Models\Humanresource $resource
  * @property int $vacancy_id
- * @property Carbon\Carbon $start_at
- * @property Carbon\Carbon $finish_at
+ * @property Timegridio\Concierge\Models\Vacancy $vacancy
+ * @property \Carbon\Carbon $start_at
+ * @property \Carbon\Carbon $finish_at
  * @property int $duration
  * @property string $comments
  * @property string $hash
