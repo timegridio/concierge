@@ -48,14 +48,14 @@ class TimetableTimeslotStrategy extends BaseTimetableStrategy implements Timetab
 
     protected function updateTimeslots(Vacancy $vacancy, $step = 30)
     {
-        $fromTime = $vacancy->start_at;
+        $fromTime = $vacancy->start_at->timezone('UTC');
         $toTime = $fromTime->copy();
         $limit = $vacancy->finish_at;
 
         while ($fromTime <= $limit) {
             $toTime->addMinutes($step);
 
-            $capacity = $vacancy->getAvailableCapacityBetween($fromTime->timezone('UTC'), $toTime->timezone('UTC'));
+            $capacity = $vacancy->getAvailableCapacityBetween($fromTime, $toTime);
 
             $time = $fromTime->timezone($vacancy->business->timezone)->format('H:i:s');
 
