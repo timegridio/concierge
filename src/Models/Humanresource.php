@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Timegridio\Concierge\Models\business $business
  * @property int $capacity
  * @property string $slug
+ * @property string $calendar_link
  */
 class Humanresource extends EloquentModel
 {
@@ -20,7 +21,7 @@ class Humanresource extends EloquentModel
      *
      * @var array
      */
-    protected $fillable = ['name', 'capacity'];
+    protected $fillable = ['name', 'capacity', 'calendar_link'];
 
     protected $guarded = ['id', 'slug'];
 
