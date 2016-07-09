@@ -11,7 +11,12 @@ class Category extends EloquentModel
      *
      * @var array
      */
-    protected $fillable = ['slug', 'name', 'description', 'strategy'];
+    protected $fillable = [
+        'slug',
+        'name',
+        'description',
+        'strategy',
+        ];
 
     /**
      * clasifies Businesses.

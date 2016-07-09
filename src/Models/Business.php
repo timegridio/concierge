@@ -6,11 +6,31 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use Timegridio\Concierge\Addressbook;
-use Timegridio\Concierge\Models\Humanresource;
 use Timegridio\Concierge\Presenters\BusinessPresenter;
 use Timegridio\Concierge\Traits\IsIntoDomain;
 use Timegridio\Concierge\Traits\Preferenceable;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property string $timezone
+ * @property string $postal_address
+ * @property string $phone
+ * @property string $social_facebook
+ * @property string $strategy
+ * @property string $plan
+ * @property string $country_code
+ * @property string $locale
+ * @property Illuminate\Support\Collection $contacts
+ * @property Illuminate\Support\Collection $services
+ * @property Illuminate\Support\Collection $vacancies
+ * @property Illuminate\Support\Collection $vacancies
+ * @property Illuminate\Support\Collection $bookings
+ * @property Illuminate\Support\Collection $servicetypes
+ * @property Illuminate\Support\Collection $owners
+ * @property int $SubscriptionsCount
+ */
 class Business extends EloquentModel implements HasPresenter
 {
     use SoftDeletes, Preferenceable, IsIntoDomain;
@@ -20,8 +40,18 @@ class Business extends EloquentModel implements HasPresenter
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'timezone', 'postal_address', 'phone', 'social_facebook', 'strategy',
-        'plan', 'country_code', 'locale', ];
+    protected $fillable = [
+        'name',
+        'description',
+        'timezone',
+        'postal_address',
+        'phone',
+        'social_facebook',
+        'strategy',
+        'plan',
+        'country_code',
+        'locale',
+        ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -39,7 +69,7 @@ class Business extends EloquentModel implements HasPresenter
     {
         parent::boot();
 
-        static::creating(function($business) {
+        static::creating(function ($business) {
 
             $business->slug = $business->makeSlug($business->name);
 
@@ -279,7 +309,6 @@ class Business extends EloquentModel implements HasPresenter
 
     /**
      * Set Social Facebook.
-     *
      */
     public function setSocialFacebookAttribute($facebookPageUrl)
     {

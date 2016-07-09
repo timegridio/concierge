@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 /**
  * @property int $id
  * @property int $business_id
+ * @property Illuminate\Support\Collection $business
  * @property int $service_id
+ * @property Timegridio\Concierge\Models\Service $service
  * @property int $humanresource_id
+ * @property Timegridio\Concierge\Models\Humanresource $humanresource
  * @property string $date
  * @property Carbon\Carbon $start_at
  * @property Carbon\Carbon $finish_at
@@ -97,7 +100,7 @@ class Vacancy extends EloquentModel
      */
     public function humanresourceSlug()
     {
-        if ($this->humanresource) {
+        if ($this->humanresource_id) {
             return $this->humanresource->slug;
         }
 

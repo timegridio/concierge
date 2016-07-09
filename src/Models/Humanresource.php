@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $name
+ * @property int $business_id
+ * @property Timegridio\Concierge\Models\business $business
  * @property int $capacity
  * @property string $slug
  */

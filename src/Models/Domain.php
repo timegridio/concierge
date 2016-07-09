@@ -5,6 +5,14 @@ namespace Timegridio\Concierge\Models;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int $id
+ * @property string $slug
+ * @property int $owner_id
+ * @property mixed $owner
+ * @property int $business_id
+ * @property Timegridio\Concierge\Models\Business $business
+ */
 class Domain extends EloquentModel
 {
     use SoftDeletes;

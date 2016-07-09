@@ -4,6 +4,18 @@ namespace Timegridio\Concierge\Models;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
+/**
+ * @property int $id
+ * @property int $business_id
+ * @property Timegridio\Concierge\Models\Business $business
+ * @property string $name
+ * @property string $slug
+ * @property string $description
+ * @property string $prerequisites
+ * @property int $duration
+ * @property int $type_id
+ * @property string $color
+ */
 class Service extends EloquentModel
 {
     /**
@@ -11,7 +23,15 @@ class Service extends EloquentModel
      *
      * @var array
      */
-    protected $fillable = ['name', 'business_id', 'description', 'prerequisites', 'duration', 'type_id', 'color'];
+    protected $fillable = [
+        'name',
+        'business_id',
+        'description',
+        'prerequisites',
+        'duration',
+        'type_id',
+        'color'
+        ];
 
     /**
      * The attributes that aren't mass assignable.

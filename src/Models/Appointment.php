@@ -13,6 +13,24 @@ use Timegridio\Concierge\Presenters\AppointmentPresenter;
  * on a determined Date and Time, and might have a duration and or comments.
  *
  * The Appointment can be issued by the Contact's User or by the Business owner.
+ *
+ * @property int $id
+ * @property int $issuer_id
+ * @property int $contact_id
+ * @property int $business_id
+ * @property int $service_id
+ * @property int $resource_id
+ * @property int $vacancy_id
+ * @property Carbon\Carbon $start_at
+ * @property Carbon\Carbon $finish_at
+ * @property int $duration
+ * @property string $comments
+ * @property string $hash
+ * @property string $status
+ * @property string $date
+ * @property string $statusLabel
+ * @property string $code
+ * @property Carbon\Carbon $cancellationDeadline
  */
 class Appointment extends EloquentModel implements HasPresenter
 {

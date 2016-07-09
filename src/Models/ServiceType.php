@@ -4,6 +4,15 @@ namespace Timegridio\Concierge\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property int $business_id
+ * @property Timegridio\Concierge\Models\Business $business
+ * @property Illuminate\Support\Collection $services
+ * @property int $slug
+ */
 class ServiceType extends Model
 {
     /**

@@ -7,6 +7,24 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use Timegridio\Concierge\Presenters\ContactPresenter;
 
+/**
+ * @property int $id
+ * @property string $firstname
+ * @property string $lastname
+ * @property string $nin
+ * @property string $email
+ * @property Carbon\Carbon $birthdate
+ * @property string $mobile
+ * @property string $mobile_country
+ * @property string $gender
+ * @property string $occupation
+ * @property string $martial_status
+ * @property string $postal_address
+ * @property Illuminate\Support\Collection $businesses
+ * @property Illuminate\Support\Collection $appointments
+ * @property mixed $user
+ * @property int $appointmentsCount
+ */
 class Contact extends EloquentModel implements HasPresenter
 {
     /**
@@ -14,8 +32,19 @@ class Contact extends EloquentModel implements HasPresenter
      *
      * @var array
      */
-    protected $fillable = ['firstname', 'lastname', 'nin', 'email', 'birthdate', 'mobile', 'mobile_country',
-                            'gender', 'occupation', 'martial_status', 'postal_address', ];
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'nin',
+        'email',
+        'birthdate',
+        'mobile',
+        'mobile_country',
+        'gender',
+        'occupation',
+        'martial_status',
+        'postal_address',
+        ];
 
     /**
      * The attributes that should be mutated to dates.
