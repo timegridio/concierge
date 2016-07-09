@@ -162,14 +162,14 @@ class VacancyManager
      *
      * @return array
      */
-    public static function generateAvailability($vacancies, $startDate = 'today', $futureDays = 10)
+    public function generateAvailability($startDate = 'today', $futureDays = 10)
     {
         $dates = [];
         for ($i = 0; $i < $futureDays; $i++) {
             $dates[date('Y-m-d', strtotime("$startDate +$i days"))] = [];
         }
 
-        foreach ($vacancies as $vacancy) {
+        foreach ($this->business->vacancies as $vacancy) {
             if (array_key_exists($vacancy->date, $dates)) {
                 $dates[$vacancy->date][$vacancy->service->slug] = $vacancy;
             }

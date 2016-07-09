@@ -190,7 +190,7 @@ EOD;
         $future = 10;
         $start = 'today';
 
-        $availability = $this->vacancyManager->generateAvailability($this->business->vacancies, $start, $future);
+        $availability = $this->vacancyManager->generateAvailability($start, $future);
 
         $this->assertInternalType('array', $availability);
         $this->assertCount($future, $availability);
