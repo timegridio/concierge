@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class AddHumanresourceCalendarLink extends Migration
 {
@@ -11,7 +12,7 @@ class AddHumanresourceCalendarLink extends Migration
      */
     public function up()
     {
-        Schema::table('humanresources', function ($table) {
+        Schema::table('humanresources', function (Blueprint $table) {
             $table->string('calendar_link')->nullable();
         });
     }
@@ -23,7 +24,7 @@ class AddHumanresourceCalendarLink extends Migration
      */
     public function down()
     {
-        Schema::table('humanresources', function ($table) {
+        Schema::table('humanresources', function (Blueprint $table) {
             $table->dropColumn('calendar_link');
         });
     }
