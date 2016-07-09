@@ -36,6 +36,16 @@ class Humanresource extends EloquentModel
     }
 
     /**
+     * Set Calendar link.
+     *
+     * @param string $calendar_link
+     */
+    public function setCalendarLinkAttribute($calendar_link)
+    {
+        return $this->attributes['calendar_link'] = trim($calendar_link) ?: null;
+    }
+
+    /**
      * TODO: Check slug setting can be moved to a more proper place.
      *
      * Save the model to the database.
