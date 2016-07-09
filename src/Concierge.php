@@ -117,7 +117,6 @@ class Concierge extends Workspace
             throw new DuplicatedAppointmentException($appointment->code);
         }
 
-        /* Should be moved inside generateAppointment() */
         $appointment->vacancy()->associate($vacancy);
         $appointment->save();
 
