@@ -4,6 +4,14 @@ namespace Timegridio\Concierge\Calendar;
 
 use Carbon\Carbon;
 
+/**
+ * @property Illuminate\Support\Collection $vacancies
+ * @property Timegridio\Concierge\Models\Service $service
+ * @property int $duration
+ * @property string $date
+ * @property string $time
+ * @property string $timezone
+ */
 abstract class BaseCalendar
 {
     protected $vacancies = [];
@@ -18,6 +26,10 @@ abstract class BaseCalendar
 
     protected $timezone = 'UTC';
 
+    /**
+     * @param Illuminate\Support\Collection $vacancies
+     * @param string $timezone
+     */
     public function __construct($vacancies, $timezone = 'UTC')
     {
         $this->vacancies = $vacancies;
