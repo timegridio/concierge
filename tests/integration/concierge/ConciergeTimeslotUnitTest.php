@@ -207,19 +207,15 @@ class ConciergeTimeslotUnitTest extends TestCaseDB
 
         $this->assertTrue($bookable);
 
-        $bookable = $this->concierge->business($this->business)->isBookable('tomorrow', 30);
+        $bookable = $this->concierge->business($this->business)->isBookable('tomorrow +7 days', 30);
 
         $this->assertFalse($bookable);
 
-        $bookable = $this->concierge->business($this->business)->isBookable('yesterday', 30);
+        $bookable = $this->concierge->business($this->business)->isBookable('yesterday midnight', 30);
 
         $this->assertTrue($bookable);
 
-        $bookable = $this->concierge->business($this->business)->isBookable('today -3 months', 1);
-
-        $this->assertFalse($bookable);
-
-        $bookable = $this->concierge->business($this->business)->isBookable('today', 0);
+        $bookable = $this->concierge->business($this->business)->isBookable('today midnight', 0);
 
         $this->assertFalse($bookable);
     }
