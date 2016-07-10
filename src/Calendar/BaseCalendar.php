@@ -3,9 +3,11 @@
 namespace Timegridio\Concierge\Calendar;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
- * @property Illuminate\Support\Collection $vacancies
+ * @property Illuminate\Database\Eloquent\Relations\HasMany $vacancies
  * @property Timegridio\Concierge\Models\Service $service
  * @property int $duration
  * @property string $date
@@ -14,7 +16,7 @@ use Carbon\Carbon;
  */
 abstract class BaseCalendar
 {
-    protected $vacancies = [];
+    protected $vacancies;
 
     protected $service = null;
 
@@ -27,10 +29,10 @@ abstract class BaseCalendar
     protected $timezone = 'UTC';
 
     /**
-     * @param Illuminate\Support\Collection $vacancies
+     * @param Illuminate\Database\Eloquent\Relations\HasMany $vacancies
      * @param string $timezone
      */
-    public function __construct($vacancies, $timezone = 'UTC')
+    public function __construct(HasMany $vacancies, $timezone = 'UTC')
     {
         $this->vacancies = $vacancies;
 
