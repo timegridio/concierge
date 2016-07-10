@@ -142,12 +142,34 @@ class Vacancy extends EloquentModel
      * Scope only Future.
      *
      * @param Illuminate\Database\Query $query
+     * @param \Carbon\Carbon $since
      *
      * @return Illuminate\Database\Query Scoped query
      */
-    public function scopeFuture($query)
+    public function scopeFuture($query, $since = null)
     {
-        return $query->where('date', '>', Carbon::now());
+        if (!$since) {
+            $since = Carbon::now();
+        }
+
+        return $query->where('date', '>', $since);
+    }
+
+    /**
+     * Scope Until.
+     *
+     * @param Illuminate\Database\Query $query
+     * @param \Carbon\Carbon $since
+     *
+     * @return Illuminate\Database\Query Scoped query
+     */
+    public function scopeUntil($query, $until = null)
+    {
+        if (!$until) {
+            return $query;
+        }
+
+        return $query->where('date', '<', $until);
     }
 
     /**
@@ -265,7 +287,6 @@ class Vacancy extends EloquentModel
 
         $count = $this->business
                       ->bookings()
-                      ->with('humanresource')
                       ->active()
                       ->affectingHumanresource($this->humanresource_id)
                       ->affectingInterval($startAt, $finishAt)

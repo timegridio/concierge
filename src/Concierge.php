@@ -3,7 +3,6 @@
 namespace Timegridio\Concierge;
 
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
 use Timegridio\Concierge\Booking\BookingManager;
 use Timegridio\Concierge\Calendar\Calendar;
 use Timegridio\Concierge\Exceptions\DuplicatedAppointmentException;
@@ -111,7 +110,6 @@ class Concierge extends Workspace
 
         /* Should be moved inside generateAppointment() */
         if ($appointment->duplicates()) {
-            
             $this->appointment = $appointment;
 
             throw new DuplicatedAppointmentException($appointment->code);
@@ -152,17 +150,20 @@ class Concierge extends Workspace
     /**
      * Determine if the Business has any published Vacancies available for booking.
      *
+     * @param string $fromDate
+     * @param int $days
+     *
      * @return bool
      */
     public function isBookable($fromDate = 'today', $days = 7)
     {
-        $timetable = $this->timetable()->buildTimetable($this->business->vacancies, $fromDate, $days);
+        $count = $this->business
+                      ->vacancies()
+                      ->future(Carbon::parse($fromDate))
+                      ->until(Carbon::parse($fromDate)->addDays($days))
+                      ->count();
 
-        $timetable = Arr::flatten($timetable);
-
-        $sum = array_sum($timetable);
-
-        return $sum > 0;
+        return $count > 0;
     }
 
     //////////////////
