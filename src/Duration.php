@@ -34,9 +34,8 @@ class Duration
     /**
      * @param int $interval timestamp interval
      * @param \DateTime $interval the first date
-     * @param \DateTime $last_date the last date so we can find the interval of the first and the last date
      */
-    public function __construct($interval = 0, \DateTime $last_date = null)
+    public function __construct($interval = 0)
     {
         if ($interval instanceof \DateTime) {
             $first_interval = strtotime($interval->format('Y-m-d H:i:s'));

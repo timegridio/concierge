@@ -100,25 +100,4 @@ class IntervalTest extends TestCaseDB
         $result = '4 hours';
         $this->assertEquals($result, $actual);
     }
-
-    public function testIntervalUsingDate()
-    {
-        $firstDate = new \DateTime();
-        $lastDate = new \DateTime('+4 hours');
-        $interval = gmdate($lastDate->format('Y-m-d H:i:s')) - gmdate($firstDate->format('Y-m-d H:i:s'));
-        $class = new Duration($firstDate, $lastDate);
-        $format = '{hours} hours {minutes} minutes {seconds} seconds';
-        $actual = $class->format($format);
-        $hours = floor($interval / (1000 * 60 * 60));
-        $left = $interval % (1000 * 60 * 60);
-        $minutes = floor($left / (1000 * 60));
-        $left = $interval % (1000 * 60);
-        $seconds = floor($left / (1000));
-        $result = strtr($format, [
-            '{hours}'  => $hours,
-            '{minutes}' => $minutes,
-            '{seconds}' => $seconds,
-        ]);
-        $this->assertEquals($result, $actual);
-    }
 }
