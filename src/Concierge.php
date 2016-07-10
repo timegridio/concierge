@@ -155,7 +155,7 @@ class Concierge extends Workspace
      *
      * @return bool
      */
-    public function isBookable($fromDate = 'today', $days = 7)
+    public function isBookable($fromDate = 'now', $days = 7)
     {
         $fromDate = Carbon::parse($fromDate)->timezone($this->business->timezone);
 
