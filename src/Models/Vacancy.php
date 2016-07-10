@@ -159,7 +159,7 @@ class Vacancy extends EloquentModel
      * Scope Until.
      *
      * @param Illuminate\Database\Query $query
-     * @param \Carbon\Carbon $since
+     * @param \Carbon\Carbon $until
      *
      * @return Illuminate\Database\Query Scoped query
      */
