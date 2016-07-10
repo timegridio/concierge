@@ -152,7 +152,7 @@ class Vacancy extends EloquentModel
             $since = Carbon::now();
         }
 
-        return $query->where('date', '>', $since);
+        return $query->where('date', '>=', $since->toDateTimeString());
     }
 
     /**
@@ -169,7 +169,7 @@ class Vacancy extends EloquentModel
             return $query;
         }
 
-        return $query->where('date', '<', $until);
+        return $query->where('date', '<', $until->toDateTimeString());
     }
 
     /**

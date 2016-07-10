@@ -190,9 +190,38 @@ class ConciergeTimeslotUnitTest extends TestCaseDB
      */
     public function it_checks_for_bookable_slots_when_available()
     {
+        $date = Carbon::parse('tomorrow 00:00 '.$this->business->timezone);
+        $startAt = Carbon::parse('tomorrow 09:00 '.$this->business->timezone)->timezone('UTC');
+        $finishAt = Carbon::parse('tomorrow 18:00 '.$this->business->timezone)->timezone('UTC');
+
+        $this->createVacancy([
+            'business_id' => $this->business->id,
+            'service_id'  => $this->service->id,
+            'date'        => $date->toDateString(),
+            'start_at'    => $startAt->toDateTimeString(),
+            'finish_at'   => $finishAt->toDateTimeString(),
+            'capacity'    => 2,
+            ]);
+
         $bookable = $this->concierge->business($this->business)->isBookable();
 
         $this->assertTrue($bookable);
+
+        $bookable = $this->concierge->business($this->business)->isBookable('tomorrow', 30);
+
+        $this->assertFalse($bookable);
+
+        $bookable = $this->concierge->business($this->business)->isBookable('yesterday', 30);
+
+        $this->assertTrue($bookable);
+
+        $bookable = $this->concierge->business($this->business)->isBookable('today -3 months', 1);
+
+        $this->assertFalse($bookable);
+
+        $bookable = $this->concierge->business($this->business)->isBookable('today', 0);
+
+        $this->assertFalse($bookable);
     }
 
     /**

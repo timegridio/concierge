@@ -157,10 +157,12 @@ class Concierge extends Workspace
      */
     public function isBookable($fromDate = 'today', $days = 7)
     {
+        $fromDate = Carbon::parse($fromDate)->timezone($this->business->timezone);
+
         $count = $this->business
                       ->vacancies()
-                      ->future(Carbon::parse($fromDate))
-                      ->until(Carbon::parse($fromDate)->addDays($days))
+                      ->future($fromDate)
+                      ->until($fromDate->addDays($days))
                       ->count();
 
         return $count > 0;
