@@ -45,7 +45,7 @@ See the [Concierge Unit Tests](https://github.com/timegridio/concierge/blob/mast
 Via Composer
 
 ``` bash
-$ composer require timegridio/concierge=0.2-dev
+$ composer require timegridio/concierge=dev-master
 ```
 
 > **ADVICE:** Note that this library is currently under development and API may change.
