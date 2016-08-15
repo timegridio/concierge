@@ -24,7 +24,7 @@ class BusinessPresenter extends BasePresenter
         $url = parse_url($this->wrappedObject->social_facebook);
 
         if(!$this->wrappedObject->social_facebook || !array_key_exists('path', $url)){
-            return "<img class=\"img-thumbnail\" src=\"//placehold.it/100x100\" alt=\"{$this->wrappedObject->name}\"/>";
+            return "<img class=\"img-thumbnail\" src=\"//placehold.it/100x100\" height=\"100\" width=\"100\" alt=\"{$this->wrappedObject->name}\"/>";
         }
 
         $userId = trim($url['path'], '/');
@@ -36,7 +36,7 @@ class BusinessPresenter extends BasePresenter
 
         $url = "http://graph.facebook.com/{$userId}/picture?type=$type";
 
-        return "<img class=\"img-thumbnail media-object\" src=\"$url\" alt=\"{$this->wrappedObject->name}\"/>";
+        return "<img class=\"img-thumbnail media-object\" src=\"$url\" height=\"100\" width=\"100\" alt=\"{$this->wrappedObject->name}\"/>";
     }
 
     /**
@@ -59,7 +59,7 @@ class BusinessPresenter extends BasePresenter
 
         $src = 'http://maps.googleapis.com/maps/api/staticmap?'.http_build_query($data, '', '&amp;');
 
-        return "<img class=\"img-responsive img-thumbnail center-block\" src=\"$src\"/>";
+        return "<img class=\"img-responsive img-thumbnail center-block\" width=\"180\" height=\"100\" src=\"$src\"/>";
     }
 
     /**

@@ -38,7 +38,7 @@ class BusinessPresenterTest extends TestCaseDB
 
         $img = $business->facebookImg();
 
-        $expected = "<img class=\"img-thumbnail media-object\" src=\"http://graph.facebook.com/timegrid.io/picture?type=square\" alt=\"{$business->name}\"/>";
+        $expected = "<img class=\"img-thumbnail media-object\" src=\"http://graph.facebook.com/timegrid.io/picture?type=square\" height=\"100\" width=\"100\" alt=\"{$business->name}\"/>";
 
         $this->assertInternalType('string', $img);
         $this->assertEquals($expected, $img);
@@ -55,7 +55,7 @@ class BusinessPresenterTest extends TestCaseDB
 
         $img = $business->facebookImg();
 
-        $expected = "<img class=\"img-thumbnail media-object\" src=\"http://graph.facebook.com/1000000000000000/picture?type=square\" alt=\"{$business->name}\"/>";
+        $expected = "<img class=\"img-thumbnail media-object\" src=\"http://graph.facebook.com/1000000000000000/picture?type=square\" height=\"100\" width=\"100\" alt=\"{$business->name}\"/>";
 
         $this->assertInternalType('string', $img);
         $this->assertEquals($expected, $img);
@@ -72,7 +72,7 @@ class BusinessPresenterTest extends TestCaseDB
 
         $img = $business->facebookImg();
 
-        $expected = "<img class=\"img-thumbnail\" src=\"//placehold.it/100x100\" alt=\"{$business->name}\"/>";
+        $expected = "<img class=\"img-thumbnail\" src=\"//placehold.it/100x100\" height=\"100\" width=\"100\" alt=\"{$business->name}\"/>";
 
         $this->assertInternalType('string', $img);
         $this->assertEquals($expected, $img);
