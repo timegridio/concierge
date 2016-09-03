@@ -61,6 +61,16 @@ class Business extends EloquentModel implements HasPresenter
     protected $dates = ['deleted_at'];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
      * Define model events.
      *
      * @return void
