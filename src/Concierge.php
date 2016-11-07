@@ -80,6 +80,7 @@ class Concierge extends Workspace
 
         if ($vacancies->count() == 0) {
             // TODO: Log failure feedback message / raise exception
+            logger()->debug('NO VACANCIES FOUND!');
             return false;
         }
 
