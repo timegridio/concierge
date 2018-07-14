@@ -22,7 +22,8 @@
     "require": {
         "php": ">=5.5.9",
         "illuminate/support": "~5.3",
-        "mccool/laravel-auto-presenter": "~4.0 || ~7.0",
+        "laravel/framework": "5.4.36 || ~5.5 || ~5.6",
+        "mccool/laravel-auto-presenter": "~4.0 || ~5.0 || ~7.0",
         "doctrine/dbal": "~2.5"
     },
     "require-dev": {
