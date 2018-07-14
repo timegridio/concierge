@@ -72,7 +72,7 @@ class AppointmentTest extends TestCaseDB
      */
     public function it_gets_no_user_from_contact_of_appointment()
     {
-        $issuer = $this->makeUser();
+        $issuer = $this->createUser();
         $contact = $this->makeContact();
         $business = $this->makeBusiness($issuer);
         $appointment = $this->makeAppointment($business, $issuer, $contact);

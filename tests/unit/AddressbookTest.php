@@ -92,6 +92,7 @@ class AddressbookTest extends TestCaseDB
         $reuseContact = $this->business->addressbook()->getSubscribed('reuseme@example.org');
 
         $this->assertInstanceOf(Contact::class, $reuseContact);
+        $this->business->setConnection($this->database);
         $this->assertTrue($reuseContact->businesses->contains($this->business));
     }
 
@@ -110,6 +111,7 @@ class AddressbookTest extends TestCaseDB
         $reuseContact = $this->business->addressbook()->getExisting('reuseme@example.org');
 
         $this->assertInstanceOf(Contact::class, $reuseContact);
+        $this->business->setConnection($this->database);
         $this->assertTrue($reuseContact->businesses->contains($this->business));
     }
 
@@ -126,6 +128,7 @@ class AddressbookTest extends TestCaseDB
         $reuseContact = $this->business->addressbook()->getRegisteredUserId($this->issuer->id);
 
         $this->assertInstanceOf(Contact::class, $reuseContact);
+        $this->business->setConnection($this->database);
         $this->assertTrue($reuseContact->businesses->contains($this->business));
     }
 
@@ -142,6 +145,7 @@ class AddressbookTest extends TestCaseDB
         $return = $this->business->addressbook()->remove($contact);
 
         $this->assertEquals(1, $return);
+        $this->business->setConnection($this->database);
         $this->assertFalse($contact->businesses->contains($this->business));
     }
 
@@ -172,6 +176,7 @@ class AddressbookTest extends TestCaseDB
         $copyContact = $this->business->addressbook()->copyFrom($contact, $this->issuer->id);
 
         $this->assertEquals($copyContact->user->id, $this->issuer->id);
+        $this->business->setConnection($this->database);
         $this->assertTrue($copyContact->businesses->contains($this->business));
     }
 }
