@@ -43,7 +43,7 @@ class BusinessTest extends TestCaseDB
     {
         $business = $this->createBusiness();
 
-        $this->seeInDatabase('businesses', ['slug' => $business->slug]);
+        $this->assertDatabaseHas('businesses', ['slug' => $business->slug]);
     }
 
     /**
