@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "~7.0",
+        "php": "~7.2",
         "illuminate/support": "~6.4",
         "laravel/framework": "~6.4",
         "mccool/laravel-auto-presenter": "~7.0",
