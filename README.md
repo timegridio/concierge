@@ -1,4 +1,4 @@
-# Concierge - Laravel 5.x
+# Concierge - Laravel 6.x
 
 ## ABOUT THIS BRANCH
 
